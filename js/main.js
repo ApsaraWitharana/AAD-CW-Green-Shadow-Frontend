@@ -112,3 +112,19 @@ function deleteStaff(button) {
     const row = button.closest("tr");
     row.remove();
 }
+
+
+//
+function previewImage(event, previewId) {
+    const file = event.target.files[0];
+    const reader = new FileReader();
+    reader.onload = function() {
+        const previewElement = document.getElementById(previewId);
+        previewElement.src = reader.result;
+        previewElement.style.display = 'block';
+    };
+    if (file) {
+        reader.readAsDataURL(file);
+    }
+}
+
