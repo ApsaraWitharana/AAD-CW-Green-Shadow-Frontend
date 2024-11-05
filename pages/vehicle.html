@@ -12,30 +12,30 @@
 
 </head>
 <style>
-body{
+    body{
 
-    margin: 0;
-    color: var(--black2);
-}
-.row-center .form-group {
-    display: flex;
-    justify-content: center;
+        margin: 0;
+        color: var(--black2);
     }
-.search-bar {
-    display: flex;
-    align-items: center;
+    .row-center .form-group {
+        display: flex;
+        justify-content: center;
+    }
+    .search-bar {
+        display: flex;
+        align-items: center;
     }
     /* New CSS for consistent input field margins */
-#staffTable{
-    color: white;
-}
-.container{
-    margin-right: 0;
-    margin-left: 0;
-}
-#search{
-    width: 250px;
-}
+    #staffTable{
+        color: white;
+    }
+    .container{
+        margin-right: 0;
+        margin-left: 0;
+    }
+    #search{
+        width: 250px;
+    }
 
 </style>
 <body>
@@ -50,7 +50,7 @@ body{
                 </a>
             </li>
             <li>
-                <a href="admin-dashboard.html">
+                <a href="/admin-dashboard.html">
                     <span class="icon"><ion-icon name="home-outline"></ion-icon></span>
                     <span class="title">Dashboard</span>
                 </a>
@@ -119,7 +119,7 @@ body{
         <div class="search">
             <label>
                 <input type="text" placeholder="Search here..">
-<!--                <ion-icon name="search"></ion-icon>-->
+                <!-- <ion-icon name="search"></ion-icon>-->
             </label>
         </div>
 
@@ -133,115 +133,72 @@ body{
     </div>
     <!-- ======================Cards================================== -->
     <div class="container mt-5">
-        <h2 class="text-center">Staff Management</h2>
-        <form id="staffForm" class="bg-dark p-4 rounded text-white">
+        <h2 class="text-center">Vehicle Management</h2>
+        <form id="vehicleForm" class="bg-dark p-4 rounded text-white" enctype="multipart/form-data">
             <div class="row">
-                <div class="col-md-4 mb-3">
-                    <label for="id" class="form-label">Staff ID</label>
-                    <input type="text" class="form-control" id="id" name="id" required>
+                <div class="col-md-6 mb-3">
+                    <label for="vehicleCode" class="form-label">Vehicle Code</label>
+                    <input type="text" class="form-control" id="vehicleCode" name="vehicleCode" required>
                 </div>
-                <div class="col-md-4 mb-3">
-                    <label for="firstName" class="form-label">First Name</label>
-                    <input type="text" class="form-control" id="firstName" name="firstName" required>
-                </div>
-                <div class="col-md-4 mb-3">
-                    <label for="lastName" class="form-label">Last Name</label>
-                    <input type="text" class="form-control" id="lastName" name="lastName" required>
+                <div class="col-md-6 mb-3">
+                    <label for="licensePlateNumber" class="form-label">License Plate Number</label>
+                    <input type="text" class="form-control" id="licensePlateNumber" name="licensePlateNumber" required>
                 </div>
             </div>
 
             <div class="row">
-                <div class="col-md-4 mb-3">
-                    <label for="designation" class="form-label">Designation</label>
-                    <input type="text" class="form-control" id="designation" name="designation">
+                <div class="col-md-6 mb-3">
+                    <label for="vehicleCategory" class="form-label">Vehicle Category</label>
+                    <input type="text" class="form-control" id="vehicleCategory" name="vehicleCategory">
                 </div>
-                <div class="col-md-4 mb-3">
-                    <label for="gender" class="form-label">Gender</label>
-                    <select class="form-select" id="gender" name="gender">
-                        <option value="MALE">Male</option>
-                        <option value="FEMALE">Female</option>
+                <div class="col-md-6 mb-3">
+                    <label for="fuelType" class="form-label">Fuel Type</label>
+                    <input type="text" class="form-control" id="fuelType" name="fuelType">
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label for="status" class="form-label">Status</label>
+                    <select class="form-control" id="status" name="status">
+                        <option value="Available">Available</option>
+                        <option value="Out of Service">Out of Service</option>
                     </select>
                 </div>
-                <div class="col-md-4 mb-3">
-                    <label for="joinedDate" class="form-label">Joined Date</label>
-                    <input type="date" class="form-control" id="joinedDate" name="joinedDate">
-                </div>
-            </div>
-
-            <div class="row">
                 <div class="col-md-6 mb-3">
-                    <label for="dob" class="form-label">Date of Birth</label>
-                    <input type="date" class="form-control" id="dob" name="dob">
-                </div>
-                <div class="col-md-6 mb-3">
-                    <label for="contactNo" class="form-label">Contact Number</label>
-                    <input type="tel" class="form-control" id="contactNo" name="contactNo" required>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-4 mb-3">
-                    <label for="addressLine1" class="form-label">Address Line 1</label>
-                    <input type="text" class="form-control" id="addressLine1" name="addressLine1" required>
-                </div>
-                <div class="col-md-4 mb-3">
-                    <label for="addressLine2" class="form-label">Address Line 2</label>
-                    <input type="text" class="form-control" id="addressLine2" name="addressLine2" required>
-                </div>
-                <div class="col-md-4 mb-3">
-                    <label for="addressLine3" class="form-label">Address Line 3</label>
-                    <input type="text" class="form-control" id="addressLine3" name="addressLine3">
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-md-6 mb-3">
-                    <label for="addressLine4" class="form-label">Address Line 4</label>
-                    <input type="text" class="form-control" id="addressLine4" name="addressLine4">
-                </div>
-                <div class="col-md-6 mb-3">
-                    <label for="addressLine5" class="form-label">Address Line 3</label>
-                    <input type="text" class="form-control" id="addressLine5" name="addressLine5">
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-md-6 mb-3">
-                    <label for="email" class="form-label">Email</label>
-                    <input type="email" class="form-control" id="email" name="email" required>
-                </div>
-                <div class="col-md-6 mb-3">
-                    <label for="role" class="form-label">Role</label>
-                    <select class="form-select" id="role" name="role">
-                        <option value="ADMIN">Admin</option>
-                        <option value="EMPLOYEE">Employee</option>
+                    <label for="staffId" class="form-label">Assigned Staff</label>
+                    <select class="form-control" id="staffId" name="staffId">
+                        <!-- Populate with staff options -->
+                        <option value="">Select Staff</option>
+                        <!-- Options to be dynamically loaded from backend -->
                     </select>
                 </div>
+            </div>
+
+            <div class="mb-3">
+                <label for="remarks" class="form-label">Remarks</label>
+                <textarea class="form-control" id="remarks" name="remarks" rows="3"></textarea>
             </div>
 
             <div class="text-center mt-4">
-                <button type="button" class="btn btn-success me-2" onclick="saveStaff()">Save</button>
-                <button type="button" class="btn btn-info me-2" onclick="updateStaff()">Update</button>
-                <button type="button" class="btn btn-danger" onclick="deleteStaff()">Delete</button>
+                <button type="button" class="btn btn-success me-2" onclick="saveVehicle()">Save</button>
+                <button type="button" class="btn btn-info me-2" onclick="updateVehicle()">Update</button>
+                <button type="button" class="btn btn-danger" onclick="deleteVehicle()">Delete</button>
             </div>
         </form>
 
         <div class="mt-5">
-            <h3 class="text-center">Staff List</h3>
-            <table class="table table-dark table-striped mt-3" id="staffTable">
-                <div class="form-group d-flex mb-3">
-                    <input type="text" class="form-control me-2" id="search" placeholder="Search Staff">
-                    <button type="button" class="btn btn-outline-light" onclick="searchStaff()">
-                        <i class="fas fa-search"></i>
-                    </button>
-                </div>
+            <h3 class="text-center">Vehicle List</h3>
+            <table class="table table-dark table-striped mt-3" id="vehicleTable">
                 <thead>
                 <tr>
-                    <th>Staff ID</th>
-                    <th>First Name</th>
-                    <th>Last Name</th>
-                    <th>Designation</th>
-                    <th>Gender</th>
-                    <th>Role</th>
+                    <th>Vehicle Code</th>
+                    <th>License Plate</th>
+                    <th>Category</th>
+                    <th>Fuel Type</th>
+                    <th>Status</th>
+                    <th>Assigned Staff</th>
+                    <th>Remarks</th>
                     <th>Actions</th>
                 </tr>
                 </thead>
