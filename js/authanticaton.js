@@ -1,5 +1,4 @@
 //=============================Ajax set user =================//
-
 function userRegistation(){
     console.log("click!!")
 
@@ -25,16 +24,16 @@ function userRegistation(){
         success: function (response){
             console.log(response.data.token)
             localStorage.setItem("token",response.data.token)
-            alert("user register Successfully!!")
+            localStorage.setItem("role", role); // Store the role in localStorage
+            alert("User registered successfully!");
         },
         error: function (error){
             console.log(error)
-            alert("user register Unsuccessfully!!")
+            alert("User registration unsuccessful!");
         }
 
     })
 }
-
 
 function userLogin() {
     console.log("click!!");
@@ -52,10 +51,22 @@ function userLogin() {
             password: password
         }),
         success: function(response) {
-            console.log(response.data.token);
-            localStorage.setItem("token", response.data.token);
-            window.location.href = "admin-dashboard.html";
+            const token = response.data.token;
+            const role = response.data.role; // Ensure the role is fetched from response.data
+
+            // Store token and role in localStorage for session management
+            localStorage.setItem("token", token);
+            localStorage.setItem("role", role);
             alert("User logged in successfully!");
+
+            // Redirect user based on role
+            if (role === "MANAGER") {
+                window.location.href = "./admin-dashboard.html"; // Manager's dashboard
+            } else if (role === "SCIENTIST") {
+                window.location.href = "./scientist-dashboard.html"; // Scientist's dashboard
+            } else {
+                window.location.href = "./admin-dashboard.html"; // Fallback for other roles
+            }
         },
         error: function(error) {
             console.log(error);
@@ -63,4 +74,5 @@ function userLogin() {
         }
     });
 }
+
 
