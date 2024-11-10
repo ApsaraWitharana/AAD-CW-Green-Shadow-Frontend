@@ -27,7 +27,7 @@
             <!--            <input type="text" id="username" placeholder="User Name" required>-->
             <input type="email" id="email-reg" placeholder="Email" required>
             <input type="password" id="password-reg" placeholder="Password" required>
-            <button id="reg" type="submit">Register</button>
+            <button id="signin"  type="submit" onclick="userLogin()">Sign in</button>
 
         </form>
     </div>
@@ -45,7 +45,7 @@
             <input type="password" id="password" placeholder="Password" required>
             <input type="role" id="role" placeholder="Role" required>
             <a href="#">Forgot your password?</a>
-            <button type="submit" id="signin" onclick="userRegistation()">Sign in</button>
+            <button type="submit" id="reg" onclick="userRegistation()">Register</button>
 
         </form>
     </div>
@@ -55,7 +55,7 @@
             <div class="overlay-panel overlay-left">
                 <h1 style="color: white">Welcome Back!</h1>
                 <p>To keep connected with us please login with your personal info</p>
-                <button  class="ghost" id="signIn">Sign in</button>
+                <button  class="ghost" id="signIn">Register</button>
                 <!-- Add image on the left side -->
                 <img src="/image/loging-image-greenshadow.png" alt="Left Image" class="overlay-image-left">
             </div>
@@ -63,7 +63,7 @@
                 <h1>Hello, Admin!</h1>
                 <p>Enter you personal details and start journey with us</p>
 
-                <button class="ghost" id="register">Register</button>
+                <button class="ghost" id="register">Sign in</button>
             </div>
         </div>
     </div>

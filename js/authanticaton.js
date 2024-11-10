@@ -34,3 +34,33 @@ function userRegistation(){
 
     })
 }
+
+
+function userLogin() {
+    console.log("click!!");
+    let email = $('#email-reg').val();
+    let password = $('#password-reg').val();
+    console.log(email, password);
+
+    // Create AJAX authenticate request
+    $.ajax({
+        url: "http://localhost:8080/api/v1/auth/authenticate",
+        method: "POST",
+        contentType: "application/json",
+        data: JSON.stringify({
+            email: email,
+            password: password
+        }),
+        success: function(response) {
+            console.log(response.data.token);
+            localStorage.setItem("token", response.data.token);
+            window.location.href = "admin-dashboard.html";
+            alert("User logged in successfully!");
+        },
+        error: function(error) {
+            console.log(error);
+            alert("Login unsuccessful!");
+        }
+    });
+}
+
