@@ -4,40 +4,24 @@ $(document).ready(function () {
 });
 
 $('#btnSave').click(function () {
-    let id = $('#id').val();
-    let firstName = $('#firstName').val();
-    let lastName = $('#lastName').val();
-    let designation = $('#designation').val();
-    let gender = $('#gender').val();
-    let joinedDate = $('#joinedDate').val();
-    let dob = $('#dob').val();
-    let addressLine1 = $('#addressLine1').val();
-    let addressLine2 = $('#addressLine2').val();
-    let addressLine3 = $('#addressLine3').val();
-    let addressLine4 = $('#addressLine4').val();
-    let addressLine5 = $('#addressLine5').val();
-    let contactNo = $('#contactNo').val();
-    let email = $('#email').val();
-    let role = $('#role').val();
+    saveStaff();
+});
 
-    let custObj = {
-        id: id,
-        firstName: firstName,
-        lastName: lastName,
-        designation: designation,
-        gender: gender,
-        joinedDate: joinedDate,
-        dob: dob,
-        addressLine1: addressLine1,
-        addressLine2: addressLine2,
-        addressLine3: addressLine3,
-        addressLine4: addressLine4,
-        addressLine5: addressLine5,
-        contactNo: contactNo,
-        email: email,
-        role: role
-    };
-    let jsonObj = JSON.stringify(custObj);
+$('#btnUpdate').click(function () {
+    updateStaff();
+});
+
+$('#btnDelete').click(function () {
+    deleteStaff();
+});
+
+$('#btnSearch').click(function () {
+    searchStaff();
+});
+
+function saveStaff() {
+    let staffObj = gatherStaffData();
+    let jsonObj = JSON.stringify(staffObj);
 
     $.ajax({
         url: "http://localhost:8080/api/v1/staff",
@@ -46,7 +30,6 @@ $('#btnSave').click(function () {
         data: jsonObj,
         headers: { "Authorization": "Bearer " + localStorage.getItem("token") },
         success: function (resp, textStatus, jqxhr) {
-            console.log(jsonObj)
             if (jqxhr.status === 204) {
                 Swal.fire({
                     title: 'Success!',
@@ -54,12 +37,10 @@ $('#btnSave').click(function () {
                     icon: 'success',
                     confirmButtonText: 'OK'
                 });
+                getAllStaff(); // Refresh the table
             }
         },
         error: function (xhr, status, error) {
-            console.error("Error: ", error);
-            console.log("Status: ", status);
-            console.log("XHR Response: ", xhr.responseText);
             Swal.fire({
                 title: 'Error!',
                 text: 'Could not save staff data. Please try again.',
@@ -68,16 +49,73 @@ $('#btnSave').click(function () {
             });
         }
     });
-});
+}
+
+function updateStaff() {
+    let staffObj = gatherStaffData();
+    let jsonObj = JSON.stringify(staffObj);
+
+    $.ajax({
+        url: `http://localhost:8080/api/v1/staff/${staffObj.id}`,
+        method: "PUT",
+        contentType: "application/json",
+        data: jsonObj,
+        headers: { "Authorization": "Bearer " + localStorage.getItem("token") },
+        success: function () {
+            Swal.fire({
+                title: 'Success!',
+                text: 'Staff updated successfully!',
+                icon: 'success',
+                confirmButtonText: 'OK'
+            });
+            getAllStaff(); // Refresh the table
+        },
+        error: function (xhr, status, error) {
+            Swal.fire({
+                title: 'Error!',
+                text: 'Could not update staff data. Please try again.',
+                icon: 'error',
+                confirmButtonText: 'OK'
+            });
+        }
+    });
+}
+
+function deleteStaff() {
+    let id = $('#id').val();
+
+    $.ajax({
+        url: `http://localhost:8080/api/v1/staff/${id}`,
+        method: "DELETE",
+        headers: { "Authorization": "Bearer " + localStorage.getItem("token") },
+        success: function () {
+            Swal.fire({
+                title: 'Success!',
+                text: 'Staff deleted successfully!',
+                icon: 'success',
+                confirmButtonText: 'OK'
+            });
+            getAllStaff(); // Refresh the table
+        },
+        error: function (xhr, status, error) {
+            Swal.fire({
+                title: 'Error!',
+                text: 'Could not delete staff. Please try again.',
+                icon: 'error',
+                confirmButtonText: 'OK'
+            });
+        }
+    });
+}
 
 function getAllStaff() {
     $.ajax({
         url: "http://localhost:8080/api/v1/staff",
         method: "GET",
+        headers: { "Authorization": "Bearer " + localStorage.getItem("token") },
         success: function (data) {
             $('#staffTable tbody').empty(); // Clear existing table rows if there are any
             data.forEach(staff => {
-                // Create a new row with the staff information
                 let row = `<tr>
                                 <td>${staff.id}</td>
                                 <td>${staff.firstName}</td>
@@ -90,11 +128,10 @@ function getAllStaff() {
                                 <td>${staff.email}</td>
                                 <td>${staff.role}</td>
                            </tr>`;
-                $('#staffTable tbody').append(row); // Append the row to the table body
+                $('#staffTable tbody').append(row);
             });
         },
         error: function (xhr, status, error) {
-            console.error("Error retrieving staff data: ", error);
             Swal.fire({
                 title: 'Error!',
                 text: 'Could not load staff data. Please try again.',
@@ -103,4 +140,59 @@ function getAllStaff() {
             });
         }
     });
+}
+
+function searchStaff() {
+    let id = $('#id').val();
+
+    $.ajax({
+        url: `http://localhost:8080/api/v1/staff/${id}`,
+        method: "GET",
+        headers: { "Authorization": "Bearer " + localStorage.getItem("token") },
+        success: function (staff) {
+            // Populate the form fields with the retrieved data
+            $('#firstName').val(staff.firstName);
+            $('#lastName').val(staff.lastName);
+            $('#designation').val(staff.designation);
+            $('#gender').val(staff.gender);
+            $('#joinedDate').val(staff.joinedDate);
+            $('#dob').val(staff.dob);
+            $('#addressLine1').val(staff.addressLine1);
+            $('#addressLine2').val(staff.addressLine2);
+            $('#addressLine3').val(staff.addressLine3);
+            $('#addressLine4').val(staff.addressLine4);
+            $('#addressLine5').val(staff.addressLine5);
+            $('#contactNo').val(staff.contactNo);
+            $('#email').val(staff.email);
+            $('#role').val(staff.role);
+        },
+        error: function (xhr, status, error) {
+            Swal.fire({
+                title: 'Error!',
+                text: 'Staff member not found.',
+                icon: 'error',
+                confirmButtonText: 'OK'
+            });
+        }
+    });
+}
+
+function gatherStaffData() {
+    return {
+        id: $('#id').val(),
+        firstName: $('#firstName').val(),
+        lastName: $('#lastName').val(),
+        designation: $('#designation').val(),
+        gender: $('#gender').val(),
+        joinedDate: $('#joinedDate').val(),
+        dob: $('#dob').val(),
+        addressLine1: $('#addressLine1').val(),
+        addressLine2: $('#addressLine2').val(),
+        addressLine3: $('#addressLine3').val(),
+        addressLine4: $('#addressLine4').val(),
+        addressLine5: $('#addressLine5').val(),
+        contactNo: $('#contactNo').val(),
+        email: $('#email').val(),
+        role: $('#role').val()
+    };
 }
