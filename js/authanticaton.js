@@ -13,6 +13,7 @@ function userRegistation(){
         url: "http://localhost:8080/api/v1/auth/register",
         method: "POST",
         contentType: "application/json",
+        headers: { "Authorization": "Bearer " + localStorage.getItem("token") },
         "data": JSON.stringify({
             "name": name,
             "email": email,
