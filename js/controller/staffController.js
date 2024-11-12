@@ -1,7 +1,28 @@
 $(document).ready(function () {
     // Uncomment the line below if you want to load all staff data on page load
     // getAllStaff();
+    gatherStaffData()
 });
+
+function gatherStaffData() {
+    return {
+        id: $('#id').val(),
+        firstName: $('#firstName').val(),
+        lastName: $('#lastName').val(),
+        designation: $('#designation').val(),
+        gender: $('#gender').val(),
+        joinedDate: $('#joinedDate').val(),
+        dob: $('#dob').val(),
+        contactNo: $('#contactNo').val(),
+        addressLine1: $('#addressLine1').val(),
+        addressLine2: $('#addressLine2').val(),
+        addressLine3: $('#addressLine3').val(),
+        addressLine4: $('#addressLine4').val(),
+        addressLine5: $('#addressLine5').val(),
+        email: $('#email').val(),
+        role: $('#role').val()
+    };
+}
 
 $('#btnSave').click(function () {
     saveStaff();
@@ -37,17 +58,19 @@ function saveStaff() {
                     icon: 'success',
                     confirmButtonText: 'OK'
                 });
-                getAllStaff(); // Refresh the table
+                //getAllStaff(); // Refresh the table
             }
         },
-        error: function (xhr, status, error) {
+        error: function (xhr) {
+            console.error("Error Response: ", xhr.responseText);
             Swal.fire({
                 title: 'Error!',
-                text: 'Could not save staff data. Please try again.',
+                text: `Error ${xhr.status}: ${xhr.responseText}`,
                 icon: 'error',
                 confirmButtonText: 'OK'
             });
         }
+
     });
 }
 
@@ -177,22 +200,3 @@ function searchStaff() {
     });
 }
 
-function gatherStaffData() {
-    return {
-        id: $('#id').val(),
-        firstName: $('#firstName').val(),
-        lastName: $('#lastName').val(),
-        designation: $('#designation').val(),
-        gender: $('#gender').val(),
-        joinedDate: $('#joinedDate').val(),
-        dob: $('#dob').val(),
-        addressLine1: $('#addressLine1').val(),
-        addressLine2: $('#addressLine2').val(),
-        addressLine3: $('#addressLine3').val(),
-        addressLine4: $('#addressLine4').val(),
-        addressLine5: $('#addressLine5').val(),
-        contactNo: $('#contactNo').val(),
-        email: $('#email').val(),
-        role: $('#role').val()
-    };
-}

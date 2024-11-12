@@ -5,8 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Green Shadow</title>
   <link rel="stylesheet" href="../css/style.css">
-</head>
+  <link rel="stylesheet" href="../css/dashboard.css">
+  <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+  <script src="../js/controller/dashboardController.js"></script>
 
+</head>
 <body>
 <!-- ======================navigating============== -->
 <div class="container">
@@ -19,43 +23,43 @@
         </a>
       </li>
       <li>
-        <a href="./admin-dashboard.html">
+        <a href="admin-dashboard.html">
           <span class="icon"><ion-icon name="home-outline"></ion-icon></span>
           <span class="title">Dashboard</span>
         </a>
       </li>
       <li>
-        <a href="pages/staff.html">
+        <a href="staff.html">
           <span class="icon"><ion-icon name="people-outline"></ion-icon></span>
           <span class="title">Staff</span>
         </a>
       </li>
       <li>
-        <a href="pages/field.html">
+        <a href="field.html">
           <span class="icon"><ion-icon name="map-outline"></ion-icon></span>
           <span class="title">Field</span>
         </a>
       </li>
       <li>
-        <a href="pages/crop.html">
+        <a href="crop.html">
           <span class="icon"><ion-icon name="leaf-outline"></ion-icon></span>
           <span class="title">Crop</span>
         </a>
       </li>
       <li>
-        <a href="pages/equipment.html">
+        <a href="equipment.html">
           <span class="icon"><ion-icon name="hammer-outline"></ion-icon></span>
           <span class="title">Equipment</span>
         </a>
       </li>
       <li>
-        <a href="pages/vehicle.html">
+        <a href="vehicle.html">
           <span class="icon"><ion-icon name="car-outline"></ion-icon></span>
           <span class="title">Vehicle</span>
         </a>
       </li>
       <li>
-        <a href="pages/monitoring.html">
+        <a href="monitoring.html">
           <span class="icon"><ion-icon name="eye-outline"></ion-icon></span>
           <span class="title">Monitoring</span>
         </a>
@@ -149,14 +153,55 @@
         <ion-icon name="cash-outline"></ion-icon>
       </div>
     </div>
+</div>
+  <!-- ======================Staff Table Section================================== -->
+  <div class="table-section">
+    <h2 class="text-center">Staff Details</h2>
+    <div class="search-bar">
+      <input type="text" id="search" placeholder="Search Staff">
+      <button type="button" class="btn btn-search" onclick="searchStaff()">
+        <ion-icon name="search-outline"></ion-icon>
+      </button>
+    </div>
+    <table class="staff-table">
+      <thead>
+      <tr>
+        <th>Staff ID</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Designation</th>
+        <th>Gender</th>
+        <th>Role</th>
+      </tr>
+      </thead>
+      <tbody>
+      <!-- Example rows -->
+      <tr>
+        <td>001</td>
+        <td>John</td>
+        <td>Doe</td>
+        <td>Manager</td>
+        <td>Male</td>
+        <td>Admin</td>
+      </tr>
+      <tr>
+        <td>002</td>
+        <td>Jane</td>
+        <td>Smith</td>
+        <td>Supervisor</td>
+        <td>Female</td>
+        <td>Staff</td>
+      </tr>
+      </tbody>
+    </table>
   </div>
 </div>
-
-  <script src="/js/main.js"></script>
+</div>
+<script src="../js/jquery-3.7.1.min.js"></script>
+<script src="/js/controller/dashboardController.js"></script>
+<script src="../js/main.js"></script>
 <!-- ===================ionicons=============== -->
-  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-  <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
-  <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+
 
 </body>
 

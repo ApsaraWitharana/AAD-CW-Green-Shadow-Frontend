@@ -1,0 +1,67 @@
+.container {
+    width: 20%;
+    float: left;
+    background-color: #333;
+    height: 100vh;
+    color: #fff;
+}
+
+.main {
+    width: 80%;
+    float: right;
+    padding: 20px;
+}
+
+.topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.table-section {
+    margin-top: 20px;
+}
+
+.search-bar {
+    display: flex;
+    margin-bottom: 15px;
+}
+
+.search-bar input {
+    width: 300px;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+.btn-search {
+    background-color: rgba(8, 108, 8, 0.89);
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+
+.staff-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.staff-table th, .staff-table td {
+    text-align: left;
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+}
+
+.staff-table th {
+    background-color: rgba(24, 117, 24, 0.89);
+    color: white;
+}
+
+.staff-table tr:hover {
+    background-color: rgba(10, 8, 12, 0.5);
+    color: rgba(20, 225, 20, 0.89);
+}

@@ -267,3 +267,9 @@ body {
 .cardBox .card:hover .iconBx {
     color: var(--skin-color);
 }
+
+table{
+    cursor: pointer;
+    color: #0a3622;
+    background-color: #1dd748;
+}
