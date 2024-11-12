@@ -1,39 +1,37 @@
-//=============================Ajax set user =================//
-function userRegistation(){
-    console.log("click!!")
+
+
+function userRegistation() {
+    console.log("click!!");
 
     let name = $('#name').val();
     let email = $("#email").val();
     let password = $('#password').val();
     let role = $('#role').val();
-    console.log(email,password,name,role)
+    console.log(email, password, name, role);
 
-    //create ajax request
+    // Create AJAX registration request
     $.ajax({
         url: "http://localhost:8080/api/v1/auth/register",
         method: "POST",
         contentType: "application/json",
         headers: { "Authorization": "Bearer " + localStorage.getItem("token") },
-        "data": JSON.stringify({
-            "name": name,
-            "email": email,
-            "password": password,
-            "role":role
+        data: JSON.stringify({
+            name: name,
+            email: email,
+            password: password,
+            role: role
         }),
-
-        //error handling
-        success: function (response){
+        success: function(response) {
             console.log(response.data.token)
-            localStorage.setItem("token",response.data.token)
-            localStorage.setItem("role", role); // Store the role in localStorage
+            const token = response.data.token;
+            localStorage.setItem("token", token);
             alert("User registered successfully!");
         },
-        error: function (error){
-            console.log(error)
+        error: function(error) {
+            console.error("Error during registration:", error);
             alert("User registration unsuccessful!");
         }
-
-    })
+    });
 }
 
 function userLogin() {
@@ -47,33 +45,33 @@ function userLogin() {
         url: "http://localhost:8080/api/v1/auth/authenticate",
         method: "POST",
         contentType: "application/json",
+        headers: { "Authorization": "Bearer " + localStorage.getItem("token") },
         data: JSON.stringify({
             email: email,
             password: password
         }),
         success: function(response) {
+            console.log(response.data.token)
+            // Store token and role in localStorage
             const token = response.data.token;
-            const role = response.data.role; // Ensure the role is fetched from response.data
-
-            // Store token and role in localStorage for session management
+            const role = response.data.role; // Ensure role is included in the response
             localStorage.setItem("token", token);
             localStorage.setItem("role", role);
-            alert("User logged in successfully!");
+            alert("User Login successfully!");
+            console.log("User role:", role);
 
-            // Redirect user based on role
+            // Redirect based on role
             if (role === "MANAGER") {
-                window.location.href = "./admin-dashboard.html"; // Manager's dashboard
+                window.location.href = "./pages/admin-dashboard.html";
             } else if (role === "SCIENTIST") {
-                window.location.href = "./scientist-dashboard.html"; // Scientist's dashboard
+                window.location.href = "./scientist-dashboard.html";
             } else {
-                window.location.href = "./admin-dashboard.html"; // Fallback for other roles
+                window.location.href = "./pages/admin-dashboard.html";
             }
         },
         error: function(error) {
-            console.log(error);
+            console.error("Error during login:", error);
             alert("Login unsuccessful!");
         }
     });
 }
-
-
