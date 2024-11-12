@@ -41,6 +41,9 @@ function fetchStaffData() {
     $.ajax({
         url: "http://localhost:8080/api/v1/blog/getStaff", // Update with the correct backend URL
         type: "GET",
+        headers: {
+            "Authorization": "Bearer " + localStorage.getItem("token")  // Add Authorization header with token
+        },
         success: function (response) {
             if (response.code === "OK") {
                 populateStaffTable(response.data);
