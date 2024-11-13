@@ -35,10 +35,14 @@ $("#btnSave").click(function () {
             if (jqxhr.status === 200 || jqxhr.status === 201) {
                 Swal.fire({
                     title: 'Success!',
-                    text: 'Field saved successfully!',
+                    text: 'Field Save Successfully!!',
                     icon: 'success',
-                    confirmButtonText: 'OK'
+                    background: 'black',
+                    color: 'white',
+                    confirmButtonColor: '#d33',
+                    cancelButtonColor: '#3085d6'
                 });
+                clearFields();
                 getAllField()
             } else {
                 Swal.fire({
@@ -141,11 +145,14 @@ $("#btnUpdate").click(function () {
             if (jqxhr.status === 200 || jqxhr.status === 201) {
                 Swal.fire({
                     title: 'Success!',
-                    text: 'Field updated successfully!',
+                    text: 'Field update successfully!',
                     icon: 'success',
-                    confirmButtonText: 'OK'
+                    background: 'black',
+                    color: 'white',
+                    confirmButtonColor: '#d33',
+                    cancelButtonColor: '#3085d6'
                 });
-                // You can call a function to reload the table or data if needed
+                clearFields();
                 getAllField();
             } else {
                 Swal.fire({
@@ -216,9 +223,15 @@ function deleteField(fieldCode) {
         text: "You won't be able to revert this!",
         icon: 'warning',
         showCancelButton: true,
+        background: "black",
+        color: "white",
         confirmButtonColor: '#d33',
         cancelButtonColor: '#3085d6',
-        confirmButtonText: 'Yes, delete it!'
+        confirmButtonText: 'Yes, delete it!',
+        customClass: {
+            confirmButton: 'custom-confirm-button',
+            cancelButton: 'custom-cancel-button'
+        }
     }).then((result) => {
         if (result.isConfirmed) {
             $.ajax({
@@ -229,12 +242,16 @@ function deleteField(fieldCode) {
                     "Authorization": "Bearer " + localStorage.getItem("token")
                 },
                 success: function (response) {
-                    Swal.fire(
-                        'Deleted!',
-                        'Field has been deleted.',
-                        'success'
-                    );
-                    getAllField(); // Refresh the table with updated data
+                    Swal.fire({
+                        title: 'Deleted!',
+                        text: 'Field has been deleted.',
+                        icon: 'success',
+                        background: 'black',
+                        color: 'white',
+                        confirmButtonColor: '#d33',
+                        cancelButtonColor: '#3085d6'
+                    });
+                    getAllField();
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
                     Swal.fire(
@@ -388,3 +405,13 @@ cropImageInput.addEventListener('change', function (event) {
         cropImagePreview.innerHTML = "No Image Selected";
     }
 });
+
+//===========clier field==========//
+function clearFields(){
+    $("#fieldCode").val("");
+    $("#fieldName").val("");
+    $("#fieldLocation").val("");
+    $("#extentSize").val("");
+    $("#fieldImage1").val("");
+    $("#fieldImage2").val("");
+}

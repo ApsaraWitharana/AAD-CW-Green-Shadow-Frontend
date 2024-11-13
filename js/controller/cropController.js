@@ -1,7 +1,8 @@
 
 $(document).ready(function (){
     getAllCrop();
-    loadFieldIds()
+    loadFieldIds();
+    clearFields();
 
 })
 $("#btnSave").click(function (){
@@ -41,7 +42,8 @@ $("#btnSave").click(function (){
                     icon: 'success',
                     confirmButtonText: 'OK'
                 });
-                getAllCrop()
+                clearFields();
+                getAllCrop();
             } else {
                 Swal.fire({
                     title: 'Unexpected Status Code',
@@ -88,7 +90,7 @@ function getAllCrop() {
                            <button id="btnUpdate" class="btn btn-info" onclick="populateForm('${crop.cropCode}')">
                           <ion-icon name="create-outline"></ion-icon> 
             </button>
-            <button id="btnDelete1" class="btn btn-danger" onclick="deleteField('${crop.cropCode}')">
+            <button  class="btn btn-danger" onclick="deleteCrop('${crop.cropCode}')">
               <ion-icon name="trash-outline"></ion-icon>
            </button>
                         </td>
@@ -187,11 +189,16 @@ $("#btnUpdate").click(function () {
             if (jqxhr.status === 200 || jqxhr.status === 201) {
                 Swal.fire({
                     title: 'Success!',
-                    text: 'Crop updated successfully!',
+                    text: 'Crop update successfully!',
                     icon: 'success',
-                    confirmButtonText: 'OK'
+                    background: 'black', // Sets background color to black
+                    color: 'white',      // Sets text color to white
+                    confirmButtonColor: '#d33', // Optional: Customize button color
+                    cancelButtonColor: '#3085d6' // Optional: Customize button color
                 });
+                clearFields();
                 getAllCrop();
+
             } else {
                 Swal.fire({
                     title: 'Unexpected Status Code',
@@ -205,9 +212,12 @@ $("#btnUpdate").click(function () {
             console.error("Error Response: ", xhr.responseText);
             Swal.fire({
                 title: 'Error!',
-                text: 'Crop update Unsuccessfully!',
+                text: 'Crop update failed!',
                 icon: 'error',
-                confirmButtonText: 'OK'
+                background: 'black', // Sets background color to black
+                color: 'white',      // Sets text color to white
+                confirmButtonColor: '#d33', // Optional: Customize button color
+                cancelButtonColor: '#3085d6' // Optional: Customize button color
             });
         }
     });
@@ -249,7 +259,64 @@ function populateForm(cropCode) {
         }
     });
 }
+//=================delete btn==========//
+function deleteCrop(cropCode){
+    Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        background: "black",
+        color: "white",
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#3085d6',
+        confirmButtonText: 'Yes, delete it!',
+        customClass: {
+            confirmButton: 'custom-confirm-button',
+            cancelButton: 'custom-cancel-button'
+        }
+    }).then((result) => {
+        if (result.isConfirmed) {
+            $.ajax({
+                url: `http://localhost:8080/api/v1/crop/${cropCode}`,
+                method: 'DELETE',
+                contentType: 'application/json',
+                headers: {
+                    "Authorization": "Bearer " + localStorage.getItem("token")
+                },
+                success: function (response) {
+                    Swal.fire({
+                        title: 'Deleted!',
+                        text: 'Field has been deleted.',
+                        icon: 'success',
+                        background: 'black', // Sets background color to black
+                        color: 'white',      // Sets text color to white
+                        confirmButtonColor: '#d33', // Optional: Customize button color
+                        cancelButtonColor: '#3085d6' // Optional: Customize button color
+                    });
 
+                    //$(`#cropRow-${cropCode}`).remove();
+                    getAllField();
+
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    console.error("AJAX Error Details:", {
+                        status: jqXHR.status,
+                        statusText: jqXHR.statusText,
+                        responseText: jqXHR.responseText,
+                        errorThrown: errorThrown
+                    });
+                    Swal.fire(
+                        'Error!',
+                        jqXHR.responseJSON?.message || 'Failed to delete the field.',
+                        'error'
+                    );
+                }
+
+            });
+        }
+    });
+}
 //===================image preview =================//
 const cropImageInput = document.getElementById('cropImage');
 const cropImagePreview = document.getElementById('cropImagePreview');
@@ -270,4 +337,15 @@ cropImageInput.addEventListener('change', function (event) {
     }
 });
 
+//============clear===========//
+
+function clearFields() {
+    $("#cropCode").val('');
+    $("#cropCommonName").val('');
+    $("#cropScientificName").val('');
+    $("#cropImage").val('');
+    $("#category").val('');
+    $("#cropSeason").val('');
+    $("#fieldCode").val('');
+}
 
