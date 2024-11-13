@@ -70,7 +70,7 @@
         </a>
       </li>
       <li>
-        <a href="#">
+        <a href="equipment.html">
           <span class="icon"><ion-icon name="hammer-outline"></ion-icon></span>
           <span class="title">Equipment</span>
         </a>
@@ -88,19 +88,19 @@
         </a>
       </li>
       <li>
-        <a href="#">
+        <a href="staffLogMonito.html">
           <span class="icon"><ion-icon name="people-outline"></ion-icon></span>
           <span class="title">Staff Monitoring</span>
         </a>
       </li>
       <li>
-        <a href="#">
+        <a href="fieldLogMonito.html">
           <span class="icon"><ion-icon name="people-outline"></ion-icon></span>
           <span class="title">Field Monitoring</span>
         </a>
       </li>
       <li>
-        <a href="#">
+        <a href="">
           <span class="icon"><ion-icon name="people-outline"></ion-icon></span>
           <span class="title">Staff Field Details</span>
         </a>
@@ -193,6 +193,12 @@
     <div class="mt-5">
       <h3 class="text-center">Crop List</h3>
       <table class="table table-dark table-striped mt-3" id="cropTable">
+        <div class="form-group d-flex mb-3">
+          <input type="text" class="form-control me-2" id="search" placeholder="Search Staff">
+          <button type="button" class="btn btn-outline-light" onclick="searchStaff()">
+            <i class="fas fa-search"></i> <!-- FontAwesome search icon -->
+          </button>
+        </div>
         <thead>
         <tr>
           <th>Crop Code</th>
