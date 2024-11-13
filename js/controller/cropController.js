@@ -85,12 +85,12 @@ function getAllCrop() {
                         <td>${crop.fieldCode}</td>
                         <td><img src="data:image/jpeg;base64,${crop.cropImage}" alt="Crop Image" width="50" height="50"/></td>
                         <td>
-                            <button class="btn btn-info" onclick="populateForm('${crop.cropCode}')">
-                                <ion-icon name="create-outline"></ion-icon>
-                            </button>
-                            <button class="btn btn-danger" onclick="deleteField('${crop.cropCode}')">
-                                <ion-icon name="trash-outline"></ion-icon>
-                            </button>
+                           <button id="btnUpdate" class="btn btn-info" onclick="populateForm('${crop.cropCode}')">
+                          <ion-icon name="create-outline"></ion-icon> 
+            </button>
+            <button id="btnDelete1" class="btn btn-danger" onclick="deleteField('${crop.cropCode}')">
+              <ion-icon name="trash-outline"></ion-icon>
+           </button>
                         </td>
                     </tr>
                 `);
@@ -133,6 +133,123 @@ function loadFieldIds() {
     });
 }
 
+//========= Click event for the rows in the table ===============//
+$("#cropTableBody>tr").click(function() {
+    let row = $(this);
+
+    // Get the data from the clicked row
+    let cropCode = row.children().eq(0).text();
+    let cropCommonName = row.children().eq(1).text();
+    let cropScientificName = row.children().eq(2).text();
+    let category = row.children().eq(3).text();
+    let cropSeason = row.children().eq(4).text();
+
+    // Set the values in the input fields
+    $("#cropCode").val(cropCode);
+    $("#cropCommonName").val(cropCommonName);
+    $("#cropScientificName").val(cropScientificName);
+    $("#category").val(category);
+    $("#cropSeason").val(cropSeason);
+
+    $("#btnSave").prop("disabled", true);
+});
+
+//======================== Update functionality =========================//
+$("#btnUpdate").click(function () {
+    let cropCode = $("#cropCode").val();
+    let updateCropCommonName = $("#cropCommonName").val();
+    let updateCropScientificName = $("#cropScientificName").val();
+    let updateCropImage = $("#cropImage").prop('files')[0];  // Handling the image file
+    let updateCategory = $("#category").val();
+    let updateCropSeason = $("#cropSeason").val();
+    let updateFileCode = $("#fieldCode").val();  // Assuming field code exists
+
+    var formData = new FormData();
+    formData.append("updateCropCommonName", updateCropCommonName);
+    formData.append("updateCropScientificName", updateCropScientificName);
+    formData.append("updateCropImage", updateCropImage);
+    formData.append("updateCategory", updateCategory);
+    formData.append("updateCropSeason", updateCropSeason);
+    formData.append("updateFieldCode", updateFileCode);
+    formData.append("cropCode", cropCode);
+
+    // Ajax request
+    $.ajax({
+        url: `http://localhost:8080/api/v1/crop/${cropCode}`,
+        type: "PATCH",
+        processData: false,
+        contentType: false,
+        data: formData,
+        headers: {
+            "Authorization": "Bearer " + localStorage.getItem("token")
+        },
+        success: function (resp, textStatus, jqxhr) {
+            if (jqxhr.status === 200 || jqxhr.status === 201) {
+                Swal.fire({
+                    title: 'Success!',
+                    text: 'Crop updated successfully!',
+                    icon: 'success',
+                    confirmButtonText: 'OK'
+                });
+                getAllCrop();
+            } else {
+                Swal.fire({
+                    title: 'Unexpected Status Code',
+                    text: 'Received status code: ' + jqxhr.status,
+                    icon: 'warning',
+                    confirmButtonText: 'OK'
+                });
+            }
+        },
+        error: function (xhr, status, error) {
+            console.error("Error Response: ", xhr.responseText);
+            Swal.fire({
+                title: 'Error!',
+                text: 'Crop update Unsuccessfully!',
+                icon: 'error',
+                confirmButtonText: 'OK'
+            });
+        }
+    });
+});
+function populateForm(cropCode) {
+    // Make an AJAX call to fetch the crop details using cropCode
+    $.ajax({
+        url: `http://localhost:8080/api/v1/crop/${cropCode}`,
+        type: "GET",
+        headers: {
+            "Authorization": "Bearer " + localStorage.getItem("token")
+        },
+        success: function (crop) {
+            // Populate the form fields
+            $("#cropCode").val(crop.cropCode);
+            $("#cropCommonName").val(crop.cropCommonName);
+            $("#cropScientificName").val(crop.cropScientificName);
+            $("#category").val(crop.category);
+            $("#cropSeason").val(crop.cropSeason);
+            $("#fieldCode").val(crop.fieldCode);
+
+            // Display the image preview
+            if (crop.cropImage) {
+                $("#cropImagePreview").attr("src", `data:image/jpeg;base64,${crop.cropImage}`);
+            }
+
+            // Disable the "Save" button and enable the "Update" button
+            $("#btnSave").prop("disabled", true);
+            $("#btnUpdate").prop("disabled", false);
+        },
+        error: function (error) {
+            console.error("Error fetching crop details:", error.responseJSON?.message || error);
+            Swal.fire({
+                title: 'Error!',
+                text: 'Unable to fetch crop details. Please try again.',
+                icon: 'error',
+                confirmButtonText: 'OK'
+            });
+        }
+    });
+}
+
 //===================image preview =================//
 const cropImageInput = document.getElementById('cropImage');
 const cropImagePreview = document.getElementById('cropImagePreview');
@@ -152,3 +269,5 @@ cropImageInput.addEventListener('change', function (event) {
         cropImagePreview.innerHTML = "No Image Selected";
     }
 });
+
+

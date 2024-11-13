@@ -183,7 +183,7 @@
 
       <div class="text-center mt-4">
         <button id="btnSave" type="button" class="btn btn-success me-2" >Save</button>
-        <button type="button" class="btn btn-info me-2" onclick="updateCrop()">Update</button>
+        <button id="btnUpdate" type="button" class="btn btn-info me-2">Update</button>
         <button type="button" class="btn btn-danger" onclick="deleteCrop()">Delete</button>
       </div>
       </div>
@@ -205,7 +205,7 @@
           <th>Actions</th>
         </tr>
         </thead>
-        <tbody>
+        <tbody id="cropTableBody">
         <!-- Rows populated dynamically -->
         </tbody>
       </table>
