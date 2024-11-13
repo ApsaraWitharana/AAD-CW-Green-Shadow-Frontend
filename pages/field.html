@@ -172,15 +172,16 @@
         <div class="col-md-6 mb-3">
           <label for="fieldImage1" class="form-label">Field Image 1</label>
           <input type="file" id="fieldImage1" name="fieldImage1" />
-          <img id="imagePreview1" style="display: none; max-width: 100px; margin-top: 10px;">
         </div>
         <div class="col-md-6 mb-3">
           <label for="fieldImage2" class="form-label">Field Image 2</label>
-          <input type="file" id="fieldImage2" name="fieldImage2" />
-          <img id="imagePreview" style="display: none; max-width: 100px; margin-top: 10px;" alt="Preview of Field Image 2">
+          <input type="file"  id="fieldImage2" name="fieldImage2" accept="image/*" />
+<!--          <div id="cropImagePreview" style="margin-top: 10px; width: 100%; max-width: 200px; height: auto; border: 1px solid #ccc; padding: 10px; text-align: center;">-->
+<!--            &lt;!&ndash; Image Preview will appear here &ndash;&gt;-->
+<!--          </div>-->
         </div>
-      </div>
 
+      </div>
       <div class="text-center mt-4">
         <button type="button" class="btn btn-success me-2" id="btnSave">Save</button>
         <button type="button" id="btnUpdate" class="btn btn-info me-2">Update</button>
@@ -205,6 +206,8 @@
           <th>Field Name</th>
           <th>Location</th>
           <th>Extent Size</th>
+          <th>Field Image</th>
+          <th>Field Image</th>
           <th>Actions</th>
         </tr>
         </thead>

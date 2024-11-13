@@ -266,6 +266,8 @@ function deleteField(fieldCode) {
                         <td>${field.fieldName}</td>
                         <td>${field.fieldLocation}</td>
                         <td>${field.extentSize}</td>
+                     <td><img src="data:image/jpeg;base64,${field.fieldImage1}" alt="Field Image1" width="50" height="50"/></td>
+                    <td><img src="data:image/jpeg;base64,${field.fieldImage2}" alt="Field Image2" width="50" height="50"/></td>
                        <td>
             <button id="btnUpdate" class="btn btn-info" onclick="populateForm('${field.fieldCode}')">
                 <ion-icon name="create-outline"></ion-icon> 
@@ -340,6 +342,8 @@ $.ajax({
                         <td>${field.fieldName}</td>
                         <td>${field.fieldLocation}</td>
                         <td>${field.extentSize}</td>
+                    <td><img src="data:image/jpeg;base64,${field.fieldImage1}" alt="Field Image1" width="50" height="50"/></td>
+                    <td><img src="data:image/jpeg;base64,${field.fieldImage2}" alt="Field Image2" width="50" height="50"/></td>
                         <td>
                             <button class="btn btn-info" onclick="populateForm('${field.fieldCode}')">
                                 <ion-icon name="create-outline"></ion-icon> 
@@ -361,5 +365,26 @@ $.ajax({
             confirmButtonText: 'OK'
         });
         console.error(jqXHR);
+    }
+});
+
+
+//===================image preview =================//
+const cropImageInput = document.getElementById('fieldImage2');
+const cropImagePreview = document.getElementById('cropImagePreview');
+
+cropImageInput.addEventListener('change', function (event) {
+    const file = event.target.files[0]; // Get the selected file
+    if (file) {
+        const reader = new FileReader();
+
+        reader.onload = function (e) {
+            // Display the selected image in the preview container
+            cropImagePreview.innerHTML = `<img src="${e.target.result}" alt="Selected Image">`;
+        };
+
+        reader.readAsDataURL(file); // Convert the image file to Base64 URL
+    } else {
+        cropImagePreview.innerHTML = "No Image Selected";
     }
 });

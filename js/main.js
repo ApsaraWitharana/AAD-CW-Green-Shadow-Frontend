@@ -61,23 +61,4 @@ setInterval(updateDateTime, 1000);
 // `;
 
 
-//===================image preview =================//
-    const cropImageInput = document.getElementById('cropImage');
-    const cropImagePreview = document.getElementById('cropImagePreview');
-
-    cropImageInput.addEventListener('change', function (event) {
-    const file = event.target.files[0]; // Get the selected file
-    if (file) {
-    const reader = new FileReader();
-
-    reader.onload = function (e) {
-    // Display the selected image in the preview container
-    cropImagePreview.innerHTML = `<img src="${e.target.result}" alt="Selected Image">`;
-};
-
-    reader.readAsDataURL(file); // Convert the image file to Base64 URL
-} else {
-    cropImagePreview.innerHTML = "No Image Selected";
-}
-});
 
