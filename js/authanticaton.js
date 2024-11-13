@@ -54,7 +54,7 @@ function userLogin() {
             console.log(response.data.token)
             // Store token and role in localStorage
             const token = response.data.token;
-            const role = response.data.role; // Ensure role is included in the response
+            const role = response.data.role;
             localStorage.setItem("token", token);
             localStorage.setItem("role", role);
             alert("User Login successfully!");
