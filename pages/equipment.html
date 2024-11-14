@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="/css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 </head>
 <style>
@@ -154,7 +155,6 @@
                     <input type="text" class="form-control" id="equipmentName" name="equipmentName" required maxlength="100">
                 </div>
             </div>
-
             <div class="row">
                 <div class="col-md-6 mb-3">
                     <label for="type" class="form-label">Type</label>
@@ -169,7 +169,6 @@
                     </select>
                 </div>
             </div>
-
             <div class="row">
                 <div class="col-md-6 mb-3">
                     <label for="fieldCode" class="form-label">Associated Field</label>
@@ -186,35 +185,42 @@
                     </select>
                 </div>
             </div>
-
             <div class="text-center mt-4">
-                <button type="button" class="btn btn-success me-2" onclick="saveEquipment()">Save</button>
+                <button type="button" class="btn btn-success me-2" id="btnSave">Save</button>
                 <button type="button" class="btn btn-info me-2" onclick="updateEquipment()">Update</button>
                 <button type="button" class="btn btn-danger" onclick="deleteEquipment()">Delete</button>
             </div>
         </form>
-
         <div class="mt-5">
             <h3 class="text-center">Equipment List</h3>
             <table class="table table-dark table-striped mt-3" id="equipmentTable">
+                <div class="form-group d-flex mb-3">
+                    <input type="text" class="form-control me-2" id="search" placeholder="Search Staff">
+                    <button type="button" class="btn btn-outline-light" onclick="searchStaff()">
+                        <i class="fas fa-search"></i> <!-- FontAwesome search icon -->
+                    </button>
+                </div>
                 <thead>
                 <tr>
                     <th>Equipment ID</th>
                     <th>Equipment Name</th>
                     <th>Type</th>
                     <th>Status</th>
-                    <th>Field</th>
+                    <th>Assigned Field</th>
                     <th>Assigned Staff</th>
                     <th>Actions</th>
                 </tr>
                 </thead>
-                <tbody>
+                <tbody id="equipmentTableBody">
                 </tbody>
             </table>
         </div>
     </div>
 </div>
-    <script src="/js/main.js"></script>
+<!--=====================main ja file===============-->
+<script src="../js/jquery-3.7.1.min.js"></script>
+<script src="../js/controller/equipmentController.js"></script>
+<script src="/js/main.js"></script>
 <!-- ===================ionicons=============== -->
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
