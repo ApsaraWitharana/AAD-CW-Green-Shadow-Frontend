@@ -161,10 +161,10 @@ $("#btnUpdate").click(function () {
     let cropCode = $("#cropCode").val();
     let updateCropCommonName = $("#cropCommonName").val();
     let updateCropScientificName = $("#cropScientificName").val();
-    let updateCropImage = $("#cropImage").prop('files')[0];  // Handling the image file
+    let updateCropImage = $("#cropImage").prop('files')[0];
     let updateCategory = $("#category").val();
     let updateCropSeason = $("#cropSeason").val();
-    let updateFileCode = $("#fieldCode").val();  // Assuming field code exists
+    let updateFileCode = $("#fieldCode").val();
 
     var formData = new FormData();
     formData.append("updateCropCommonName", updateCropCommonName);
@@ -191,10 +191,10 @@ $("#btnUpdate").click(function () {
                     title: 'Success!',
                     text: 'Crop update successfully!',
                     icon: 'success',
-                    background: 'black', // Sets background color to black
-                    color: 'white',      // Sets text color to white
-                    confirmButtonColor: '#d33', // Optional: Customize button color
-                    cancelButtonColor: '#3085d6' // Optional: Customize button color
+                    background: 'black',
+                    color: 'white',
+                    confirmButtonColor: '#d33',
+                    cancelButtonColor: '#3085d6'
                 });
                 clearFields();
                 getAllCrop();
@@ -214,10 +214,10 @@ $("#btnUpdate").click(function () {
                 title: 'Error!',
                 text: 'Crop update failed!',
                 icon: 'error',
-                background: 'black', // Sets background color to black
-                color: 'white',      // Sets text color to white
-                confirmButtonColor: '#d33', // Optional: Customize button color
-                cancelButtonColor: '#3085d6' // Optional: Customize button color
+                background: 'black',
+                color: 'white',
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6'
             });
         }
     });
@@ -289,10 +289,10 @@ function deleteCrop(cropCode){
                         title: 'Deleted!',
                         text: 'Field has been deleted.',
                         icon: 'success',
-                        background: 'black', // Sets background color to black
-                        color: 'white',      // Sets text color to white
-                        confirmButtonColor: '#d33', // Optional: Customize button color
-                        cancelButtonColor: '#3085d6' // Optional: Customize button color
+                        background: 'black',
+                        color: 'white',
+                        confirmButtonColor: '#d33',
+                        cancelButtonColor: '#3085d6'
                     });
 
                     //$(`#cropRow-${cropCode}`).remove();

@@ -259,8 +259,9 @@ $('#btnUpdate').click(function () {
                 getAllEquipment();
 
                 // Enable save button and disable update button
-                // $("#btnSave").prop("disabled", false);
-                // $("#btnUpdate").prop("disabled", true);
+                $("#btnSave").prop("disabled", false);
+                $("#btnUpdate").prop("disabled", true);
+                $("#btnDelete").prop("disabled", false);
             } else {
                 Swal.fire({
                     title: 'Unexpected Status Code',
@@ -276,9 +277,9 @@ $('#btnUpdate').click(function () {
                 title: 'Error!',
                 text: 'Equipment update failed!',
                 icon: 'error',
-                background: 'black', // Sets background color to black
-                color: 'white',      // Sets text color to white
-                confirmButtonColor: '#d33', // Optional: Customize button color
+                background: 'black',
+                color: 'white',
+                confirmButtonColor: '#d33',
                 cancelButtonColor: "#3085d6",
                 confirmButtonText: 'OK'
             });
@@ -319,8 +320,6 @@ function deleteField(id) {
                             confirmButtonColor: '#d33',
                             confirmButtonText: 'OK'
                         });
-
-                        // Refresh the table or re-fetch the equipment list
                         getAllEquipment();
                     } else {
                         Swal.fire({
