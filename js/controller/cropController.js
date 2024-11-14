@@ -296,7 +296,7 @@ function deleteCrop(cropCode){
                     });
 
                     //$(`#cropRow-${cropCode}`).remove();
-                    getAllField();
+                    getAllCrop();
 
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
