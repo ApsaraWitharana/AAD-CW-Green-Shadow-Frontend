@@ -5,8 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Green Shadow</title>
     <link rel="stylesheet" href="../css/style.css">
-</head>
+    <link rel="stylesheet" href="../css/dashboard.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
+</head>
 <body>
 <!-- ======================navigating============== -->
 <div class="container">
@@ -113,6 +115,7 @@
     <!-- ======================Cards================================== -->
 
     <div class="cardBox">
+        <!-- Card 1 -->
         <div class="card">
             <div>
                 <div class="numbers">11,504</div>
@@ -122,6 +125,7 @@
                 <ion-icon name="pulse"></ion-icon>
             </div>
         </div>
+        <!-- Card 2 -->
         <div class="card">
             <div>
                 <div class="numbers">80</div>
@@ -131,6 +135,7 @@
                 <ion-icon name="cart-outline"></ion-icon>
             </div>
         </div>
+        <!-- Card 3 -->
         <div class="card">
             <div>
                 <div class="numbers">284</div>
@@ -140,6 +145,7 @@
                 <ion-icon name="people"></ion-icon>
             </div>
         </div>
+        <!-- Card 4 -->
         <div class="card">
             <div>
                 <div class="numbers">$7,842</div>
@@ -150,9 +156,248 @@
             </div>
         </div>
     </div>
-</div>
+<!--    //=====================Bar chart============//-->
+    <div class="chartRow">
+        <!-- Bar Chart Section -->
+        <div class="chart-container">
+            <canvas id="cropStorageBarChart"></canvas>
+        </div>
+        <!-- Pulse Chart Section -->
+        <div class="chart-container">
+            <canvas id="cropStoragePulseChart"></canvas>
+        </div>
+        <!-- Circular Chart Section -->
+        <div class="chart-container">
+            <canvas id="cropStorageCircularChart"></canvas>
+        </div>
+    </div>
 
-<script src="/js/main.js"></script>
+<!-- =================crop detailed table ====================-->
+    <div class="table-section">
+        <h2 class="text-center">Crop Details</h2>
+        <div class="search-bar">
+            <input type="text" id="search" placeholder="Search Staff">
+            <button type="button" class="btn btn-search" onclick="searchStaff()">
+                <ion-icon name="search-outline"></ion-icon>
+            </button>
+        </div>
+        <table class="crop-table">
+            <thead>
+            <tr>
+                <th>Crop Code</th>
+                <th>Common Name</th>
+                <th>Scientific Name</th>
+                <th>Category</th>
+                <th>Season</th>
+            </tr>
+            </thead>
+            <tbody>
+            <!-- Example rows -->
+            <tr>
+                <td>CRP-001</td>
+                <td>Rice</td>
+                <td>Rice v2</td>
+                <td>BG32</td>
+                <td>Summary</td>
+
+            </tr>
+
+            </tbody>
+        </table>
+    </div>
+</div>
+</div>
+<script>
+    const circularCtx = document.getElementById('cropStorageCircularChart').getContext('2d');
+
+    const cropStorageCircularChart = new Chart(circularCtx, {
+        type: 'doughnut', // Specify doughnut chart
+        data: {
+            labels: ['Wheat', 'Rice', 'Corn', 'Barley', 'Soybean'], // Crop names
+            datasets: [{
+                label: 'Storage (tons)',
+                data: [500, 750, 300, 450, 600], // Storage data in tons
+                backgroundColor: [
+                    'rgba(75, 192, 192, 0.6)',
+                    'rgba(54, 162, 235, 0.6)',
+                    'rgba(255, 206, 86, 0.6)',
+                    'rgba(153, 102, 255, 0.6)',
+                    'rgba(255, 99, 132, 0.6)'
+                ],
+                borderColor: [
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 99, 132, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    display: true,
+                    position: 'top', // Position of the legend
+                },
+                tooltip: {
+                    enabled: true // Enable tooltips
+                }
+            }
+        }
+    });
+</script>
+<script>
+    const ctx = document.getElementById('cropStorageBarChart').getContext('2d');
+
+    const cropStorageBarChart = new Chart(ctx, {
+        type: 'bar', // Specify bar chart
+        data: {
+            labels: ['Wheat', 'Rice', 'Corn', 'Barley', 'Soybean'], // Crop names
+            datasets: [{
+                label: 'Storage (tons)',
+                data: [500, 750, 300, 450, 600], // Storage data in tons
+                backgroundColor: [
+                    'rgba(75, 192, 192, 0.6)',
+                    'rgba(54, 162, 235, 0.6)',
+                    'rgba(255, 206, 86, 0.6)',
+                    'rgba(153, 102, 255, 0.6)',
+                    'rgba(255, 99, 132, 0.6)'
+                ],
+                borderColor: [
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 99, 132, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    display: true,
+                    position: 'top',
+                },
+                tooltip: {
+                    enabled: true
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true // Start y-axis at zero
+                }
+            }
+        }
+    });
+</script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    // Bar Chart
+    const barChart = new Chart(document.getElementById('cropStorageBarChart'), {
+        type: 'bar',
+        data: {
+            labels: ['January', 'February', 'March', 'April'],
+            datasets: [{
+                label: 'Bar Chart Data',
+                data: [12, 19, 3, 5],
+                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    display: true,
+                    position: 'top',
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+
+    // Pulse Chart
+    const pulseChart = new Chart(document.getElementById('cropStoragePulseChart'), {
+        type: 'line',
+        data: {
+            labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4'],
+            datasets: [{
+                label: 'Pulse Data',
+                data: [10, 20, 15, 25],
+                borderColor: 'rgba(255, 99, 132, 1)',
+                backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                tension: 0.4,
+                fill: true
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    display: true,
+                    position: 'top',
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+
+    // Circular Chart
+    // Circular Chart with Marks
+    const circularChart = new Chart(document.getElementById('cropStorageCircularChart'), {
+        type: 'doughnut',
+        data: {
+            labels: ['3 Month (75%)', '4 Month (60%)', '6 Month (80%)'],
+            datasets: [{
+                label: 'Marks Percentage',
+                data: [75, 60, 80], // Updated percentages
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)', // Light Red
+                    'rgba(54, 162, 235, 0.2)', // Light Blue
+                    'rgba(255, 206, 86, 0.2)'  // Light Yellow
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)', // Red Border
+                    'rgba(54, 162, 235, 1)', // Blue Border
+                    'rgba(255, 206, 86, 1)'  // Yellow Border
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    display: true,
+                    position: 'top', // Legend at the top
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function (tooltipItem) {
+                            return `${tooltipItem.label}: ${tooltipItem.raw}%`;
+                        }
+                    }
+                }
+            }
+        }
+    });
+
+</script>
+
+<script src="./js/main.js"></script>
 <!-- ===================ionicons=============== -->
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
