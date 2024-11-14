@@ -35,8 +35,31 @@ function userRegistration() {
 $(document).ready(function () {
     // Fetch staff data on page load
     fetchStaffData();
+    fetchCropData();
 });
+//===============Science Dashboard ==================//
+ function  fetchCropData(){
+     $.ajax({
+         url: "http://localhost:8080/api/v1/blog/getCrop", // Update with the correct backend URL
+         type: "GET",
+         headers: {
+             "Authorization": "Bearer " + localStorage.getItem("token")  // Add Authorization header with token
+         },
+         success: function (response) {
+             if (response.code === "OK") {
+                 populateCropTable(response.data);
+             } else {
+                 alert("Failed to fetch data: " + response.message);
+             }
+         },
+         error: function (error) {
+             console.error("Error fetching staff data:", error);
+             alert("Error fetching staff data!");
+         }
+     });
+ }
 
+ //=====================manager Dashboard ==================//
 function fetchStaffData() {
     $.ajax({
         url: "http://localhost:8080/api/v1/blog/getStaff", // Update with the correct backend URL
@@ -71,6 +94,24 @@ function populateStaffTable(staffList) {
         <td>${staff.designation}</td>
         <td>${staff.gender}</td>
         <td>${staff.role}</td>
+      </tr>
+    `;
+        tableBody.append(row);
+    });
+}
+
+function populateCropTable(cropList) {
+    const tableBody = $(".crop-table tbody");
+    tableBody.empty(); // Clear existing rows
+
+    cropList.forEach((crop) => {
+        const row = `
+      <tr>
+        <td>${crop.cropCode}</td>
+        <td>${crop.cropCommonName}</td>
+        <td>${crop.cropScientificName}</td>
+        <td>${crop.category}</td>
+        <td>${crop.cropSeason}</td>
       </tr>
     `;
         tableBody.append(row);

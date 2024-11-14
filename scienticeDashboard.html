@@ -208,94 +208,6 @@
 </div>
 </div>
 <script>
-    const circularCtx = document.getElementById('cropStorageCircularChart').getContext('2d');
-
-    const cropStorageCircularChart = new Chart(circularCtx, {
-        type: 'doughnut', // Specify doughnut chart
-        data: {
-            labels: ['Wheat', 'Rice', 'Corn', 'Barley', 'Soybean'], // Crop names
-            datasets: [{
-                label: 'Storage (tons)',
-                data: [500, 750, 300, 450, 600], // Storage data in tons
-                backgroundColor: [
-                    'rgba(75, 192, 192, 0.6)',
-                    'rgba(54, 162, 235, 0.6)',
-                    'rgba(255, 206, 86, 0.6)',
-                    'rgba(153, 102, 255, 0.6)',
-                    'rgba(255, 99, 132, 0.6)'
-                ],
-                borderColor: [
-                    'rgba(75, 192, 192, 1)',
-                    'rgba(54, 162, 235, 1)',
-                    'rgba(255, 206, 86, 1)',
-                    'rgba(153, 102, 255, 1)',
-                    'rgba(255, 99, 132, 1)'
-                ],
-                borderWidth: 1
-            }]
-        },
-        options: {
-            responsive: true,
-            plugins: {
-                legend: {
-                    display: true,
-                    position: 'top', // Position of the legend
-                },
-                tooltip: {
-                    enabled: true // Enable tooltips
-                }
-            }
-        }
-    });
-</script>
-<script>
-    const ctx = document.getElementById('cropStorageBarChart').getContext('2d');
-
-    const cropStorageBarChart = new Chart(ctx, {
-        type: 'bar', // Specify bar chart
-        data: {
-            labels: ['Wheat', 'Rice', 'Corn', 'Barley', 'Soybean'], // Crop names
-            datasets: [{
-                label: 'Storage (tons)',
-                data: [500, 750, 300, 450, 600], // Storage data in tons
-                backgroundColor: [
-                    'rgba(75, 192, 192, 0.6)',
-                    'rgba(54, 162, 235, 0.6)',
-                    'rgba(255, 206, 86, 0.6)',
-                    'rgba(153, 102, 255, 0.6)',
-                    'rgba(255, 99, 132, 0.6)'
-                ],
-                borderColor: [
-                    'rgba(75, 192, 192, 1)',
-                    'rgba(54, 162, 235, 1)',
-                    'rgba(255, 206, 86, 1)',
-                    'rgba(153, 102, 255, 1)',
-                    'rgba(255, 99, 132, 1)'
-                ],
-                borderWidth: 1
-            }]
-        },
-        options: {
-            responsive: true,
-            plugins: {
-                legend: {
-                    display: true,
-                    position: 'top',
-                },
-                tooltip: {
-                    enabled: true
-                }
-            },
-            scales: {
-                y: {
-                    beginAtZero: true // Start y-axis at zero
-                }
-            }
-        }
-    });
-</script>
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script>
     // Bar Chart
     const barChart = new Chart(document.getElementById('cropStorageBarChart'), {
         type: 'bar',
@@ -396,7 +308,9 @@
     });
 
 </script>
-
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="../js/jquery-3.7.1.min.js"></script>
+<script src="js/controller/dashboardController.js"></script>
 <script src="./js/main.js"></script>
 <!-- ===================ionicons=============== -->
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
