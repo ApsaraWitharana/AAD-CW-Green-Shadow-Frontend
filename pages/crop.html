@@ -33,6 +33,21 @@
   #search {
     width: 250px;
   }
+  #downloadPDF {
+    background-color: green;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 25px;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s, transform 0.3s;
+    text-align: left;
+    justify-content:left;
+    display: inline-block;
+    margin-left: 600px;
+  }
+
 </style>
 <body>
 <!-- ======================navigating============== -->
@@ -198,6 +213,7 @@
           <button type="button" class="btn btn-outline-light" onclick="searchStaff()">
             <i class="fas fa-search"></i> <!-- FontAwesome search icon -->
           </button>
+          <button id="downloadPDF">Download Crop Details PDF</button>
         </div>
         <thead>
         <tr>
@@ -222,6 +238,10 @@
 <script src="../js/controller/cropController.js"></script>
 <script src="/js/main.js"></script>
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<!--==========pdf js==========-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.21/jspdf.plugin.autotable.min.js"></script>
+<!--===========icons js ==============-->
 <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
 <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 </body>

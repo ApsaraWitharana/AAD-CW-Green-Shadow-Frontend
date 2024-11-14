@@ -349,3 +349,91 @@ function clearFields() {
     $("#fieldCode").val('');
 }
 
+//============================ PDF to crop table ================== //
+document.getElementById("downloadPDF").addEventListener("click", function () {
+    const { jsPDF } = window.jspdf; // Get the jsPDF library
+    const doc = new jsPDF(); // Create a new PDF instance
+    const pageWidth = doc.internal.pageSize.width;
+    const pageHeight = doc.internal.pageSize.height;
+
+    // Set background color to black
+    doc.setFillColor(0, 0, 0);
+    doc.rect(0, 0, pageWidth, pageHeight, "F");
+
+    // Add a title with white text
+    doc.setFontSize(18);
+    doc.setTextColor(255, 255, 255); // White text
+    doc.text("Crop Details Report", pageWidth / 2, 20, { align: "center" });
+
+    // Clone the table body and create a temporary table
+    const tableBody = document.getElementById("cropTableBody").cloneNode(true);
+    const tempTable = document.createElement("table");
+    tempTable.border = 1;
+
+    // Add the header without the "Actions" column
+    const originalHeader = document.querySelector("thead");
+    const clonedHeader = originalHeader.cloneNode(true);
+    const actionHeader = clonedHeader.querySelector("th:nth-child(8)"); // Adjust index for "Actions"
+    if (actionHeader) actionHeader.remove(); // Remove "Actions" column
+    tempTable.appendChild(clonedHeader);
+
+    // Add rows without the "Actions" column and process images
+    const rows = tableBody.querySelectorAll("tr");
+    rows.forEach((row) => {
+        const clonedRow = row.cloneNode(true);
+        const actionCell = clonedRow.querySelector("td:nth-child(8)"); // Adjust index for "Actions"
+        if (actionCell) actionCell.remove(); // Remove the cell
+
+        // Process images: Embed them in the PDF
+        const imageCells = clonedRow.querySelectorAll("img");
+        imageCells.forEach((img) => {
+            const canvas = document.createElement("canvas");
+            const ctx = canvas.getContext("2d");
+            canvas.width = img.width;
+            canvas.height = img.height;
+            ctx.drawImage(img, 0, 0, img.width, img.height);
+            const dataURL = canvas.toDataURL("image/png");
+            const newImg = document.createElement("img");
+            newImg.src = dataURL;
+            img.replaceWith(newImg);
+        });
+
+        tempTable.appendChild(clonedRow);
+    });
+
+    // Use jsPDF AutoTable to add the filtered table
+    doc.autoTable({
+        html: tempTable, // Pass the filtered table
+        startY: 30, // Start the table below the title
+        theme: 'grid', // Table theme
+        styles: {
+            fontSize: 10, // Font size for the table
+            textColor: [255, 255, 255], // White text for table
+        },
+        headStyles: {
+            fillColor: [0, 128, 0], // Green header background
+            textColor: [255, 255, 255], // White header text
+        },
+        bodyStyles: {
+            fillColor: [30, 30, 30], // Dark gray background
+        },
+        alternateRowStyles: {
+            fillColor: [45, 45, 45], // Slightly lighter gray
+        },
+    });
+
+    // Add a footer with centered text and shadow effect
+    const pageCount = doc.internal.getNumberOfPages();
+    for (let i = 1; i <= pageCount; i++) {
+        doc.setPage(i);
+        doc.setFontSize(10);
+        doc.setTextColor(0, 255, 0);
+        doc.setDrawColor(0, 255, 0);
+        doc.setFont("helvetica", "bold");
+        const footerText = "Green Shadow Designed by @Sachini Apsara 2024";
+        doc.text(footerText, pageWidth / 2, pageHeight - 10, { align: "center" });
+    }
+
+    // Save the PDF
+    doc.save("Crop_Details_Report.pdf");
+});
