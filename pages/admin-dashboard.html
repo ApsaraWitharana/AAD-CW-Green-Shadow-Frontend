@@ -153,6 +153,17 @@
       </div>
     </div>
 </div>
+  <!-- ==========================bar chart ===========================-->
+  <div class="chartRow">
+    <!-- Bar Chart Section -->
+    <div class="chart-container">
+      <canvas id="cropStorageBarChart"></canvas>
+    </div>
+    <!-- Pulse Chart Section -->
+    <div class="chart-container">
+      <canvas id="cropStoragePulseChart"></canvas>
+    </div>
+  </div>
   <!-- ======================Staff Table Section================================== -->
   <div class="table-section">
     <h2 class="text-center">Staff Details</h2>
@@ -196,6 +207,68 @@
   </div>
 </div>
 </div>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+  // Bar Chart
+  const barChart = new Chart(document.getElementById('cropStorageBarChart'), {
+    type: 'bar',
+    data: {
+      labels: ['January', 'February', 'March', 'April'],
+      datasets: [{
+        label: 'Bar Chart Data',
+        data: [12, 19, 3, 5],
+        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+        borderColor: 'rgba(75, 192, 192, 1)',
+        borderWidth: 1
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: {
+          display: true,
+          position: 'top',
+        }
+      },
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    }
+  });
+
+  // Pulse Chart
+  const pulseChart = new Chart(document.getElementById('cropStoragePulseChart'), {
+    type: 'line',
+    data: {
+      labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4'],
+      datasets: [{
+        label: 'Pulse Data',
+        data: [10, 20, 15, 25],
+        borderColor: 'rgba(255, 99, 132, 1)',
+        backgroundColor: 'rgba(255, 99, 132, 0.2)',
+        tension: 0.4,
+        fill: true
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: {
+          display: true,
+          position: 'top',
+        }
+      },
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    }
+  });
+
+</script>
 <script src="../js/jquery-3.7.1.min.js"></script>
 <script src="/js/controller/dashboardController.js"></script>
 <script src="../js/main.js"></script>
