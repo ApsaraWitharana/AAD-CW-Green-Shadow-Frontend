@@ -415,3 +415,59 @@ function clearFields(){
     $("#fieldImage1").val("");
     $("#fieldImage2").val("");
 }
+
+// ======================== search =================//
+
+$('btnSearch').click(function (){
+    searchField();
+});
+
+function searchField() {
+    let fieldName = $('#search').val();
+    $.ajax({
+        url: `http://localhost:8080/api/v1/field/search?fieldName=${fieldName}`,
+        method: "GET",
+        headers: {"Authorization": "Bearer " + localStorage.getItem("token")},
+        success: function (fieldList) {
+            let tableBody = $('#fieldTableBody');
+            tableBody.empty();
+
+            if (fieldList.length === 0) {
+                Swal.fire({
+                    title: 'No Results',
+                    text: 'No field  found with the given name.',
+                    icon: 'info',
+                    confirmButtonText: 'OK'
+                });
+                return;
+            }
+            fieldList.forEach(field => {
+                let row = `<tr>
+                  <td>${field.fieldCode}</td>
+                        <td>${field.fieldName}</td>
+                        <td>${field.fieldLocation}</td>
+                        <td>${field.extentSize}</td>
+                        <td><img src="data:image/jpeg;base64,${field.fieldImage1}" alt="Field Image1" width="50" height="50"/></td>
+                    <td><img src="data:image/jpeg;base64,${field.fieldImage2}" alt="Field Image2" width="50" height="50"/></td>
+                        <td>
+                            <button class="btn btn-info" onclick="populateForm('${field.fieldCode}')">
+                                <ion-icon name="create-outline"></ion-icon> 
+                            </button>
+                            <button class="btn btn-danger" onclick="deleteField('${field.fieldCode}')">
+                                <ion-icon name="trash-outline"></ion-icon> 
+                            </button>
+                        </td>
+                </tr>`;
+                tableBody.append(row);
+            });
+        },
+        error: function (xhr, status, error) {
+            Swal.fire({
+                title: 'Error!',
+                text: 'Unable to search for crops.',
+                icon: 'error',
+                confirmButtonText: 'OK'
+            });
+        }
+    });
+}

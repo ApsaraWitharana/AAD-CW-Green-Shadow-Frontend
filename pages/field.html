@@ -36,6 +36,22 @@
     width: 250px;
   }
 
+  #downloadPDF {
+    background-color: green;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 25px;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s, transform 0.3s;
+    text-align: left;
+    justify-content:left;
+    display: inline-block;
+    margin-left: 600px;
+  }
+
+
 </style>
 <body>
 <!-- ======================navigating============== -->
@@ -195,11 +211,11 @@
         <!-- Search section -->
         <div class="form-group d-flex mb-3">
           <input type="text" class="form-control me-2" id="search" placeholder="Search Staff">
-          <button type="button" class="btn btn-outline-light" onclick="searchStaff()">
+          <button type="button"  id="btnSearch" class="btn btn-outline-light" onclick="searchField()">
             <i class="fas fa-search"></i> <!-- FontAwesome search icon -->
           </button>
+          <button id="downloadPDF">Download Field Details PDF</button>
         </div>
-
         <thead>
         <tr>
           <th>Field Code</th>
@@ -221,6 +237,7 @@
   <script src="../js/jquery-3.7.1.min.js"></script>
 <script src="../js/controller/fieldController.js"></script>
 <script src="../js/main.js"></script>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <!-- ===================ionicons=============== -->
 <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
 <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
