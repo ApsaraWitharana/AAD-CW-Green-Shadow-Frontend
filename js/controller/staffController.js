@@ -397,3 +397,62 @@ function clearStaff(){
     $('#role').val('');
 }
 
+// ========================= downlord PDF staff data ==============================
+
+document.getElementById("downloadPDF").addEventListener("click", function () {
+    const { jsPDF } = window.jspdf; // Import jsPDF
+    const doc = new jsPDF(); // Create a new jsPDF instance
+
+    // Set title
+    const pageWidth = doc.internal.pageSize.width;
+    doc.setFontSize(12);
+    doc.text("Staff List Report", pageWidth / 2, 20, { align: "center" });
+
+    // AutoTable plugin to handle the table
+    doc.autoTable({
+        html: '#staffTable', // Reference the table
+        startY: 30, // Start after the title
+        theme: 'grid', // Grid theme
+        styles: {
+            fontSize: 10, // Font size
+            textColor: [0, 0, 0], // Text color
+        },
+        headStyles: {
+            fillColor: [0, 128, 0], // Green header
+            textColor: [255, 255, 255], // White text
+        },
+        bodyStyles: {
+            fillColor: [245, 245, 245], // Light gray
+        },
+        alternateRowStyles: {
+            fillColor: [230, 230, 230], // Slightly darker gray
+        },
+        columnStyles: {
+            9: { cellWidth: 0 }, // Restrict the "Actions" column width
+        },
+        didParseCell: function (data) {
+            if (data.column.index === 9) {
+                // Remove "Actions" column content
+                data.cell.text = '';
+            }
+        },
+    });
+
+    // Footer
+    const pageCount = doc.internal.getNumberOfPages();
+    for (let i = 1; i <= pageCount; i++) {
+        doc.setPage(i);
+        doc.setFontSize(10);
+        // Footer text
+        const footerText = "Green Shadow Designed by @ Sachini Apsara 2024";
+        doc.setTextColor(0, 128, 0); // Green text
+        doc.text(footerText, pageWidth / 2, doc.internal.pageSize.height - 15, { align: "center" });
+
+        // Page numbering
+        const pageNumberText = `Page ${i} of ${pageCount}`;
+        doc.text(pageNumberText, pageWidth - 20, doc.internal.pageSize.height - 15, { align: "right" });
+    }
+
+    // Save the PDF
+    doc.save("Staff_List_Report.pdf");
+});
