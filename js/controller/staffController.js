@@ -376,6 +376,14 @@ function searchStaff() {
                     <td>${staff.contactNo}</td>
                     <td>${staff.email}</td>
                     <td>${staff.role}</td>
+                    <td>
+                <button id="btnUpdate" class="btn btn-info" onclick="populateForm('${staff.id}')">
+                    <ion-icon name="create-outline"></ion-icon> 
+                </button>
+                <button id="btnDelete1" class="btn btn-danger" onclick="deleteStaff('${staff.id}')">
+                    <ion-icon name="trash-outline"></ion-icon>
+                </button>
+            </td>     
                 </tr>`;
                 tableBody.append(row);
             });
@@ -467,3 +475,4 @@ document.getElementById("downloadPDF").addEventListener("click", function () {
     // Save the PDF
     doc.save("Staff_List_Report.pdf");
 });
+

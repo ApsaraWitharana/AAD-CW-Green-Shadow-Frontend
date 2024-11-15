@@ -336,7 +336,59 @@ cropImageInput.addEventListener('change', function (event) {
         cropImagePreview.innerHTML = "No Image Selected";
     }
 });
+//===================== search ===========================//
+$('#btnSearch').click(function (){
+    searchCrop();
+});
+function searchCrop(){
+    let cropCommonName = $('#search').val();
+    $.ajax({
+        url: `http://localhost:8080/api/v1/crop/search?cropCommonName=${cropCommonName}`,
+        method: "GET",
+        headers: { "Authorization": "Bearer " + localStorage.getItem("token") },
+        success:function (cropList) {
+            let tableBody = $('#cropTableBody');
+            tableBody.empty();
 
+            if (cropList.length === 0) {
+                Swal.fire({
+                    title: 'No Results',
+                    text: 'No crops  found with the given name.',
+                    icon: 'info',
+                    confirmButtonText: 'OK'
+                });
+                return;
+            }
+            cropList.forEach(crop => {
+                let row = `<tr>
+                  <td>${crop.cropCode}</td>
+                        <td>${crop.cropCommonName}</td>
+                        <td>${crop.cropScientificName}</td>
+                        <td>${crop.category}</td>
+                        <td>${crop.cropSeason}</td>
+                        <td>${crop.fieldCode}</td>
+                        <td><img src="data:image/jpeg;base64,${crop.cropImage}" alt="Crop Image" width="50" height="50"/></td>
+                        <td>
+                           <button id="btnUpdate" class="btn btn-info" onclick="populateForm('${crop.cropCode}')">
+                          <ion-icon name="create-outline"></ion-icon> 
+            </button>
+            <button  class="btn btn-danger" onclick="deleteCrop('${crop.cropCode}')">
+              <ion-icon name="trash-outline"></ion-icon>
+           </button>
+                </tr>`;
+                tableBody.append(row);
+            });
+        },
+        error: function (xhr, status, error) {
+            Swal.fire({
+                title: 'Error!',
+                text: 'Unable to search for crops.',
+                icon: 'error',
+                confirmButtonText: 'OK'
+            });
+        }
+    });
+}
 //============clear===========//
 
 function clearFields() {
