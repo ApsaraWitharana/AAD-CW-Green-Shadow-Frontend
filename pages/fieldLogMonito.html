@@ -123,7 +123,7 @@
         <div class="toggle">
             <ion-icon name="menu"></ion-icon>
         </div>
-        <label for="date" id="date"></label>
+        <label for="date" id="date1"></label>
 
         <div class="search">
             <label>
@@ -149,7 +149,7 @@
             <div class="w-75">
                 <div class="card bg-dark text-white mb-2 w-25" style="height: 85px; border-radius: 25px;" id="logCard">
                     <div class="card-body">
-                        <input type="text" class="form-control" id="logCode" value="LOG-029" readonly>
+                        <input type="text" class="form-control" id="logCode" placeholder="LOG-029" readonly>
                     </div>
                 </div>
                 <div class="row mb-6">
@@ -161,30 +161,32 @@
                                 <div class="row">
                                     <div class="col-md-6 mb-3">
                                         <label for="logCode1" class="form-label">Log Code</label>
-                                        <input type="text" class="form-control" id="logCode1" value="LOG-029" readonly>
+                                        <input type="text" class="form-control" id="logCode1" placeholder="LOG-029">
                                     </div>
                                     <div class="col-md-6 mb-3">
                                         <label  class="form-label">Crop Code</label>
-                                        <select class="form-control" id="fieldCode" name="fieldCode" required>
-                                            <option value="">Select Field Code</option>
+                                        <select class="form-control" id="cropCode" name="cropCode" >
+                                            <option value="">Select Crop Code</option>
                                             <!-- Add options here -->
                                         </select>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-6 mb-3">
-                                        <label for="dob" class="form-label">Date of Birth</label>
-                                        <input type="date" class="form-control" id="dob" name="dob">
+                                        <label for="date" class="form-label">Date</label>
+                                        <input type="date" class="form-control" id="date" name="date">
                                     </div>
                                     <div class="col-md-6 mb-3">
-                                        <label for="observedImage1" class="form-label">Observed Image</label>
-                                        <input type="text" class="form-control" id="observedImage1" value="image-path.png" readonly>
+                                        <label for="cropImage" class="form-label">Observed Image</label>
+                                        <input type="file" class="form-control" id="cropImage" name="cropImage" accept="image/*">
+                                        <div id="cropImagePreview" style="margin-top: 10px; width: 100%; max-width: 200px; height: auto; border: 1px solid #ccc; padding: 10px; text-align: center;">
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-12 mb-3">
                                         <label for="logDetails1" class="form-label">Log Details</label>
-                                        <textarea class="form-control" id="logDetails1" rows="3" readonly>Initial observation log 2details</textarea>
+                                        <textarea class="form-control" id="logDetails1" rows="3" ></textarea>
                                     </div>
                                 </div>
                         </div>
@@ -197,20 +199,22 @@
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-md-12 mb-3">
-                                        <label for="fieldCode1" class="form-label">Field Code</label>
-                                        <input type="text" class="form-control" id="fieldCode1" value="FED-004" readonly>
-                                    </div>
+                                        <label for="fieldCode" class="form-label">Field Code</label>
+                                        <select class="form-control" id="fieldCode" name="fieldCode" >
+                                            <option value="">Select Field Code</option>
+                                            <!-- Add options here -->
+                                        </select>                                    </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-12 mb-3">
                                         <label for="workFieldsCount1" class="form-label">Work Fields Count</label>
-                                        <input type="text" class="form-control" id="workFieldsCount1" value="5" readonly>
+                                        <input type="text" class="form-control" id="workFieldsCount1" placeholder="5" >
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-12 mb-3">
                                         <label for="description1" class="form-label">Description</label>
-                                        <textarea class="form-control" id="description1" rows="3" readonly>Details about 2field hii</textarea>
+                                        <textarea class="form-control" id="description1" rows="3" ></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -220,7 +224,7 @@
 
                 <!-- Push Button to Add Data to Table -->
                 <div class="text-center mt-4">
-                    <button type="button" class="btn btn-primary" onclick="addDataToTable()">Push Data</button>
+                    <button id="btnAdd" type="button" class="btn btn-primary" onclick="addDataToTable()">Push Data</button>
                 </div>
             </div>
         </div>
@@ -250,7 +254,10 @@
     </div>
 
 </div>
+<script src="../js/jquery-3.7.1.min.js"></script>
+<script src="../js/controller/fieldLogController.js"></script>
 <script src="/js/main.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <!-- ===================ionicons=============== -->
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
