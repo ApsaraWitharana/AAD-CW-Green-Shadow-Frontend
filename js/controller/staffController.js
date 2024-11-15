@@ -346,33 +346,44 @@ $('#btnSearch').click(function () {
 });
 
 function searchStaff() {
-    let id = $('#id').val();
-
+    let firstName = $('#search').val();
     $.ajax({
-        url: `http://localhost:8080/api/v1/staff/${id}`,
+        url: `http://localhost:8080/api/v1/staff/search?firstName=${firstName}`,
         method: "GET",
         headers: { "Authorization": "Bearer " + localStorage.getItem("token") },
-        success: function (staff) {
-            // Populate the form fields with the retrieved data
-            $('#firstName').val(staff.firstName);
-            $('#lastName').val(staff.lastName);
-            $('#designation').val(staff.designation);
-            $('#gender').val(staff.gender);
-            $('#joinedDate').val(staff.joinedDate);
-            $('#dob').val(staff.dob);
-            $('#addressLine1').val(staff.addressLine1);
-            $('#addressLine2').val(staff.addressLine2);
-            $('#addressLine3').val(staff.addressLine3);
-            $('#addressLine4').val(staff.addressLine4);
-            $('#addressLine5').val(staff.addressLine5);
-            $('#contactNo').val(staff.contactNo);
-            $('#email').val(staff.email);
-            $('#role').val(staff.role);
+        success: function (staffList) {
+            let tableBody = $('#staffTableBody');
+            tableBody.empty(); // Clear the existing table rows
+
+            if (staffList.length === 0) {
+                Swal.fire({
+                    title: 'No Results',
+                    text: 'No staff members found with the given name.',
+                    icon: 'info',
+                    confirmButtonText: 'OK'
+                });
+                return;
+            }
+
+            staffList.forEach(staff => {
+                let row = `<tr>
+                    <td>${staff.id}</td>
+                    <td>${staff.firstName}</td>
+                    <td>${staff.lastName}</td>
+                    <td>${staff.designation}</td>
+                    <td>${staff.gender}</td>
+                    <td>${staff.joinedDate}</td>
+                    <td>${staff.contactNo}</td>
+                    <td>${staff.email}</td>
+                    <td>${staff.role}</td>
+                </tr>`;
+                tableBody.append(row);
+            });
         },
         error: function (xhr, status, error) {
             Swal.fire({
                 title: 'Error!',
-                text: 'Staff member not found.',
+                text: 'Unable to search for staff members.',
                 icon: 'error',
                 confirmButtonText: 'OK'
             });
