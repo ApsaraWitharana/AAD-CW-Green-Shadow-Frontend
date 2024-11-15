@@ -140,7 +140,7 @@ function getAllEquipment() {
                 <button id="btnUpdate" class="btn btn-info" onclick="populateForm('${equipment.id}')">
                     <ion-icon name="create-outline"></ion-icon> 
                 </button>
-                <button id="btnDelete1" class="btn btn-danger" onclick="deleteField('${equipment.id}')">
+                <button id="btnDelete1" class="btn btn-danger" onclick="deleteEquipment('${equipment.id}')">
                     <ion-icon name="trash-outline"></ion-icon>
                 </button>
             </td>
@@ -288,7 +288,7 @@ $('#btnUpdate').click(function () {
 });
 
 // ========== delete Fields==========//
-function deleteField(id) {
+function deleteEquipment(id) {
     // Confirm deletion with the user
     Swal.fire({
         title: 'Are you sure?',
@@ -353,4 +353,141 @@ function clearFields() {
     $('#fieldCode').val('');
     $('#staffId').val('');
 }
+$('btnSearch').click(function (){
+    searchEquipment();
+})
+function searchEquipment(){
+    let name = $('#search').val();
+    $.ajax({
+        url: `http://localhost:8080/api/v1/equipment/search?name=${name}`,
+        method: "GET",
+        headers: { "Authorization": "Bearer " + localStorage.getItem("token") },
+        success: function (equipmentList) {
+            let tableBody = $('#equipmentTableBody');
+            tableBody.empty(); // Clear the existing table rows
 
+            if (equipmentList.length === 0) {
+                Swal.fire({
+                    title: 'No Results',
+                    text: 'No equipment  found with the given name.',
+                    icon: 'info',
+                    confirmButtonText: 'OK'
+                });
+                return;
+            }
+
+            equipmentList.forEach(equipment => {
+                let row = `<tr>
+                    <td>${equipment.id}</td>
+                    <td>${equipment.name}</td>
+                    <td>${equipment.type}</td>
+                    <td>${equipment.status}</td>
+                    <td>${equipment.fieldCode}</td>
+                    <td>${equipment.staffId}</td>
+                    <td>
+                <button id="btnUpdate" class="btn btn-info" onclick="populateForm('${equipment.id}')">
+                    <ion-icon name="create-outline"></ion-icon> 
+                </button>
+                <button id="btnDelete1" class="btn btn-danger" onclick="deleteEquipment('${equipment.id}')">
+                    <ion-icon name="trash-outline"></ion-icon>
+                </button>
+            </td>     
+                </tr>`;
+                tableBody.append(row);
+            });
+        },
+        error: function (xhr, status, error) {
+            Swal.fire({
+                title: 'Error!',
+                text: 'Unable to search for equipments.',
+                icon: 'error',
+                confirmButtonText: 'OK'
+            });
+        }
+    });
+
+}
+//================================= set pdf ===========================//
+document.getElementById("downloadPDF").addEventListener("click", function () {
+    const { jsPDF } = window.jspdf; // Get the jsPDF library
+    const doc = new jsPDF(); // Create a new PDF instance
+    const pageWidth = doc.internal.pageSize.width;
+    const pageHeight = doc.internal.pageSize.height;
+
+    // Set background color to black
+    doc.setFillColor(255, 255, 255);
+    doc.rect(0, 0, pageWidth, pageHeight, "F");
+
+    // Add a title with white text
+    doc.setFontSize(18);
+    doc.setTextColor(0,0,0); // White text
+    doc.text("Equipment Details Report", pageWidth / 2, 20, { align: "center" });
+
+    // Clone the table body and create a temporary table
+    const tableBody = document.getElementById("equipmentTableBody").cloneNode(true);
+    const tempTable = document.createElement("table");
+    tempTable.border = 1;
+
+    // Add the header without the "Actions" column
+    const originalHeader = document.querySelector("thead");
+    const clonedHeader = originalHeader.cloneNode(true);
+    const actionHeader = clonedHeader.querySelector("th:nth-child(8)"); // Adjust index for "Actions"
+    if (actionHeader) actionHeader.remove(); // Remove "Actions" column
+    tempTable.appendChild(clonedHeader);
+
+    // Add rows without the "Actions" column and process images
+    const rows = tableBody.querySelectorAll("tr");
+    rows.forEach((row) => {
+        const clonedRow = row.cloneNode(true);
+        const actionCell = clonedRow.querySelector("td:nth-child(7)"); // Adjust index for "Actions"
+        if (actionCell) actionCell.remove(); // Remove the cell
+
+        tempTable.appendChild(clonedRow);
+    });
+
+    // Use jsPDF AutoTable to add the filtered table
+    doc.autoTable({
+        html: '#equipmentTable', // Reference the table
+        startY: 30, // Start after the title
+        theme: 'grid', // Grid theme
+        styles: {
+            fontSize: 10, // Font size
+            textColor: [0, 0, 0], // Text color
+        },
+        headStyles: {
+            fillColor: [0, 128, 0], // Green header
+            textColor: [255, 255, 255], // White text
+        },
+        bodyStyles: {
+            fillColor: [245, 245, 245], // Light gray
+        },
+        alternateRowStyles: {
+            fillColor: [230, 230, 230], // Slightly darker gray
+        },
+        columnStyles: {
+            7: { cellWidth: 0 }, // Restrict the "Actions" column width
+        },
+        didParseCell: function (data) {
+            if (data.column.index === 7) {
+                // Remove "Actions" column content
+                data.cell.text = '';
+            }
+        },
+    });
+
+
+    // Add a footer with centered text and shadow effect
+    const pageCount = doc.internal.getNumberOfPages();
+    for (let i = 1; i <= pageCount; i++) {
+        doc.setPage(i);
+        doc.setFontSize(10);
+        doc.setTextColor(0, 255, 0);
+        doc.setDrawColor(0, 255, 0);
+        doc.setFont("helvetica", "bold");
+        const footerText = "Green Shadow Designed by @Sachini Apsara 2024";
+        doc.text(footerText, pageWidth / 2, pageHeight - 10, { align: "center" });
+    }
+
+    // Save the PDF
+    doc.save("Equipment_Details_Report.pdf");
+});
