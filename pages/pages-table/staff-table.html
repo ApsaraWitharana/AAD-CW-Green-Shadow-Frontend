@@ -52,43 +52,43 @@
                 </a>
             </li>
             <li>
-                <a href="../scienticeDashboard.html">
+                <a href="../../scienticeDashboard.html">
                     <span class="icon"><ion-icon name="home-outline"></ion-icon></span>
                     <span class="title">Dashboard</span>
                 </a>
             </li>
             <li>
-                <a href="staff.html">
+                <a href="staff-table.html">
                     <span class="icon"><ion-icon name="people-outline"></ion-icon></span>
-                    <span class="title">Staff</span>
+                    <span class="title">Staff Details</span>
                 </a>
             </li>
             <li>
-                <a href="field.html">
+                <a href="../field.html">
                     <span class="icon"><ion-icon name="map-outline"></ion-icon></span>
                     <span class="title">Field</span>
                 </a>
             </li>
             <li>
-                <a href="crop.html">
+                <a href="../crop.html">
                     <span class="icon"><ion-icon name="leaf-outline"></ion-icon></span>
                     <span class="title">Crop</span>
                 </a>
             </li>
             <li>
-                <a href="equipment.html">
+                <a href="equipment-table.html">
                     <span class="icon"><ion-icon name="hammer-outline"></ion-icon></span>
-                    <span class="title">Equipment</span>
+                    <span class="title">Equipment Details</span>
                 </a>
             </li>
             <li>
-                <a href="vehicle.html">
+                <a href="vehicle-table.html">
                     <span class="icon"><ion-icon name="car-outline"></ion-icon></span>
-                    <span class="title">Vehicle</span>
+                    <span class="title">Vehicle Details</span>
                 </a>
             </li>
             <li>
-                <a href="monitoring.html">
+                <a href="../monitoring.html">
                     <span class="icon"><ion-icon name="eye-outline"></ion-icon></span>
                     <span class="title">Monitoring</span>
                 </a>
@@ -151,7 +151,7 @@
             <table class="table table-dark table-striped mt-3" id="staffTable">
                 <div class="form-group d-flex mb-3">
                     <input type="text" class="form-control me-2" id="search" placeholder="Search Staff">
-                    <button type="button" class="btn btn-outline-light" onclick="searchStaff()">
+                    <button id="btnSearchStaff" type="button" class="btn btn-outline-light" onclick="searchStaff()">
                         <i class="fas fa-search"></i>
                     </button>
                 </div>
@@ -162,18 +162,21 @@
                     <th>Last Name</th>
                     <th>Designation</th>
                     <th>Gender</th>
+                    <th>DOB</th>
+                    <th>ContactNo</th>
+                    <th>Email</th>
                     <th>Role</th>
                 </tr>
                 </thead>
-                <tbody>
+                <tbody id="staffTableBody">
                 </tbody>
             </table>
         </div>
     </div>
 </div>
-<script src="../js/controller/staffController.js"></script>
-<script src="../js/main.js"></script>
-<script src="../js/authanticaton.js"></script>
+<script src="../../js/jquery-3.7.1.min.js"></script>
+<script src="../../js/controller/stafftable.js"></script>
+<script src="../../js/main.js"></script>
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <!-- ===================ionicons=============== -->
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
