@@ -3,12 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Green Shadow Manager</title>
+  <title>Green Shadow Administer</title>
   <link rel="stylesheet" href="../css/style.css">
   <link rel="stylesheet" href="../css/dashboard.css">
-  <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
-  <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
-  <script src="../js/controller/dashboardController.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 </head>
 <body>
 <!-- ======================navigating============== -->
@@ -22,15 +21,15 @@
         </a>
       </li>
       <li>
-        <a href="admin-dashboard.html">
+        <a href="scientist-dashboard.html">
           <span class="icon"><ion-icon name="home-outline"></ion-icon></span>
-          <span class="title">Dashboard</span>
+          <span class="title">Dashboard</span> <span class="title1" style="font-size:25px">AD</span>
         </a>
       </li>
       <li>
-        <a href="staff.html">
+        <a href="pages-table/staff-table.html">
           <span class="icon"><ion-icon name="people-outline"></ion-icon></span>
-          <span class="title">Staff</span>
+          <span class="title">Staff Details</span>
         </a>
       </li>
       <li>
@@ -46,15 +45,15 @@
         </a>
       </li>
       <li>
-        <a href="equipment.html">
+        <a href="pages-table/equipment-table.html">
           <span class="icon"><ion-icon name="hammer-outline"></ion-icon></span>
-          <span class="title">Equipment</span>
+          <span class="title">Equipment Details</span>
         </a>
       </li>
       <li>
-        <a href="vehicle.html">
+        <a href="pages-table/vehicle-table.html">
           <span class="icon"><ion-icon name="car-outline"></ion-icon></span>
-          <span class="title">Vehicle</span>
+          <span class="title">Vehicle Details</span>
         </a>
       </li>
       <li>
@@ -64,7 +63,7 @@
         </a>
       </li>
       <li>
-        <a href="staffLogMonito.html">
+        <a href="#">
           <span class="icon"><ion-icon name="people-outline"></ion-icon></span>
           <span class="title">Staff Monitoring</span>
         </a>
@@ -75,7 +74,7 @@
         </a>
       </li>
       <li>
-        <a href="staffFieldDetails.html">
+        <a href="#">
           <span class="icon"><ion-icon name="people-outline"></ion-icon></span>
           <span class="title">Staff Field Details</span>
         </a>
@@ -101,7 +100,7 @@
     <div class="search">
       <label>
         <input type="text" placeholder="Search here..">
-<!--        <ion-icon name="search"></ion-icon>-->
+        <!--                <ion-icon name="search"></ion-icon>-->
       </label>
     </div>
 
@@ -116,6 +115,7 @@
   <!-- ======================Cards================================== -->
 
   <div class="cardBox">
+    <!-- Card 1 -->
     <div class="card">
       <div>
         <div class="numbers">11,504</div>
@@ -125,24 +125,27 @@
         <ion-icon name="pulse"></ion-icon>
       </div>
     </div>
+    <!-- Card 2 -->
     <div class="card">
       <div>
         <div class="numbers">80</div>
-        <div class="cardName">Monitoring</div>
+        <div class="cardName">Sales</div>
       </div>
       <div class="iconBx">
-        <ion-icon name="analytics-outline"></ion-icon>
+        <ion-icon name="cart-outline"></ion-icon>
       </div>
     </div>
+    <!-- Card 3 -->
     <div class="card">
       <div>
-        <div class="numbers">284</div>
-        <div class="cardName">Staff</div>
+        <div class="numbers">125</div>
+        <div class="cardName">Administer</div>
       </div>
       <div class="iconBx">
         <ion-icon name="people"></ion-icon>
       </div>
     </div>
+    <!-- Card 4 -->
     <div class="card">
       <div>
         <div class="numbers">$7,842</div>
@@ -152,8 +155,8 @@
         <ion-icon name="cash-outline"></ion-icon>
       </div>
     </div>
-</div>
-  <!-- ==========================bar chart ===========================-->
+  </div>
+  <!--    //=====================Bar chart============//-->
   <div class="chartRow">
     <!-- Bar Chart Section -->
     <div class="chart-container">
@@ -163,51 +166,47 @@
     <div class="chart-container">
       <canvas id="cropStoragePulseChart"></canvas>
     </div>
+    <!-- Circular Chart Section -->
+    <div class="chart-container">
+      <canvas id="cropStorageCircularChart"></canvas>
+    </div>
   </div>
-  <!-- ======================Staff Table Section================================== -->
+
+  <!-- =================crop detailed table ====================-->
   <div class="table-section">
-    <h2 class="text-center">Staff Details</h2>
+    <h2 class="text-center">Crop Details</h2>
     <div class="search-bar">
       <input type="text" id="search" placeholder="Search Staff">
       <button type="button" class="btn btn-search" onclick="searchStaff()">
         <ion-icon name="search-outline"></ion-icon>
       </button>
     </div>
-    <table class="staff-table">
+    <table class="crop-table">
       <thead>
       <tr>
-        <th>Staff ID</th>
-        <th>First Name</th>
-        <th>Last Name</th>
-        <th>Designation</th>
-        <th>Gender</th>
-        <th>Role</th>
+        <th>Crop Code</th>
+        <th>Common Name</th>
+        <th>Scientific Name</th>
+        <th>Category</th>
+        <th>Season</th>
       </tr>
       </thead>
       <tbody>
       <!-- Example rows -->
       <tr>
-        <td>001</td>
-        <td>John</td>
-        <td>Doe</td>
-        <td>Manager</td>
-        <td>Male</td>
-        <td>Admin</td>
+        <td>CRP-001</td>
+        <td>Rice</td>
+        <td>Rice v2</td>
+        <td>BG32</td>
+        <td>Summary</td>
+
       </tr>
-      <tr>
-        <td>002</td>
-        <td>Jane</td>
-        <td>Smith</td>
-        <td>Supervisor</td>
-        <td>Female</td>
-        <td>Staff</td>
-      </tr>
+
       </tbody>
     </table>
   </div>
 </div>
 </div>
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
   // Bar Chart
   const barChart = new Chart(document.getElementById('cropStorageBarChart'), {
@@ -268,14 +267,55 @@
     }
   });
 
+  // Circular Chart
+  // Circular Chart with Marks
+  const circularChart = new Chart(document.getElementById('cropStorageCircularChart'), {
+    type: 'doughnut',
+    data: {
+      labels: ['3 Month (75%)', '4 Month (60%)', '6 Month (80%)'],
+      datasets: [{
+        label: 'Marks Percentage',
+        data: [75, 60, 80], // Updated percentages
+        backgroundColor: [
+          'rgba(255, 99, 132, 0.2)', // Light Red
+          'rgba(54, 162, 235, 0.2)', // Light Blue
+          'rgba(255, 206, 86, 0.2)'  // Light Yellow
+        ],
+        borderColor: [
+          'rgba(255, 99, 132, 1)', // Red Border
+          'rgba(54, 162, 235, 1)', // Blue Border
+          'rgba(255, 206, 86, 1)'  // Yellow Border
+        ],
+        borderWidth: 1
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: {
+          display: true,
+          position: 'top', // Legend at the top
+        },
+        tooltip: {
+          callbacks: {
+            label: function (tooltipItem) {
+              return `${tooltipItem.label}: ${tooltipItem.raw}%`;
+            }
+          }
+        }
+      }
+    }
+  });
+
 </script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="../js/jquery-3.7.1.min.js"></script>
-<script src="/js/controller/dashboardController.js"></script>
+<script src="../js/controller/dashboardController.js"></script>
 <script src="../js/main.js"></script>
 <!-- ===================ionicons=============== -->
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
 <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
-
 
 </body>
 

@@ -106,8 +106,10 @@ function userLogin() {
             if (role === "MANAGER") {
                 window.location.href = "pages/admin-dashboard.html";
             } else if (role === "SCIENTIST") {
-                window.location.href = "scienticeDashboard.html";
-            } else {
+                window.location.href = "pages/scientist-dashboard.html";
+            } else if (role === "ADMINISTER") {
+                window.location.href = "pages/administer-dashboard.html";
+            }else {
                 window.location.href = "admin-dashboard.html";
             }
         },
