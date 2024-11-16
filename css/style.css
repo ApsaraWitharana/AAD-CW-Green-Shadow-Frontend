@@ -14,11 +14,11 @@
     --text-black-900: #302e4d;
     --text-black-700: #302e4d;
     --skin-color: #1dd748;
-    --blue: #2a2185;
+    --blue: rgba(51, 58, 51, 0.42);
     --white: #fff;
     --gray: #f5f5f5;
     --black1: #222;
-    --black2: #363434;
+    --black2: #070a0a;
 }
 
 body {
