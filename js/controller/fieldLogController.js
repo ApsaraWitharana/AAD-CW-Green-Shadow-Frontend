@@ -3,7 +3,7 @@ $(document).ready(function () {
     loadCropIds();
     getAllFieldLog();
     getAllLog();
-
+    generateLogCode();
 
     $('#btnAdd').click(function () {
         // Collect form data
@@ -205,6 +205,25 @@ $(document).ready(function () {
     }
 })
 
+//======================= generate field logCode =================================//
+function generateLogCode() {
+    $.ajax({
+        url: "http://localhost:8080/api/v1/field-log-details/generate-log-code", // Endpoint to generate logCode
+        method: "GET",
+        headers: { "Authorization": "Bearer " + localStorage.getItem("token") },
+        success: function (response) {
+            $('#logCode').val(response); // Set the generated logCode
+        },
+        error: function (error) {
+            Swal.fire({
+                title: 'Error!',
+                text: 'An error occurred while generating log code!',
+                icon: 'error',
+                confirmButtonText: 'OK'
+            });
+        }
+    });
+}
 
 
 
