@@ -60,6 +60,7 @@ $(document).ready(function () {
                     response.forEach(function (data) {
                         $('#fieldTable tbody').append(`
                         <tr>
+                            <td>${data.fieldCode}</td>
                             <td>${data.description}</td>
                             <td>${data.workFieldsCount}</td>
                             <td>${data.logDate}</td>
@@ -111,7 +112,6 @@ $(document).ready(function () {
                             <td>${data.logDetails}</td>
                             <td>${data.logDate}</td>
                             <td>${data.observedImage}</td>
-         
                         </tr>
                     `);
                     });
@@ -205,10 +205,10 @@ $(document).ready(function () {
     }
 })
 
-//======================= generate field logCode =================================//
+//======================= generate field logCode =================//
 function generateLogCode() {
     $.ajax({
-        url: "http://localhost:8080/api/v1/field-log-details/generate-log-code", // Endpoint to generate logCode
+        url: "http://localhost:8080/api/v1/field-log-details/generate-log-code",
         method: "GET",
         headers: { "Authorization": "Bearer " + localStorage.getItem("token") },
         success: function (response) {
