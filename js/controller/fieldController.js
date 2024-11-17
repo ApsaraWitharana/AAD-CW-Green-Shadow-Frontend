@@ -1,5 +1,5 @@
 $(document).ready(function () {
-     getAllField()
+     getAllField();
 });
 //========save button set ajax===========//
 $("#btnSave").click(function () {
@@ -43,7 +43,7 @@ $("#btnSave").click(function () {
                     cancelButtonColor: '#3085d6'
                 });
                 clearFields();
-                getAllField()
+                getAllField();
             } else {
                 Swal.fire({
                     title: 'Unexpected Status Code',
