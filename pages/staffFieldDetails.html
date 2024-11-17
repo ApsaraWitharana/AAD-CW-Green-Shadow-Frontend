@@ -8,7 +8,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="../css/resetCustomerdash.css">
-
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 
@@ -164,37 +163,40 @@
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-md-6 mb-3">
-                                        <label class="form-label">Staff Code</label>
-                                        <select class="form-control" id="staffCode" name="staffCode" >
-                                            <option value="">Select Staff Code</option>
-                                            <!-- Add options here -->
-                                        </select>
-                                    </div>
-                                    <div class="col-md-6 mb-3">
                                         <label  class="form-label">Field Code</label>
                                         <select class="form-control" id="fieldCode" name="fieldCode" >
                                             <option value="">Select Field Code</option>
                                             <!-- Add options here -->
                                         </select>
                                     </div>
-                                </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label for="logDate" class="form-label">Date</label>
+                                            <input type="date" class="form-control" id="logDate" name="logDate">
+                                        </div>
+                                    </div>
                                 <div class="row">
                                     <div class="col-md-6 mb-3">
-                                        <label for="logDate" class="form-label">Date</label>
-                                        <input type="date" class="form-control" id="logDate" name="logDate">
-                                    </div>
-                                    <div class="col-md-6 mb-3">
-                                        <label for="status" class="form-label">Status</label>
-                                        <select class="form-control" id="status" name="status">
-                                            <option value="Available">Available</option>
-                                            <option value="Out of Service">Out of Service</option>
+                                        <label class="form-label">Staff Code</label>
+                                        <select class="form-control" id="staffId" name="staffId" >
+                                            <option value="">Select Staff Code</option>
+                                            <!-- Add options here -->
                                         </select>
                                     </div>
-
+                                    <div class="col-md-6 mb-3">
+                                        <label for="staffName" class="form-label">Staff Name</label>
+                                        <input type="text" class="form-control" id="staffName" value="Sachini" readonly>
+                                    </div>
                                     <div class="row">
                                         <div class="col-md-6 mb-3">
                                             <label for="workFieldsCount1" class="form-label">Work Fields Count</label>
                                             <input type="text" class="form-control" id="workFieldsCount1" placeholder="5" >
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label for="status" class="form-label">Status</label>
+                                            <select class="form-control" id="status" name="status">
+                                                <option value="Available">Available</option>
+                                                <option value="Out of Service">Out of Service</option>
+                                            </select>
                                         </div>
                                     </div>
                                     <div class="row">
@@ -268,7 +270,7 @@
 
                 <!-- Push Button to Add Data to Table -->
                 <div class="text-center mt-4">
-                    <button id="btnAdd" type="button" class="btn btn-primary" onclick="addDataToTable()">Push Data</button>
+                    <button id="btnAdd" type="button" class="btn btn-primary">Push Data</button>
                 </div>
             </div>
         </div>
@@ -296,6 +298,7 @@
 
 </div>
 <script src="../js/jquery-3.7.1.min.js"></script>
+<script src="../js/controller/staffFieldController.js"></script>
 <script src="../js/main.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <!-- ===================ionicons=============== -->

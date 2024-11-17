@@ -60,7 +60,6 @@ $(document).ready(function () {
                     response.forEach(function (data) {
                         $('#fieldTable tbody').append(`
                         <tr>
-                            <td>${data.fieldCode}</td>
                             <td>${data.description}</td>
                             <td>${data.workFieldsCount}</td>
                             <td>${data.logDate}</td>
