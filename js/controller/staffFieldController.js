@@ -1,6 +1,8 @@
 $(document).ready(function (){
+    loadLogData();
     loadStaffIds();
     loadFieldIds();
+    generateLogCode();
 });
 
 // ====================== save staff field details =========================//
@@ -15,7 +17,7 @@ $('#btnAdd').click(function () {
         },
         status: $('#status').val(),
         description: $('#description1').val(),
-        work_staff_count: parseInt($('#workFieldsCount1').val(), 10),
+        workStaffCount: parseInt($('#workFieldsCount1').val(), 10),
         date: $('#logDate').val()
     };
 
@@ -28,6 +30,7 @@ $('#btnAdd').click(function () {
         success: function (response) {
             alert('Log details saved successfully!');
             console.log('Success:', response);
+            loadLogData();
         },
         error: function (xhr, status, error) {
             alert('Failed to save log details!');
@@ -35,6 +38,7 @@ $('#btnAdd').click(function () {
         },
     });
 });
+
 
 //================== lord crop ids ==============================//
 function loadStaffIds() {
@@ -80,7 +84,7 @@ function loadStaffIds() {
 function loadFieldIds() {
     $.ajax({
         url: "http://localhost:8080/api/v1/field",
-        type: "GET",
+        method: "GET",
         headers: {
             "Authorization": "Bearer " + localStorage.getItem("token")
         },
@@ -96,6 +100,72 @@ function loadFieldIds() {
         },
         error: function (xhr) {
             alert("Error loading field codes: " + xhr.status);
+        }
+    });
+}
+
+// =============== get all =================//
+
+function loadLogData() {
+    $.ajax({
+        url: "http://localhost:8080/api/v1/staff-field-details/get",
+        method: "GET",
+        contentType: 'application/json',
+        headers: { "Authorization": "Bearer " + localStorage.getItem("token") },
+        success: function (response) {
+            console.log("Staff Field:", response);
+            $("#staffFieldTableBody").empty();
+            if (Array.isArray(response)) {
+                response.forEach(function (item) {
+                    $('#staffFieldTableBody').append(`
+                        <tr>
+                            <td>${item.staff.id}</td>
+                            <td>${item.staff.firstName}</td>
+                            <td>${item.status}</td>
+                            <td>${item.date}</td>
+                            <td>${item.workStaffCount}</td>
+                            <td>${item.description}</td>
+                        </tr>
+                    `);
+                });
+            } else {
+                console.error("Invalid response format:", response);
+                Swal.fire({
+                    title: 'Error!',
+                    text: 'Unexpected response format from server!',
+                    icon: 'error',
+                    confirmButtonText: 'OK'
+                });
+            }
+        },
+        error: function (error) {
+            const message = error.responseJSON?.message || "An error occurred while fetching field logs!";
+            Swal.fire({
+                title: 'Error!',
+                text: message,
+                icon: 'error',
+                confirmButtonText: 'OK'
+            });
+        }
+    });
+}
+
+//====================== generate log code ==================================//
+function generateLogCode() {
+    $.ajax({
+        url: "http://localhost:8080/api/v1/staff-field-details/generate-staffField-code", // Endpoint to generate logCode
+        method: "GET",
+        headers: {"Authorization": "Bearer " + localStorage.getItem("token")},
+        success: function (response) {
+            $('#logCode').val(response); // Set the generated logCode
+        },
+        error: function (error) {
+            Swal.fire({
+                title: 'Error!',
+                text: 'An error occurred while generating log code!',
+                icon: 'error',
+                confirmButtonText: 'OK'
+            });
         }
     });
 }
