@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Green Shadow</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+</head>
+<style>
+    body{
+
+        margin: 0;
+        color: var(--black2);
+    }
+    .row-center .form-group {
+        display: flex;
+        justify-content: center;
+    }
+    .search-bar {
+        display: flex;
+        align-items: center;
+    }
+    /* New CSS for consistent input field margins */
+    #staffTable{
+        color: white;
+    }
+    .container{
+        margin-right: 0;
+        margin-left: 0;
+    }
+    #search{
+        width: 250px;
+    }
+
+</style>
+<body>
+<!-- ======================navigating============== -->
+<div class="container">
+    <div class="navigating">
+        <ul>
+            <li>
+                <a href="">
+                    <span class="icon"><ion-icon name=""></ion-icon></span>
+                    <span class="title1">GREEN SHADOW</span>
+                </a>
+            </li>
+            <li>
+                <a href="scientist-dashboard.html">
+                    <span class="icon"><ion-icon name="home-outline"></ion-icon></span>
+                    <span class="title">Dashboard</span>
+                </a>
+            </li>
+            <li>
+                <a href="../scientist/scientist-staff-table.html">
+                    <span class="icon"><ion-icon name="people-outline"></ion-icon></span>
+                    <span class="title">Staff Details</span>
+                </a>
+            </li>
+            <li>
+                <a href="../scientist/scientist-field.html">
+                    <span class="icon"><ion-icon name="map-outline"></ion-icon></span>
+                    <span class="title">Field</span>
+                </a>
+            </li>
+            <li>
+                <a href="../scientist/scientist-crop.html">
+                    <span class="icon"><ion-icon name="leaf-outline"></ion-icon></span>
+                    <span class="title">Crop</span>
+                </a>
+            </li>
+            <li>
+                <a href="../scientist/scientist-equipment-table.html">
+                    <span class="icon"><ion-icon name="hammer-outline"></ion-icon></span>
+                    <span class="title">Equipment Details</span>
+                </a>
+            </li>
+            <li>
+                <a href="../scientist/scientist-vehicle-table.html">
+                    <span class="icon"><ion-icon name="car-outline"></ion-icon></span>
+                    <span class="title">Vehicle Details</span>
+                </a>
+            </li>
+            <li>
+                <a href="../scientist/scientist-monitoring.html">
+                    <span class="icon"><ion-icon name="eye-outline"></ion-icon></span>
+                    <span class="title">Monitoring</span>
+                </a>
+            </li>
+            <li>
+                <a href="../scientist/scientist-staffLogMonito.html">
+                    <span class="icon"><ion-icon name="people-outline"></ion-icon></span>
+                    <span class="title">Staff Monitoring</span>
+                </a>
+            <li>
+                <a href="../scientist/scientist-fieldLogMonito.html">
+                    <span class="icon"><ion-icon name="people-outline"></ion-icon></span>
+                    <span class="title">Field Monitoring</span>
+                </a>
+            </li>
+            <li>
+                <a href="../scientist/scientist-staffFieldDetails.html">
+                    <span class="icon"><ion-icon name="people-outline"></ion-icon></span>
+                    <span class="title">Staff Field Details</span>
+                </a>
+            <li>
+                <a href="../../user.html">
+                    <span class="icon"><ion-icon name="log-out-outline"></ion-icon></span>
+                    <span class="title">Log Out</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+<!-- =========================================main=============================================== -->
+
+<div class="main">
+    <div class="topbar">
+        <div class="toggle">
+            <ion-icon name="menu"></ion-icon>
+        </div>
+        <label for="date" id="date"></label>
+
+        <div class="search">
+            <label>
+                <input type="text" placeholder="Search here..">
+                <!-- <ion-icon name="search"></ion-icon>-->
+            </label>
+        </div>
+        <label for="time" id="time"></label>
+        <div class="user">
+            <img src="/image/alina.jpg" alt="">
+            <p style="color: black; font-size: 8px;margin-top: 10px;">User Sachi</p>
+        </div>
+    </div>
+    <!-- ======================Cards================================== -->
+    <div class="container mt-5">
+        <h2 class="text-center">Log Monitoring</h2>
+        <form id="logForm" class="bg-dark p-4 rounded text-white" enctype="multipart/form-data">
+            <div class="row">
+            <div class="col-md-6 mb-3">
+                <label for="logCode" class="form-label">Log Code</label>
+                <input type="text" class="form-control" id="logCode" name="logCode" required>
+            </div>
+            <div class="col-md-6 mb-3">
+                <label for="logDate" class="form-label">Log Date</label>
+                <input type="date" class="form-control" id="logDate" name="logDate" required>
+            </div>
+            </div>
+            <div class="row">
+            <div class="col-md-6 mb-3">
+                <label for="logDetails" class="form-label">Log Details</label>
+                <textarea class="form-control" id="logDetails" name="logDetails" rows="4" maxlength="500" required></textarea>
+            </div>
+                <div class="col-md-6 mb-3">
+                    <label for="cropCode" class="form-label">Crop Code</label>
+                    <select class="form-control" id="cropCode" name="cropCode" required>
+                        <option value="">Select Crop Code</option>
+                        <!-- Crop options to be added dynamically with JavaScript -->
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-6 mb-3">
+                <label for="observedImage" class="form-label">Observed Image</label>
+                <input type="file" id="observedImage" name="observedImage" />
+                <img id="imagePreview" style="display: none; max-width: 100px; margin-top: 10px;" alt="Image Preview">
+            </div>
+            <div class="text-center mt-4">
+                <div class="text-center mt-4">
+                    <button type="button" class="btn btn-success me-2" id="btnSave">Save</button>
+                    <button i type="button" id="btnUpdate" class="btn btn-info me-2">Update</button>
+                    <button type="button" id="deleteButton" class="btn btn-danger">Delete</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="container mt-5">
+        <h3 class="text-center">Log List</h3>
+        <table class="table table-dark table-striped mt-3" id="logTable">
+            <thead>
+            <tr>
+                <th>Log Code</th>
+                <th>Log Date</th>
+                <th>Log Details</th>
+                <th>Crop Code</th>
+                <th>Observed Image</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody id="logTableBody">
+            <!-- Log data will be dynamically added here -->
+            </tbody>
+        </table>
+    </div>
+</div>
+<script src="../../js/jquery-3.7.1.min.js"></script>
+<script src="../../js/controller/logMonitoringController.js"></script>
+<script src="/js/main.js"></script>
+<!-- ===================ionicons=============== -->
+<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+
+</body>
+</html>
