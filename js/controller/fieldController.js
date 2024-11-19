@@ -418,7 +418,7 @@ function clearFields(){
 
 // ======================== search =================//
 
-$('btnSearch').click(function (){
+$('#btnSearch').click(function (){
     searchField();
 });
 
