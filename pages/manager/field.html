@@ -6,11 +6,13 @@
   <title>Green Shadow</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-  <link rel="stylesheet" href="/css/style.css">
-
+  <link rel="stylesheet" href="../../css/style.css">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<!--  <script src="../js/controller/dashboardController.js"></script>-->
 </head>
 <style>
   body{
+
     margin: 0;
     color: var(--black2);
   }
@@ -47,61 +49,61 @@
         </a>
       </li>
       <li>
-        <a href="../scientist/scientist-dashboard.html">
+        <a href="admin-dashboard.html">
           <span class="icon"><ion-icon name="home-outline"></ion-icon></span>
           <span class="title">Dashboard</span>
         </a>
       </li>
       <li>
-        <a href="staff-table.html">
+        <a href="staff.html">
           <span class="icon"><ion-icon name="people-outline"></ion-icon></span>
-          <span class="title">Staff Details</span>
+          <span class="title">Staff</span>
         </a>
       </li>
       <li>
-        <a href="../manager/field.html">
+        <a href="field.html">
           <span class="icon"><ion-icon name="map-outline"></ion-icon></span>
           <span class="title">Field</span>
         </a>
       </li>
       <li>
-        <a href="../manager/crop.html">
+        <a href="crop.html">
           <span class="icon"><ion-icon name="leaf-outline"></ion-icon></span>
           <span class="title">Crop</span>
         </a>
       </li>
       <li>
-        <a href="equipment-table.html">
+        <a href="equipment.html">
           <span class="icon"><ion-icon name="hammer-outline"></ion-icon></span>
-          <span class="title">Equipment Table</span>
+          <span class="title">Equipment</span>
         </a>
       </li>
       <li>
-        <a href="vehicle-table.html">
+        <a href="vehicle.html">
           <span class="icon"><ion-icon name="car-outline"></ion-icon></span>
-          <span class="title">Vehicle Details</span>
+          <span class="title">Vehicle</span>
         </a>
       </li>
       <li>
-        <a href="../manager/monitoring.html">
+        <a href="monitoring.html">
           <span class="icon"><ion-icon name="eye-outline"></ion-icon></span>
           <span class="title">Monitoring</span>
         </a>
       </li>
       <li>
-        <a href="#">
+        <a href="staffLogMonito.html">
           <span class="icon"><ion-icon name="people-outline"></ion-icon></span>
           <span class="title">Staff Monitoring</span>
         </a>
       </li>
       <li>
-        <a href="#">
+        <a href="fieldLogMonito.html">
           <span class="icon"><ion-icon name="people-outline"></ion-icon></span>
           <span class="title">Field Monitoring</span>
         </a>
       </li>
       <li>
-        <a href="#">
+        <a href="staffFieldDetails.html">
           <span class="icon"><ion-icon name="people-outline"></ion-icon></span>
           <span class="title">Staff Field Details</span>
         </a>
@@ -140,31 +142,86 @@
 
     </div>
   </div>
+  <!-- ======================Cards================================== -->
   <div class="container mt-5">
-    <h2 class="text-center">Equipment List</h2>
+    <h2 class="text-center">Field Management</h2>
+    <form id="fieldForm" class="bg-dark p-4 rounded text-white" enctype="multipart/form-data">
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <label for="fieldCode" class="form-label">Field Code</label>
+          <input type="text" class="form-control" id="fieldCode" name="fieldCode" placeholder="FED-000" required>
+        </div>
+        <div class="col-md-6 mb-3">
+          <label for="fieldName" class="form-label">Field Name</label>
+          <input type="text" class="form-control" id="fieldName" name="fieldName" required>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <label for="fieldLocation" class="form-label">Field Location</label>
+          <input type="text" class="form-control" id="fieldLocation" name="fieldLocation">
+        </div>
+        <div class="col-md-6 mb-3">
+          <label for="extentSize" class="form-label">Extent Size</label>
+          <input type="text" step="0.01" class="form-control" id="extentSize" name="extentSize" required>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <label for="fieldImage1" class="form-label">Field Image 1</label>
+          <input type="file" id="fieldImage1" name="fieldImage1" />
+        </div>
+        <div class="col-md-6 mb-3">
+          <label for="fieldImage2" class="form-label">Field Image 2</label>
+          <input type="file"  id="fieldImage2" name="fieldImage2" accept="image/*" />
+<!--          <div id="cropImagePreview" style="margin-top: 10px; width: 100%; max-width: 200px; height: auto; border: 1px solid #ccc; padding: 10px; text-align: center;">-->
+<!--            &lt;!&ndash; Image Preview will appear here &ndash;&gt;-->
+<!--          </div>-->
+        </div>
+
+      </div>
+      <div class="text-center mt-4">
+        <button type="button" class="btn btn-success me-2" id="btnSave">Save</button>
+        <button type="button" id="btnUpdate" class="btn btn-info me-2">Update</button>
+        <button type="button" id="btnDelete" class="btn btn-danger">Delete</button>
+      </div>
+    </form>
+
     <div class="mt-5">
-      <table class="table table-dark table-striped mt-3" id="equipmentTable">
+      <h3 class="text-center">Field List</h3>
+      <table class="table table-dark table-striped mt-3" id="fieldTable">
+        <!-- Search section -->
+        <div class="form-group d-flex mb-3">
+          <input type="text" class="form-control me-2" id="search" placeholder="Search Staff">
+          <button type="button"  id="btnSearch" class="btn btn-outline-light" onclick="searchField()">
+            <i class="fas fa-search"></i> <!-- FontAwesome search icon -->
+          </button>
+        </div>
         <thead>
         <tr>
-          <th>Equipment ID</th>
-          <th>Equipment Name</th>
-          <th>Type</th>
-          <th>Status</th>
-          <th>Field</th>
-          <th>Assigned Staff</th>
+          <th>Field Code</th>
+          <th>Field Name</th>
+          <th>Location</th>
+          <th>Extent Size</th>
+          <th>Field Image</th>
+          <th>Field Image</th>
+          <th>Actions</th>
         </tr>
         </thead>
-        <tbody>
+        <tbody id="fieldTableBody">
+        <!-- Dynamic field rows will be inserted here -->
         </tbody>
       </table>
     </div>
   </div>
 </div>
-<script src="../../js/jquery-3.7.1.min.js"></script>
-<script src="../../js/controller/equipmenttable.js"></script>
+  <script src="../../js/jquery-3.7.1.min.js"></script>
+<script src="../../js/controller/fieldController.js"></script>
 <script src="../../js/main.js"></script>
-<!-- ===================ionicons=============== -->
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<!-- ===================ionicons=============== -->
 <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
 <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 

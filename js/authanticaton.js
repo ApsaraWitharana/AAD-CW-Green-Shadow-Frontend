@@ -104,11 +104,11 @@ function userLogin() {
 
             // Redirect based on role
             if (role === "MANAGER") {
-                window.location.href = "pages/admin-dashboard.html";
+                window.location.href = "pages/manager/admin-dashboard.html";
             } else if (role === "SCIENTIST") {
-                window.location.href = "pages/scientist-dashboard.html";
+                window.location.href = "pages/scientist/scientist-dashboard.html";
             } else if (role === "ADMINISTER") {
-                window.location.href = "pages/administer-dashboard.html";
+                window.location.href = "pages/administer/administer-dashboard.html";
             }else {
                 window.location.href = "admin-dashboard.html";
             }

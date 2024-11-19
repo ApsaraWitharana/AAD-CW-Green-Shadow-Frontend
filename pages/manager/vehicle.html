@@ -12,6 +12,7 @@
 </head>
 <style>
     body{
+
         margin: 0;
         color: var(--black2);
     }
@@ -34,6 +35,7 @@
     #search{
         width: 250px;
     }
+
     #downloadPDF {
         background-color: green;
         color: white;
@@ -48,7 +50,6 @@
         display: inline-block;
         margin-left: 600px;
     }
-
 </style>
 <body>
 <!-- ======================navigating============== -->
@@ -86,7 +87,7 @@
                 </a>
             </li>
             <li>
-                <a href="#">
+                <a href="equipment.html">
                     <span class="icon"><ion-icon name="hammer-outline"></ion-icon></span>
                     <span class="title">Equipment</span>
                 </a>
@@ -157,85 +158,89 @@
     </div>
     <!-- ======================Cards================================== -->
     <div class="container mt-5">
-        <h2 class="text-center">Equipment Management</h2>
-        <form id="equipmentForm" class="bg-dark p-4 rounded text-white" enctype="multipart/form-data">
+        <h2 class="text-center">Vehicle Management</h2>
+        <form id="vehicleForm" class="bg-dark p-4 rounded text-white" enctype="multipart/form-data">
             <div class="row">
                 <div class="col-md-6 mb-3">
-                    <label for="equipmentId" class="form-label">Equipment ID</label>
-                    <input type="text" class="form-control" id="equipmentId" name="equipmentId" placeholder="EPT-000" required>
+                    <label for="vehicleCode" class="form-label">Vehicle Code</label>
+                    <input type="text" class="form-control" id="vehicleCode" name="vehicleCode" placeholder="VEH-000" required>
                 </div>
                 <div class="col-md-6 mb-3">
-                    <label for="equipmentName" class="form-label">Equipment Name</label>
-                    <input type="text" class="form-control" id="equipmentName" name="equipmentName" required maxlength="100">
+                    <label for="licensePlateNumber" class="form-label">License Plate Number</label>
+                    <input type="text" class="form-control" id="licensePlateNumber" name="licensePlateNumber" required>
                 </div>
             </div>
+
             <div class="row">
                 <div class="col-md-6 mb-3">
-                    <label for="type" class="form-label">Type</label>
-                    <input type="text" class="form-control" id="type" name="type" required maxlength="50">
+                    <label for="vehicleCategory" class="form-label">Vehicle Category</label>
+                    <input type="text" class="form-control" id="vehicleCategory" name="vehicleCategory">
                 </div>
                 <div class="col-md-6 mb-3">
+                    <label for="fuelType" class="form-label">Fuel Type</label>
+                    <input type="text" class="form-control" id="fuelType" name="fuelType">
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6 mb-3">
                     <label for="status" class="form-label">Status</label>
-                    <select class="form-control" id="status" name="status" required>
-                        <option value="">Select Status</option>
+                    <select class="form-control" id="status" name="status">
                         <option value="Available">Available</option>
                         <option value="Out of Service">Out of Service</option>
                     </select>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-md-6 mb-3">
-                    <label for="fieldCode" class="form-label">Associated Field</label>
-                    <select class="form-control" id="fieldCode" name="fieldCode" required>
-                        <option value="">Select Field</option>
-                        <!-- Options to be dynamically loaded from backend -->
-                    </select>
-                </div>
                 <div class="col-md-6 mb-3">
                     <label for="staffId" class="form-label">Assigned Staff</label>
-                    <select class="form-control" id="staffId" name="staffId" required>
+                    <select class="form-control" id="staffId" name="staffId">
+                        <!-- Populate with staff options -->
                         <option value="">Select Staff</option>
                         <!-- Options to be dynamically loaded from backend -->
                     </select>
                 </div>
             </div>
+
+            <div class="mb-3">
+                <label for="remarks" class="form-label">Remarks</label>
+                <textarea class="form-control" id="remarks" name="remarks" rows="3"></textarea>
+            </div>
             <div class="text-center mt-4">
                 <button type="button" class="btn btn-success me-2" id="btnSave">Save</button>
                 <button type="button" class="btn btn-info me-2" id="btnUpdate">Update</button>
-                <button type="button" class="btn btn-danger" id="btnDelete" onclick="deleteEquipment()">Delete</button>
+                <button type="button" class="btn btn-danger" onclick="deleteVehicle()">Delete</button>
             </div>
         </form>
+
         <div class="mt-5">
-            <h3 class="text-center">Equipment List</h3>
-            <table class="table table-dark table-striped mt-3" id="equipmentTable">
-                <!-- Search section -->
+            <h3 class="text-center">Vehicle List</h3>
+            <table class="table table-dark table-striped mt-3" id="vehicleTable">
                 <div class="form-group d-flex mb-3">
-                    <input type="text" class="form-control me-2" id="search" placeholder="Search Staff">
-                    <button type="button"  id="btnSearch" class="btn btn-outline-light" onclick="searchEquipment()">
+                    <input type="text" class="form-control me-2" id="search" placeholder="Search Vehicle">
+                    <button type="button" id="btnSearch" class="btn btn-outline-light" onclick="searchVehicle()">
                         <i class="fas fa-search"></i> <!-- FontAwesome search icon -->
                     </button>
-                    <button id="downloadPDF">Download Staff Details PDF</button>
+                    <button id="downloadPDF">Download Vehicle Details PDF</button>
                 </div>
                 <thead>
                 <tr>
-                    <th>Equipment ID</th>
-                    <th>Equipment Name</th>
-                    <th>Type</th>
+                    <th>Vehicle Code</th>
+                    <th>License Plate</th>
+                    <th>Category</th>
+                    <th>Fuel Type</th>
                     <th>Status</th>
-                    <th>Assigned Field</th>
                     <th>Assigned Staff</th>
+                    <th>Remarks</th>
                     <th>Actions</th>
                 </tr>
                 </thead>
-                <tbody id="equipmentTableBody">
+                <tbody id="vehicleTableBody">
                 </tbody>
             </table>
         </div>
     </div>
 </div>
-<!--=====================main ja file===============-->
-<script src="../js/jquery-3.7.1.min.js"></script>
-<script src="../js/controller/equipmentController.js"></script>
+<script src="../../js/jquery-3.7.1.min.js"></script>
+<script src="../../js/controller/vehicleController.js"></script>
 <script src="/js/main.js"></script>
 <!--==========pdf js==========-->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
