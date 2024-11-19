@@ -305,7 +305,7 @@ function deleteEquipment(id) {
             // Perform the DELETE request
             $.ajax({
                 url: `http://localhost:8080/api/v1/equipment/${id}`,
-                type: 'DELETE',
+                method: 'DELETE',
                 headers: {
                     "Authorization": "Bearer " + localStorage.getItem("token")
                 },

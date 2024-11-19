@@ -7,6 +7,7 @@ $(document).ready(function () {
 
     $('#btnAdd').click(function () {
         const formData = {
+            sl_id:$('#staffLogCode').val(),
             logCode: $('#logCode1').val(),
             cropCode: $('#cropCode').val(),
             logDate: $("#workDate").val(),
@@ -56,20 +57,24 @@ $(document).ready(function () {
             success: function (response) {
                 console.log('All Log Details:', response);
 
+                // Clear the table body
                 $('#staffLogTableBody').empty();
+
+                // Validate response format and populate table
                 if (Array.isArray(response)) {
                     response.forEach(function (item) {
-                        $('#staffLogTableBody').append(
-                            `<tr>
-                        <td>${item.staff.id}</td>
-                        <td>${item.staff.firstName}</td>
-                        <td>${item.description}</td>
-                        <td>${item.workStaffCount}</td>
-                        <td>${item.logDate}</td>
-                    </tr>
-                  `);
+                        $('#staffLogTableBody').append(`
+                        <tr>
+                            <td>${item.sl_id}</td>
+                            <td>${item.firstName}</td>
+                            <td>${item.description}</td>
+                            <td>${item.workStaffCount}</td>
+                            <td>${item.logDate}</td>
+                        </tr>
+                    `);
                     });
                 } else {
+                    // Handle unexpected response format
                     console.error("Invalid response format:", response);
                     Swal.fire({
                         title: 'Error!',
@@ -80,7 +85,10 @@ $(document).ready(function () {
                 }
             },
             error: function (error) {
-                const message = error.responseJSON?.message || "An error occurred while fetching field logs!";
+                // Extract error message from response
+                const message = error.responseJSON?.message || "An error occurred while fetching staff logs!";
+                console.error('AJAX error:', error);
+
                 Swal.fire({
                     title: 'Error!',
                     text: message,
@@ -178,7 +186,7 @@ $(document).ready(function () {
                             <td>${data.cropCode}</td>
                             <td>${data.logDetails}</td>
                             <td>${data.logDate}</td>
-                            <td>${data.observedImage}</td>
+                        <td><img src="data:image/jpeg;base64,${data.observedImage}" alt="Observed Image" width="50" height="50"></td>
                         </tr>
                     `);
                     });

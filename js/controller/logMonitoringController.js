@@ -1,5 +1,6 @@
 $(document).ready(function () {
-    getAllField();
+    clearLogFields();
+    getAllLogField();
     loadCropIds();
 });
 $('#btnSave').click(function () {
@@ -36,8 +37,8 @@ $('#btnSave').click(function () {
                     confirmButtonColor: '#d33',
                     cancelButtonColor: '#3085d6'
                 });
-                clearFields();
-                getAllField();
+                clearLogFields();
+                getAllLogField();
             } else {
                 Swal.fire({
                     title: 'Unexpected Status Code',
@@ -61,7 +62,7 @@ $('#btnSave').click(function () {
 
 // ======================== get all ==============================//
 
-function getAllField() {
+function getAllLogField() {
     $.ajax({
         url: 'http://localhost:8080/api/v1/log',
         type: 'GET',
@@ -76,10 +77,10 @@ function getAllField() {
                         <td>${log.logCode}</td>
                         <td>${log.logDate}</td>
                         <td>${log.logDetails}</td>
-                        <td><img src="${log.observedImage}" alt="Observed Image" width="50"></td>
+                        <td><img src="data:image/jpeg;base64,${log.observedImage}" alt="Observed Image" width="50" height="50"></td>
                         <td>${log.cropCode}</td>
                        <td>
-            <button id="btnUpdate" class="btn btn-info" onclick="populateForm('${log.logCode}')">
+            <button id="btnUpdate1" class="btn btn-info" onclick="populateForm('${log.logCode}')">
                 <ion-icon name="create-outline"></ion-icon> 
             </button>
             <button  class="btn btn-danger" onclick="deleteLog('${log.logCode}')">
@@ -139,7 +140,7 @@ function deleteLog(logCode) {
                         cancelButtonColor: '#3085d6'
                     });
 
-                    getAllField();
+                    getAllLogField();
 
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
@@ -179,17 +180,43 @@ $('#logTableBody>tr').click(function () {
 
 });
 
+function populateForm(logCode) {
 
+    $.ajax({
+        url: `http://localhost:8080/api/v1/log/${logCode}`,
+        type: "GET",
+        headers: {
+            "Authorization": "Bearer " + localStorage.getItem("token")
+        },
+        success: function (log) {
+    $('#logCode').val(log.logCode);
+    $('#logDate').val(log.logDate);
+    $('#logDetails').val(log.logDetails);
+    $('#cropCode').val(log.cropCode);
 
-function populateForm(logCode, logDate, logDetails, cropCode) {
-    $('#logCode').val(logCode);
-    $('#logDate').val(logDate);
-    $('#logDetails').val(logDetails);
-    $('#cropCode').val(cropCode);
+// Display the image preview
+//             if (crop.cropImage) {
+//                 $("#imagePreview").attr("src", `data:image/jpeg;base64,${log.im}`);
+//             }
+
+            // Disable the "Save" button and enable the "Update" button
+            $("#btnSave").prop("disabled", true);
+            $("#btnUpdate").prop("disabled", false);
+        },
+        error: function (error) {
+            console.error("Error fetching crop details:", error.responseJSON?.message || error);
+            Swal.fire({
+                title: 'Error!',
+                text: 'Unable to fetch crop details. Please try again.',
+                icon: 'error',
+                confirmButtonText: 'OK'
+            });
+        }
+    });
 }
 // ====================== clear====================//
 
-function clearFields() {
+function  clearLogFields() {
     $('#logCode').val('');
     $('#logDate').val('');
     $('#logDetails').val('');
@@ -197,9 +224,68 @@ function clearFields() {
     $('#cropCode').val('');
 }
 
-//===================== row ===============//
+//===================== update ===============//
+$("#btnUpdate").click(function (){
+    let logCode = $('#logCode').val();
+    let updateLogDate = $('#logDate').val();
+    let updateLogDetails = $('#logDetails').val();
+    let updateObservedImage =  $('#observedImage').prop('files')[0];
+    let updateCropCode =  $('#cropCode').val();
 
+    var formData = new FormData();
+    formData.append('logCode', logCode);
+    formData.append('updateLogDate', updateLogDate);
+    formData.append('updateLogDetails',updateLogDetails);
+    formData.append('updateObservedImage', updateObservedImage);
+    formData.append('updateCropCode', updateCropCode);
 
+// Ajax request
+    $.ajax({
+        url: `http://localhost:8080/api/v1/log/${logCode}`,
+        type: "PATCH",
+        processData: false,
+        contentType: false,
+        data: formData,
+        headers: {
+            "Authorization": "Bearer " + localStorage.getItem("token")
+        },
+        success: function (resp, textStatus, jqxhr) {
+            if (jqxhr.status === 200 || jqxhr.status === 201) {
+                Swal.fire({
+                    title: 'Success!',
+                    text: 'Log update successfully!',
+                    icon: 'success',
+                    background: 'black',
+                    color: 'white',
+                    confirmButtonColor: '#d33',
+                    cancelButtonColor: '#3085d6'
+                });
+                clearLogFields();
+                getAllLogField();
+
+            } else {
+                Swal.fire({
+                    title: 'Unexpected Status Code',
+                    text: 'Received status code: ' + jqxhr.status,
+                    icon: 'warning',
+                    confirmButtonText: 'OK'
+                });
+            }
+        },
+        error: function (xhr, status, error) {
+            console.error("Error Response: ", xhr.responseText);
+            Swal.fire({
+                title: 'Error!',
+                text: 'Log update failed!',
+                icon: 'error',
+                background: 'black',
+                color: 'white',
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6'
+            });
+        }
+    });
+});
 //================== lord crop ids ==============================//
 function loadCropIds() {
     $.ajax({

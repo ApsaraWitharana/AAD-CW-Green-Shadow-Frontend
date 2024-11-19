@@ -1,8 +1,8 @@
 $(document).ready(function (){
-    loadLogData();
     loadStaffIds();
     loadFieldIds();
     generateLogCode();
+    appendToTable(response);
 });
 
 // ====================== save staff field details =========================//
@@ -15,6 +15,7 @@ $('#btnAdd').click(function () {
         field: {
             fieldCode: $('#fieldCode').val()
         },
+        sf_id:$('#logCode').val(),
         status: $('#status').val(),
         description: $('#description1').val(),
         workStaffCount: parseInt($('#workFieldsCount1').val(), 10),
@@ -30,7 +31,7 @@ $('#btnAdd').click(function () {
         success: function (response) {
             alert('Log details saved successfully!');
             console.log('Success:', response);
-            loadLogData();
+            appendToTable();
         },
         error: function (xhr, status, error) {
             alert('Failed to save log details!');
@@ -103,52 +104,36 @@ function loadFieldIds() {
         }
     });
 }
-
-// =============== get all =================//
-
-function loadLogData() {
-    $.ajax({
-        url: "http://localhost:8080/api/v1/staff-field-details/get",
-        method: "GET",
-        contentType: 'application/json',
-        headers: { "Authorization": "Bearer " + localStorage.getItem("token") },
-        success: function (response) {
-            console.log("Staff Field:", response);
-            $("#staffFieldTableBody").empty();
-            if (Array.isArray(response)) {
-                response.forEach(function (item) {
-                    $('#staffFieldTableBody').append(`
-                        <tr>
-                            <td>${item.staff.id}</td>
-                            <td>${item.staff.firstName}</td>
-                            <td>${item.status}</td>
-                            <td>${item.date}</td>
-                            <td>${item.workStaffCount}</td>
-                            <td>${item.description}</td>
-                        </tr>
-                    `);
-                });
-            } else {
-                console.error("Invalid response format:", response);
-                Swal.fire({
-                    title: 'Error!',
-                    text: 'Unexpected response format from server!',
-                    icon: 'error',
-                    confirmButtonText: 'OK'
-                });
-            }
+//======================
+function appendToTable() {
+    const data = {
+        staff: {
+            id: $('#staffId').val(),
+            firstName: $('#staffName').val()
         },
-        error: function (error) {
-            const message = error.responseJSON?.message || "An error occurred while fetching field logs!";
-            Swal.fire({
-                title: 'Error!',
-                text: message,
-                icon: 'error',
-                confirmButtonText: 'OK'
-            });
-        }
-    });
+        field: {
+            fieldCode: $('#fieldCode').val()
+        },
+        sf_id:$('#logCode').val(),
+        status: $('#status').val(),
+        description: $('#description1').val(),
+        workStaffCount: parseInt($('#workFieldsCount1').val(), 10),
+        date: $('#logDate').val()
+    };
+
+    const row = `
+        <tr>
+            <td>${data.staff.id}</td>
+            <td>${data.staff.firstName}</td>
+            <td>${data.status}</td>
+            <td>${data.description}</td>
+            <td>${data.date}</td>
+            <td>${data.workStaffCount}</td>
+             </tr>`;
+    $("#staffFieldTableBody").append(row);
 }
+
+
 
 //====================== generate log code ==================================//
 function generateLogCode() {

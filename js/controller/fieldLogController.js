@@ -87,6 +87,19 @@ $(document).ready(function () {
             }
         });
     }
+    //====================== image preview ===========//
+    const fileInput = document.getElementById('fileInput');
+    fileInput.addEventListener('change', function() {
+        const file = this.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const base64Image = e.target.result; // Base64-encoded string
+                document.getElementById('observedImage').src = base64Image;
+            };
+            reader.readAsDataURL(file);
+        }
+    });
 
 
     function getAllLog() {
@@ -110,7 +123,7 @@ $(document).ready(function () {
                             <td>${data.cropCode}</td>
                             <td>${data.logDetails}</td>
                             <td>${data.logDate}</td>
-                            <td>${data.observedImage}</td>
+                        <td><img src="data:image/jpeg;base64,${data.observedImage}" alt="Observed Image" width="50" height="50"></td>
                         </tr>
                     `);
                     });
