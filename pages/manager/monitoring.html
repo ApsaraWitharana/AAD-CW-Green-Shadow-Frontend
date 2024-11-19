@@ -146,21 +146,21 @@
             <div class="row">
             <div class="col-md-6 mb-3">
                 <label for="logCode" class="form-label">Log Code</label>
-                <input type="text" class="form-control" id="logCode" name="logCode" required>
+                <input type="text" class="form-control" id="logCode" name="logCode" placeholder="LOG-000">
             </div>
             <div class="col-md-6 mb-3">
                 <label for="logDate" class="form-label">Log Date</label>
-                <input type="date" class="form-control" id="logDate" name="logDate" required>
+                <input type="date" class="form-control" id="logDate" name="logDate" >
             </div>
             </div>
             <div class="row">
             <div class="col-md-6 mb-3">
                 <label for="logDetails" class="form-label">Log Details</label>
-                <textarea class="form-control" id="logDetails" name="logDetails" rows="4" maxlength="500" required></textarea>
+                <textarea class="form-control" id="logDetails" name="logDetails" rows="4" maxlength="500" ></textarea>
             </div>
                 <div class="col-md-6 mb-3">
                     <label for="cropCode" class="form-label">Crop Code</label>
-                    <select class="form-control" id="cropCode" name="cropCode" required>
+                    <select class="form-control" id="cropCode" name="cropCode" >
                         <option value="">Select Crop Code</option>
                         <!-- Crop options to be added dynamically with JavaScript -->
                     </select>
@@ -168,8 +168,8 @@
             </div>
             <div class="col-md-6 mb-3">
                 <label for="observedImage" class="form-label">Observed Image</label>
-                <input type="file" id="observedImage" name="observedImage" />
-                <img id="imagePreview" style="display: none; max-width: 100px; margin-top: 10px;" alt="Image Preview">
+                <input type="file"  class="form-control"  id="observedImage" name="observedImage"  accept="image/*" />
+                <div id="ImagePreview" style="margin-top: 10px; width: 100%; max-width: 200px; height: auto; border: 1px solid #ccc; padding: 10px; text-align: center;">
             </div>
             <div class="text-center mt-4">
                 <div class="text-center mt-4">
