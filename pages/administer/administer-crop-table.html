@@ -1,10 +1,197 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Green Shadow</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 </head>
+<style>
+    body {
+        margin: 0;
+        color: var(--black2);
+    }
+    .row-center .form-group {
+        display: flex;
+        justify-content: center;
+    }
+    .search-bar {
+        display: flex;
+        align-items: center;
+    }
+    #staffTable {
+        color: white;
+    }
+    .container {
+        margin-right: 0;
+        margin-left: 0;
+    }
+    #search {
+        width: 250px;
+    }
+    #downloadPDF {
+        background-color: green;
+        color: white;
+        padding: 10px 20px;
+        border-radius: 25px;
+        border: none;
+        cursor: pointer;
+        font-size: 14px;
+        transition: background-color 0.3s, transform 0.3s;
+        text-align: left;
+        justify-content:left;
+        display: inline-block;
+        margin-left: 600px;
+    }
+
+</style>
 <body>
-$END$
+<!-- ======================navigating============== -->
+<div class="container">
+    <div class="navigating">
+        <ul>
+            <li>
+                <a href="#">
+                    <span class="icon"><ion-icon name=""></ion-icon></span>
+                    <span class="title1">GREEN SHADOW</span>
+                </a>
+            </li>
+            <li>
+                <a href="admin-dashboard.html">
+                    <span class="icon"><ion-icon name="home-outline"></ion-icon></span>
+                    <span class="title">Dashboard</span>
+                </a>
+            </li>
+            <li>
+                <a href="staff.html">
+                    <span class="icon"><ion-icon name="people-outline"></ion-icon></span>
+                    <span class="title">Staff</span>
+                </a>
+            </li>
+            <li>
+                <a href="field.html">
+                    <span class="icon"><ion-icon name="map-outline"></ion-icon></span>
+                    <span class="title">Field</span>
+                </a>
+            </li>
+            <li>
+                <a href="crop.html">
+                    <span class="icon"><ion-icon name="leaf-outline"></ion-icon></span>
+                    <span class="title">Crop</span>
+                </a>
+            </li>
+            <li>
+                <a href="equipment.html">
+                    <span class="icon"><ion-icon name="hammer-outline"></ion-icon></span>
+                    <span class="title">Equipment</span>
+                </a>
+            </li>
+            <li>
+                <a href="vehicle.html">
+                    <span class="icon"><ion-icon name="car-outline"></ion-icon></span>
+                    <span class="title">Vehicle</span>
+                </a>
+            </li>
+            <li>
+                <a href="monitoring.html">
+                    <span class="icon"><ion-icon name="eye-outline"></ion-icon></span>
+                    <span class="title">Monitoring</span>
+                </a>
+            </li>
+            <li>
+                <a href="staffLogMonito.html">
+                    <span class="icon"><ion-icon name="people-outline"></ion-icon></span>
+                    <span class="title">Staff Monitoring</span>
+                </a>
+            </li>
+            <li>
+                <a href="fieldLogMonito.html">
+                    <span class="icon"><ion-icon name="people-outline"></ion-icon></span>
+                    <span class="title">Field Monitoring</span>
+                </a>
+            </li>
+            <li>
+                <a href="staffFieldDetails.html">
+                    <span class="icon"><ion-icon name="people-outline"></ion-icon></span>
+                    <span class="title">Staff Field Details</span>
+                </a>
+            <li>
+            <li>
+                <a href="#">
+                    <span class="icon"><ion-icon name="log-out-outline"></ion-icon></span>
+                    <span class="title">Log Out</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+<!-- =========================================main=============================================== -->
+<div class="main">
+    <div class="topbar">
+        <div class="toggle">
+            <ion-icon name="menu"></ion-icon>
+        </div>
+        <label for="date" id="date"></label>
+
+        <div class="search">
+            <label>
+                <input type="text" placeholder="Search here..">
+            </label>
+        </div>
+
+        <label for="time" id="time"></label>
+
+        <div class="user">
+            <img src="/image/alina.jpg" alt="">
+            <p style="color: black; font-size: 8px; margin-top: 10px;">User Sachi</p>
+        </div>
+    </div>
+
+    <!-- ======================Crop Form================================== -->
+    <div class="container mt-5">
+        <h2 class="text-center">Crop Management</h2>
+        <!-- ======================Crop Table================================== -->
+        <div class="mt-5">
+            <h3 class="text-center">Crop List</h3>
+            <table class="table table-dark table-striped mt-3" id="cropTable">
+                <div class="form-group d-flex mb-3">
+                    <input type="text" class="form-control me-2" id="search" placeholder="Search Crop">
+                    <button type="button" id="btnSearch" class="btn btn-outline-light" onclick="searchCrop()">
+                        <i class="fas fa-search"></i> <!-- FontAwesome search icon -->
+                    </button>
+                    <button id="downloadPDF">Download Crop Details PDF</button>
+                </div>
+                <thead>
+                <tr>
+                    <th>Crop Code</th>
+                    <th>Common Name</th>
+                    <th>Scientific Name</th>
+                    <th>Category</th>
+                    <th>Season</th>
+                    <th>Field Code</th>
+                    <th>Image</th>
+                </tr>
+                </thead>
+                <tbody id="cropTableBody">
+                <!-- Rows populated dynamically -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<script src="../../js/jquery-3.7.1.min.js"></script>
+<script src="../../js/controller/croptable.js"></script>
+<script src="../../js/main.js"></script>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<!--==========pdf js==========-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.21/jspdf.plugin.autotable.min.js"></script>
+<!--===========icons js ==============-->
+<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 </body>
 </html>
