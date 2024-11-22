@@ -96,3 +96,73 @@ $('#cropImage').on('change', function () {
     }
 });
 
+// ======================== field validating ==============================//
+// Trigger validation on input
+$(document).ready(function () {
+    $('#fieldCode').on('input', validateFieldCode);
+    $('#fieldName').on('input', checkNameField);
+    $('#fieldLocation').on('input', validateFieldLocation);
+    $('#extentSize').on('input', validateExtentSize);
+});
+
+// Validate Field Code
+function validateFieldCode() {
+    var fieldCode = $('#fieldCode').val();
+    var fieldCodePattern = /^FED-\d{3}$/;
+    var errorFieldCodeMessage = $('#errorFieldCodeMessage');
+
+    if (!fieldCodePattern.test(fieldCode)) {
+        errorFieldCodeMessage.show().text('Field Code must match the format FED-000.');
+        $('#fieldCode').css({ 'border': '2px solid red' });
+    } else {
+        errorFieldCodeMessage.hide();
+        $('#fieldCode').css({ 'border': '2px solid green' });
+    }
+}
+
+// Validate Field Name
+function checkNameField() {
+    var fieldName = $('#fieldName').val();
+    var fieldNamePattern = /^\s*\S.{3,16}\S\s*$/;
+    var errorFieldNameMessage = $('#errorFieldNameMessage');
+
+    if (!fieldNamePattern.test(fieldName)) {
+        errorFieldNameMessage.show().text('Field Name must be between 5 to 18 characters.');
+        $('#fieldName').css({ 'border': '2px solid red' });
+    } else {
+        errorFieldNameMessage.hide();
+        $('#fieldName').css({ 'border': '2px solid green' });
+    }
+}
+
+// Validate Field Location
+function validateFieldLocation() {
+    var fieldLocation = $('#fieldLocation').val();
+    var locationPattern = /^[A-Za-z\s\-]{1,10}$/; // Letters, spaces, hyphens, max 10 chars
+    var errorLocationMessage = $('#errorFieldLocationMessage');
+
+    if (!locationPattern.test(fieldLocation)) {
+        errorLocationMessage.show().text('Field Location must only contain letters, spaces, or hyphens (max 10 characters).');
+        $('#fieldLocation').css({ 'border': '2px solid red' });
+    } else {
+        errorLocationMessage.hide();
+        $('#fieldLocation').css({ 'border': '2px solid green' });
+    }
+}
+
+// Validate Extent Size
+function validateExtentSize() {
+    var extentSize = $('#extentSize').val();
+    var extentPattern = /^\d+(\.\d{1,2})?$/; // Numeric value, optional 2 decimal places
+    var errorExtentSizeMessage = $('#errorExtentSizeMessage');
+
+    if (!extentPattern.test(extentSize)) {
+        errorExtentSizeMessage.show().text('Extent Size must be a number with up to 2 decimal places.');
+        $('#extentSize').css({ 'border': '2px solid red' });
+    } else {
+        errorExtentSizeMessage.hide();
+        $('#extentSize').css({ 'border': '2px solid green' });
+    }
+}
+
+

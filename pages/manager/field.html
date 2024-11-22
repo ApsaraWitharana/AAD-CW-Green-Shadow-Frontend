@@ -150,21 +150,24 @@
         <div class="col-md-6 mb-3">
           <label for="fieldCode" class="form-label">Field Code</label>
           <input type="text" class="form-control" id="fieldCode" name="fieldCode" placeholder="FED-000" required>
+          <div id="errorFieldCodeMessage" style="display: none; color: red;"></div>
         </div>
         <div class="col-md-6 mb-3">
           <label for="fieldName" class="form-label">Field Name</label>
-          <input type="text" class="form-control" id="fieldName" name="fieldName" required>
+          <input type="text" class="form-control" id="fieldName" name="fieldName" onkeyup="checkNameField()" required>
+          <div id="errorFieldNameMessage" style="display: none; color: red;">Field Name must be between 5 to 18 characters</div>
         </div>
       </div>
-
       <div class="row">
         <div class="col-md-6 mb-3">
           <label for="fieldLocation" class="form-label">Field Location</label>
           <input type="text" class="form-control" id="fieldLocation" name="fieldLocation">
+          <div id="errorFieldLocationMessage" style="display: none; color: red;"></div>
         </div>
         <div class="col-md-6 mb-3">
           <label for="extentSize" class="form-label">Extent Size</label>
           <input type="text" step="0.01" class="form-control" id="extentSize" name="extentSize" required>
+          <div id="errorExtentSizeMessage" style="display: none; color: red;"></div>
         </div>
       </div>
 
@@ -218,6 +221,7 @@
   </div>
 </div>
   <script src="../../js/jquery-3.7.1.min.js"></script>
+<script src="../../js/validating/validate.js"></script>
 <script src="../../js/controller/fieldController.js"></script>
 <script src="../../js/main.js"></script>
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
