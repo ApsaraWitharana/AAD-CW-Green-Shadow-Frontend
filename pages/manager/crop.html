@@ -159,21 +159,25 @@
         <div class="col-md-6 mb-3">
           <label for="cropCode" class="form-label">Crop Code</label>
           <input type="text" class="form-control" id="cropCode" name="cropCode" placeholder="CRP-000" required pattern="^CRP-\d{3}$" title="Format: CRP-001">
+          <div class="errorMassageId" style="display: none;color: red;"></div>
         </div>
         <div class="col-md-6 mb-3">
           <label for="cropCommonName" class="form-label">Crop Common Name</label>
-          <input type="text" class="form-control" id="cropCommonName" name="cropCommonName" required maxlength="100">
+          <input type="text" class="form-control" id="cropCommonName" name="cropCommonName" onkeyup="checkCommonNameField()" required maxlength="100">
+          <div class="errorMassageCommonName" style="display: none;color: red;"></div>
         </div>
       </div>
 
       <div class="row">
         <div class="col-md-6 mb-3">
           <label for="cropScientificName" class="form-label">Crop Scientific Name</label>
-          <input type="text" class="form-control" id="cropScientificName" name="cropScientificName" required maxlength="100">
+          <input type="text" class="form-control" id="cropScientificName" name="cropScientificName" required maxlength="20">
+          <div class="errorMassageScientificName" style="display: none;color: red;"></div>
         </div>
         <div class="col-md-6 mb-3">
           <label for="category" class="form-label">Category</label>
-          <input type="text" class="form-control" id="category" name="category" required maxlength="50">
+          <input type="text" class="form-control" id="category" name="category" required maxlength="10">
+          <div class="errorMassageCategory" style="display: none; color: red;"></div>
         </div>
       </div>
 
@@ -181,6 +185,7 @@
         <div class="col-md-4 mb-3">
           <label for="cropSeason" class="form-label">Crop Season</label>
           <input type="text" class="form-control" id="cropSeason" name="cropSeason" required maxlength="50">
+          <div class="errorMassageCropSeason" style="display: none;color: red;"></div>
         </div>
         <div class="col-md-4 mb-3">
           <label for="fieldCode" class="form-label">Field Code</label>
@@ -235,6 +240,7 @@
   </div>
 </div>
 <script src="../../js/jquery-3.7.1.min.js"></script>
+<script src="../../js/validating/validate.js"></script>
 <script src="../../js/controller/cropController.js"></script>
 <script src="/js/main.js"></script>
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
