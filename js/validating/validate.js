@@ -165,4 +165,69 @@ function validateExtentSize() {
     }
 }
 
+// ============================== vehicle validate =======================//
 
+
+// Trigger validation on input
+$(document).ready(function () {
+    $('#vehicleCode').on('input', validateVehicleCode);
+    $('#licensePlateNumber').on('input', validateLicensePlate);
+    $('#vehicleCategory').on('input', validateCategory);
+    $('#fuelType').on('input', validateFuelType);
+});
+
+function validateVehicleCode() {
+    let vehicleCode = $('#vehicleCode').val();
+    let vehicleCodePattern = /^VEH-\d{3}$/;
+    let errorVehicleCodeMessage = $('.errorVehicleCodeMessage');
+
+    if (!vehicleCodePattern.test(vehicleCode)) {
+        errorVehicleCodeMessage.show().text('Vehicle Code must match the format VEH-000.');
+        $('#vehicleCode').css({ 'border': '2px solid red' });
+    } else {
+        errorVehicleCodeMessage.hide();
+        $('#vehicleCode').css({ 'border': '2px solid green' });
+    }
+}
+
+function validateLicensePlate() {
+    let licensePlate = $('#licensePlateNumber').val();
+    let licensePlatePattern = /^[A-Z0-9]{1,7}$/; // Alphanumeric, 1 to 7 characters
+    let errorLicensePlateMessage = $('.errorLicensePlateMessage');
+
+    if (!licensePlatePattern.test(licensePlate)) {
+        errorLicensePlateMessage.show().text('License Plate must be alphanumeric and 1-7 characters long.');
+        $('#licensePlateNumber').css({ 'border': '2px solid red' });
+    } else {
+        errorLicensePlateMessage.hide();
+        $('#licensePlateNumber').css({ 'border': '2px solid green' });
+    }
+}
+
+function validateCategory() {
+    let category = $('#vehicleCategory').val();
+    let categoryPattern = /^[A-Za-z\s]+$/; // Only alphabetic characters and spaces
+    let errorCategoryMessage = $('.errorCategoryMessage');
+
+    if (!categoryPattern.test(category)) {
+        errorCategoryMessage.show().text('Vehicle Category must contain only letters and spaces.');
+        $('#vehicleCategory').css({ 'border': '2px solid red' });
+    } else {
+        errorCategoryMessage.hide();
+        $('#vehicleCategory').css({ 'border': '2px solid green' });
+    }
+}
+
+function validateFuelType() {
+    let fuelType = $('#fuelType').val();
+    let fuelTypePattern = /^[A-Za-z\s]+$/; // Only alphabetic characters and spaces
+    let errorFuelTypeMessage = $('.errorFuelTypeMessage');
+
+    if (!fuelTypePattern.test(fuelType)) {
+        errorFuelTypeMessage.show().text('Fuel Type must contain only letters and spaces.');
+        $('#fuelType').css({ 'border': '2px solid red' });
+    } else {
+        errorFuelTypeMessage.hide();
+        $('#fuelType').css({ 'border': '2px solid green' });
+    }
+}

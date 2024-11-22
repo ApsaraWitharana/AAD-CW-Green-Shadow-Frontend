@@ -164,10 +164,12 @@
                 <div class="col-md-6 mb-3">
                     <label for="vehicleCode" class="form-label">Vehicle Code</label>
                     <input type="text" class="form-control" id="vehicleCode" name="vehicleCode" placeholder="VEH-000" required>
+                    <div class="errorVehicleCodeMessage" style="display: none; color: red;"></div>
                 </div>
                 <div class="col-md-6 mb-3">
                     <label for="licensePlateNumber" class="form-label">License Plate Number</label>
                     <input type="text" class="form-control" id="licensePlateNumber" name="licensePlateNumber" required>
+                    <div class="errorLicensePlateMessage" style="display: none; color: red;"></div>
                 </div>
             </div>
 
@@ -175,10 +177,12 @@
                 <div class="col-md-6 mb-3">
                     <label for="vehicleCategory" class="form-label">Vehicle Category</label>
                     <input type="text" class="form-control" id="vehicleCategory" name="vehicleCategory">
+                    <div class="errorCategoryMessage" style="display: none; color: red;"></div>
                 </div>
                 <div class="col-md-6 mb-3">
                     <label for="fuelType" class="form-label">Fuel Type</label>
                     <input type="text" class="form-control" id="fuelType" name="fuelType">
+                    <div class="errorFuelTypeMessage" style="display: none; color: red;"></div>
                 </div>
             </div>
 
@@ -240,6 +244,7 @@
     </div>
 </div>
 <script src="../../js/jquery-3.7.1.min.js"></script>
+<script src="../../js/validating/validate.js"></script>
 <script src="../../js/controller/vehicleController.js"></script>
 <script src="/js/main.js"></script>
 <!--==========pdf js==========-->
