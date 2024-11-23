@@ -571,3 +571,66 @@ function  validateMonitoLogDetails(){
         $('#logDetails1').css({ 'border': '2px solid green' });
     }
 }
+
+// ======================== staff log validate ================================//
+
+$(document).ready(function () {
+    $('#logCode1').on('input', validateStaffLogCode);
+    $('#workDescription').on('input', validateLogWorkDescriptionDescription);
+    $('#workStaffCount').on('input', validateLogWorkStaffCount);
+    $('#staffDescription').on('input', validateMonitoLogStaffDescription);
+});
+
+function  validateStaffLogCode(){
+    let id = $('#logCode1').val();
+    let logCodePattern = /^LOG-\d{3}$/;
+    let errorLogCodeMessage = $('.errorStaffLogCodeMessage');
+
+    if (!logCodePattern.test(id)) {
+        errorLogCodeMessage.show().text('Log Code must match the format LOG-000.');
+        $('#logCode1').css({ 'border': '2px solid red' });
+    } else {
+        errorLogCodeMessage.hide();
+        $('#logCode1').css({'border': '2px solid green'});
+    }
+}
+
+function validateLogWorkStaffCount() {
+    let workStaffCount = $('#workStaffCount').val();
+    let staffCountPattern = /^[0-9]{2,3}$/;
+    let errorStaffCountMessage = $('.errorMonitoLogStaffWordCountMessage');
+
+    if (!staffCountPattern.test(workStaffCount)) {
+        errorStaffCountMessage.show().text('Staff Work Count must be a numeric value with up to 2 digits.');
+        $('#workStaffCount').css({ 'border': '2px solid red' });
+    } else {
+        errorStaffCountMessage.hide();
+        $('#workStaffCount').css({ 'border': '2px solid green' });
+    }
+}
+
+function  validateLogWorkDescriptionDescription(){
+    let designation = $('#workDescription').val();
+    let errorDetailsMessage = $('.errorMonitoLogWorkDescriptionMessage');
+
+    if (designation.length < 10 || designation.length > 50) {
+        errorDetailsMessage.show().text(' Description should be between 10 and 50 characters.');
+        $('#workDescription').css({ 'border': '2px solid red' });
+    } else {
+        errorDetailsMessage.hide();
+        $('#workDescription').css({ 'border': '2px solid green' });
+    }
+}
+
+function  validateMonitoLogStaffDescription(){
+    let details = $('#staffDescription').val();
+    let errorDetailsMessage = $('.errorLogStaffDetailsMessage');
+
+    if (details.length < 10 || details.length > 40) {
+        errorDetailsMessage.show().text('Log Staff Details should be between 10 and 40 characters.');
+        $('#staffDescription').css({ 'border': '2px solid red' });
+    } else {
+        errorDetailsMessage.hide();
+        $('#staffDescription').css({ 'border': '2px solid green' });
+    }
+}

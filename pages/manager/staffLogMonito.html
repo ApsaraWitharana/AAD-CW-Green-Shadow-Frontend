@@ -167,6 +167,7 @@
                                     <div class="col-md-6 mb-3">
                                         <label for="logCode1" class="form-label">Log Code</label>
                                         <input type="text" class="form-control" id="logCode1" placeholder="LOG-026" >
+                                        <div class="errorStaffLogCodeMessage" style="display: none;color: red;"></div>
                                     </div>
                                     <div class="col-md-6 mb-3">
                                         <label for="cropCode" class="form-label">Crop Code</label>
@@ -190,6 +191,8 @@
                                     <div class="col-md-12 mb-3">
                                         <label for="workDescription" class="form-label">Work Description</label>
                                         <textarea class="form-control" id="workDescription" rows="3"></textarea>
+                                        <div class="errorMonitoLogWorkDescriptionMessage" style="display: none;color: red;"></div>
+
                                     </div>
                                 </div>
                             </div>
@@ -219,12 +222,15 @@
                                     <div class="col-md-6 mb-3">
                                         <label for="workStaffCount" class="form-label">Work Staff Count</label>
                                         <input type="text" class="form-control" id="workStaffCount" placeholder="3" >
+                                        <div class="errorMonitoLogStaffWordCountMessage" style="display: none;color: red;"></div>
+
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-12 mb-3">
                                         <label for="staffDescription" class="form-label">Staff Description</label>
                                         <textarea class="form-control" id="staffDescription" rows="3" ></textarea>
+                                        <div class="errorLogStaffDetailsMessage" style="display: none;color: red;"></div>
                                     </div>
                                 </div>
                             </div>
@@ -275,6 +281,7 @@
 
 </div>
 <script src="../../js/jquery-3.7.1.min.js"></script>
+<script src="../../js/validating/validate.js"></script>
 <script src="../../js/controller/staffLogController.js"></script>
 <script src="../../js/main.js"></script>
 <!-- ===================ionicons=============== -->
