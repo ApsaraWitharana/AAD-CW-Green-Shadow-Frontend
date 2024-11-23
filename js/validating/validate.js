@@ -475,8 +475,46 @@ function validateEquipmentType(){
 
 // ======================== log validate ===============================//
 $(document).ready(function () {
-    $('#logCode').on('input', validateLogCode);
+    $('#logCode1').on('input', validateMonitoLogCode);
     $('#logDetails').on('input', validateLogDetails);
+
+});
+
+function  validateMonitoLogCode(){
+    let id = $('#logCode1').val();
+    let logCodePattern = /^LOG-\d{3}$/;
+    let errorLogCodeMessage = $('.errorMonitoLogCodeMessage');
+
+    if (!logCodePattern.test(id)) {
+        errorLogCodeMessage.show().text('Monito Log Code must match the format LOG-000.');
+        $('#logCode1').css({ 'border': '2px solid red' });
+    } else {
+        errorLogCodeMessage.hide();
+        $('#logCode1').css({'border': '2px solid green'});
+    }
+}
+
+function  validateLogDetails(){
+    let designation = $('#logDetails').val();
+    let errorDetailsMessage = $('.errorLogDetailsMessage');
+
+    if (designation.length < 10 || designation.length > 20) {
+        errorDetailsMessage.show().text('Log Details should be between 2 and 10 characters.');
+        $('#logDetails').css({ 'border': '2px solid red' });
+    } else {
+        errorDetailsMessage.hide();
+        $('#logDetails').css({ 'border': '2px solid green' });
+    }
+}
+
+// ==================================== field log validate =========================//
+
+$(document).ready(function () {
+    $('#logCode').on('input', validateLogCode);
+    $('#description1').on('input', validateLogDescription);
+    $('#workFieldsCount1').on('input', validateLogWorkFieldsCount);
+    $('#logDetails1').on('input', validateMonitoLogDetails);
+
 
 });
 
@@ -494,15 +532,42 @@ function  validateLogCode(){
     }
 }
 
-function  validateLogDetails(){
-    let designation = $('#logDetails').val();
-    let errorDetailsMessage = $('.errorLogDetailsMessage');
+function validateLogWorkFieldsCount() {
+    let workFieldCount = $('#workFieldsCount1').val();
+    let fieldsCountPattern = /^[0-9]{2,3}$/;
+    let errorFieldsCountMessage = $('.errorMonitoLogWordCountMessage');
 
-    if (designation.length < 10 || designation.length > 20) {
-        errorDetailsMessage.show().text('Log Details should be between 2 and 10 characters.');
-        $('#logDetails').css({ 'border': '2px solid red' });
+    if (!fieldsCountPattern.test(workFieldCount)) {
+        errorFieldsCountMessage.show().text('Field Work Count must be a numeric value with up to 2 digits.');
+        $('#workFieldsCount1').css({ 'border': '2px solid red' });
+    } else {
+        errorFieldsCountMessage.hide();
+        $('#workFieldsCount1').css({ 'border': '2px solid green' });
+    }
+}
+
+function  validateLogDescription(){
+    let designation = $('#description1').val();
+    let errorDetailsMessage = $('.errorMonitoLogDescriptionMessage');
+
+    if (designation.length < 10 || designation.length > 50) {
+        errorDetailsMessage.show().text('Log gDescription should be between 10 and 30 characters.');
+        $('#description1').css({ 'border': '2px solid red' });
     } else {
         errorDetailsMessage.hide();
-        $('#logDetails').css({ 'border': '2px solid green' });
+        $('#description1').css({ 'border': '2px solid green' });
+    }
+}
+
+function  validateMonitoLogDetails(){
+    let details = $('#logDetails1').val();
+    let errorDetailsMessage = $('.errorLogDetailsMessage');
+
+    if (details.length < 10 || details.length > 40) {
+        errorDetailsMessage.show().text('Log Details should be between 2 and 10 characters.');
+        $('#logDetails1').css({ 'border': '2px solid red' });
+    } else {
+        errorDetailsMessage.hide();
+        $('#logDetails1').css({ 'border': '2px solid green' });
     }
 }

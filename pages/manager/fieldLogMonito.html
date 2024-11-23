@@ -164,6 +164,7 @@
                                     <div class="col-md-6 mb-3">
                                         <label for="logCode1" class="form-label">Log Code</label>
                                         <input type="text" class="form-control" id="logCode1" placeholder="LOG-000">
+                                        <div class="errorMonitoLogCodeMessage" style="display: none;color: red;"></div>
                                     </div>
                                     <div class="col-md-6 mb-3">
                                         <label  class="form-label">Crop Code</label>
@@ -189,6 +190,7 @@
                                     <div class="col-md-12 mb-3">
                                         <label for="logDetails1" class="form-label">Log Details</label>
                                         <textarea class="form-control" id="logDetails1" rows="3" ></textarea>
+                                        <div class="errorMonitoLogDetailsMessage" style="display: none;color: red;"></div>
                                     </div>
                                 </div>
                         </div>
@@ -212,12 +214,14 @@
                                     <div class="col-md-12 mb-3">
                                         <label for="workFieldsCount1" class="form-label">Work Fields Count</label>
                                         <input type="text" class="form-control" id="workFieldsCount1" placeholder="5" >
+                                        <div class="errorMonitoLogWordCountMessage" style="display: none;color: red;"></div>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-12 mb-3">
                                         <label for="description1" class="form-label">Description</label>
                                         <textarea class="form-control" id="description1" rows="3" ></textarea>
+                                        <div class="errorMonitoLogDescriptionMessage" style="display: none;color: red;"></div>
                                     </div>
                                 </div>
                             </div>
@@ -266,6 +270,7 @@
 
 </div>
 <script src="../../js/jquery-3.7.1.min.js"></script>
+<script src="../../js/validating/validate.js"></script>
 <script src="../../js/controller/fieldLogController.js"></script>
 <script src="../../js/main.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
