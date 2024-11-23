@@ -163,16 +163,19 @@
                 <div class="col-md-6 mb-3">
                     <label for="equipmentId" class="form-label">Equipment ID</label>
                     <input type="text" class="form-control" id="equipmentId" name="equipmentId" placeholder="EPT-000" required>
+                    <div class="errorEquipmentIdMessage" style="display: none;color: red;"></div>
                 </div>
                 <div class="col-md-6 mb-3">
                     <label for="equipmentName" class="form-label">Equipment Name</label>
                     <input type="text" class="form-control" id="equipmentName" name="equipmentName" required maxlength="100">
+                    <div class="errorMassageEquipmentName" style="display: none;color: red;"></div>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-6 mb-3">
                     <label for="type" class="form-label">Type</label>
                     <input type="text" class="form-control" id="type" name="type" required maxlength="50">
+                    <div class="errorMassageEquipmentType" style="display: none;color: red;"></div>
                 </div>
                 <div class="col-md-6 mb-3">
                     <label for="status" class="form-label">Status</label>
@@ -235,6 +238,7 @@
 </div>
 <!--=====================main ja file===============-->
 <script src="../../js/jquery-3.7.1.min.js"></script>
+<script src="../../js/validating/validate.js"></script>
 <script src="../../js/controller/equipmentController.js"></script>
 <script src="/js/main.js"></script>
 <!--==========pdf js==========-->

@@ -420,3 +420,55 @@ function validateAddressL5Line() {
         $('#addressLine5').css("border", "2px solid green");
     }
 }
+
+// ============================ equipment validate ===========================//
+
+$(document).ready(function () {
+    $('#equipmentId').on('input', validateEquipmentId);
+    $('#equipmentName').on('input', validateEquipmentName);
+    $('#type').on('input', validateEquipmentType);
+});
+
+function  validateEquipmentId(){
+    let id = $('#equipmentId').val();
+    let equipmentIdPattern = /^EPT-\d{3}$/;
+    let errorEquipmentIdMessage = $('.errorEquipmentIdMessage');
+
+    if (!equipmentIdPattern.test(id)) {
+        errorEquipmentIdMessage.show().text('Equipment id must match the format EPT-000.');
+        $('#id').css({ 'border': '2px solid red' });
+    } else {
+        errorEquipmentIdMessage.hide();
+        $('#id').css({'border': '2px solid green'});
+    }
+}
+
+function validateEquipmentName(){
+    var equipmentName = $('#equipmentName').val();
+    var equipmentNamePattern  = /^\s*\S.{2,8}\S\s*$/;
+    var errorMassageEquipmentName = $('.errorMassageEquipmentName');
+
+    if (!equipmentNamePattern.test(equipmentName)){
+        errorMassageEquipmentName.show();
+        $('#equipmentName').css({'border':'2px solid red'});
+        errorMassageEquipmentName.text('Equipment Name must be between 4 to 10 characters.');
+    } else {
+        errorMassageEquipmentName.hide();
+        $('#equipmentName').css('border','2px solid green');
+    }
+}
+
+function validateEquipmentType(){
+    var equipmentType = $('#type').val();
+    var equipmentTypePattern  = /^\s*\S.{2,8}\S\s*$/;
+    var errorMassageEquipmentType = $('.errorMassageEquipmentType');
+
+    if (!equipmentTypePattern.test(equipmentType)){
+        errorMassageEquipmentType.show();
+        $('#type').css({'border':'2px solid red'});
+        errorMassageEquipmentType.text('Equipment Type must be between 4 to 10 characters.');
+    } else {
+        errorMassageEquipmentType.hide();
+        $('#type').css('border','2px solid green');
+    }
+}
