@@ -231,3 +231,192 @@ function validateFuelType() {
         $('#fuelType').css({ 'border': '2px solid green' });
     }
 }
+
+// ================================ staff validate ===========================================//
+
+// Trigger validation on input
+$(document).ready(function () {
+    $('#id').on('input', validateStaffId);
+    $('#firstName').on('input', validateStaffFirstName);
+    $('#lastName').on('input', validateStaffLastName);
+    $('#contactNo').on('input', validateContactNo);
+    $('#email').on('input', validateEmail);
+    $('#dob').on('input', validateDOB);
+    $('#designation').on('input', validateDesignation);
+});
+
+function validateStaffId() {
+    let id = $('#id').val();
+    let staffIdPattern = /^STF-\d{3}$/;
+    let errorStaffIdMessage = $('.errorStaffIdMessage');
+
+    if (!staffIdPattern.test(id)) {
+        errorStaffIdMessage.show().text('Staff id must match the format STF-000.');
+        $('#id').css({ 'border': '2px solid red' });
+    } else {
+        errorStaffIdMessage.hide();
+        $('#id').css({ 'border': '2px solid green' });
+    }
+}
+
+function validateStaffFirstName() {
+    let firstName = $('#firstName').val();
+    let staffFirstNamePattern = /^\s*\S.{2,8}\S\s*$/;
+    let errorStaffFirstNameMessage = $('.errorStaffNameMessage');
+
+    if (!staffFirstNamePattern.test(firstName)) {
+        errorStaffFirstNameMessage.show().text('First Name must be between 4 to 10 characters.');
+        $('#firstName').css({ 'border': '2px solid red' });
+    } else {
+        errorStaffFirstNameMessage.hide();
+        $('#firstName').css({ 'border': '2px solid green' });
+    }
+}
+
+function validateStaffLastName() {
+    let lastName = $('#lastName').val();
+    let staffLastNamePattern = /^\s*\S.{2,8}\S\s*$/;
+    let errorStaffLastNameMessage = $('.errorStaffLastNameMessage');
+
+    if (!staffLastNamePattern.test(lastName)) {
+        errorStaffLastNameMessage.show().text('Last Name must be between 4 to 10 characters.');
+        $('#lastName').css({ 'border': '2px solid red' });
+    } else {
+        errorStaffLastNameMessage.hide();
+        $('#lastName').css({ 'border': '2px solid green' });
+    }
+}
+
+function validateContactNo() {
+    let contactNo = $('#contactNo').val();
+    let contactNoPattern = /^[0-9]{10}$/;  // Assuming contact number should be 10 digits
+    let errorContactNoMessage = $('.errorContactNoMessage');
+
+    if (!contactNoPattern.test(contactNo)) {
+        errorContactNoMessage.show().text('Contact number must be 10 digits.');
+        $('#contactNo').css({ 'border': '2px solid red' });
+    } else {
+        errorContactNoMessage.hide();
+        $('#contactNo').css({ 'border': '2px solid green' });
+    }
+}
+
+function validateEmail() {
+    let email = $('#email').val();
+    let emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;  // Simple email regex
+    let errorEmailMessage = $('.errorEmailMessage');
+
+    if (!emailPattern.test(email)) {
+        errorEmailMessage.show().text('Please enter a valid email address.');
+        $('#email').css({ 'border': '2px solid red' });
+    } else {
+        errorEmailMessage.hide();
+        $('#email').css({ 'border': '2px solid green' });
+    }
+}
+
+function validateDOB() {
+    let dob = $('#dob').val();
+    let errorDOBMessage = $('.errorDOBMessage');
+
+    if (!dob) {
+        errorDOBMessage.show().text('Date of Birth is required.');
+        $('#dob').css({ 'border': '2px solid red' });
+    } else {
+        errorDOBMessage.hide();
+        $('#dob').css({ 'border': '2px solid green' });
+    }
+}
+
+function validateDesignation() {
+    let designation = $('#designation').val();
+    let errorDesignationMessage = $('.errorDesignationMessage');
+
+    if (designation.length < 2 || designation.length > 10) {
+        errorDesignationMessage.show().text('Designation should be between 2 and 10 characters.');
+        $('#designation').css({ 'border': '2px solid red' });
+    } else {
+        errorDesignationMessage.hide();
+        $('#designation').css({ 'border': '2px solid green' });
+    }
+}
+
+// validate addredd //
+$(document).ready(function () {
+    $('#addressLine1').on('input', validateAddressL1Line);
+    $('#addressLine2').on('input', validateAddressL2Line)
+    $('#addressLine3').on('input', validateAddressL3Line);
+    $('#addressLine4').on('input', validateAddressL4Line);
+    $('#addressLine5').on('input', validateAddressL5Line);
+
+
+});
+
+function validateAddressL1Line() {
+    let addressLine = $('#addressLine1').val();
+    let errorAddressL1Message = $('.errorAddressL1Massage');
+    let addressLinePattern = /^[a-zA-Z0-9\s.,-]{10}$/;
+
+    if (!addressLinePattern.test(addressLine)) {
+        $(errorAddressL1Message).show().text("Address can only contain letters, numbers should be between  10 characters");
+        $('#addressLine1').css("border", "2px solid red");
+    } else {
+        $(errorAddressL1Message).hide();
+        $('#addressLine1').css("border", "2px solid green");
+    }
+}
+
+function validateAddressL2Line() {
+    let addressLine = $('#addressLine2').val();
+    let errorAddressL2Message = $('.errorAddressL2Message');
+    let addressLinePattern = /^[a-zA-Z0-9\s.,-]{10}$/;
+
+    if (!addressLinePattern.test(addressLine)) {
+        $(errorAddressL2Message).show().text("Address can only contain letters, numbers should be between  10 characters");
+        $('#addressLine2').css("border", "2px solid red");
+    } else {
+        $(errorAddressL2Message).hide();
+        $('#addressLine2').css("border", "2px solid green");
+    }
+}
+
+function validateAddressL3Line() {
+    let addressLine = $('#addressLine3').val();
+    let errorAddressL3Message = $('.errorAddressL3Message');
+    let addressLinePattern = /^[a-zA-Z0-9\s.,-]{10}$/;
+
+    if (!addressLinePattern.test(addressLine)) {
+        $(errorAddressL3Message).show().text("Address can only contain letters, numbers should be between  10 characters");
+        $('#addressLine3').css("border", "2px solid red");
+    } else {
+        $(errorAddressL3Message).hide();
+        $('#addressLine3').css("border", "2px solid green");
+    }
+}
+
+function validateAddressL4Line() {
+    let addressLine = $('#addressLine4').val();
+    let errorAddressL4Message = $('.errorAddressL4Message');
+    let addressLinePattern = /^[a-zA-Z0-9\s.,-]{10}$/;
+
+    if (!addressLinePattern.test(addressLine)) {
+        $(errorAddressL4Message).show().text("Address can only contain letters, numbers should be between  10 characters");
+        $('#addressLine4').css("border", "2px solid red");
+    } else {
+        $(errorAddressL4Message).hide();
+        $('#addressLine4').css("border", "2px solid green");
+    }
+}
+function validateAddressL5Line() {
+    let addressLine = $('#addressLine5').val();
+    let errorAddressL5Message = $('.errorAddressL5Message');
+    let addressLinePattern = /^[a-zA-Z0-9\s.,-]{10}$/;
+
+    if (!addressLinePattern.test(addressLine)) {
+        $(errorAddressL5Message).show().text("Address can only contain letters, numbers should be between  10 characters");
+        $('#addressLine5').css("border", "2px solid red");
+    } else {
+        $(errorAddressL5Message).hide();
+        $('#addressLine5').css("border", "2px solid green");
+    }
+}
