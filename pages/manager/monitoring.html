@@ -147,6 +147,7 @@
             <div class="col-md-6 mb-3">
                 <label for="logCode" class="form-label">Log Code</label>
                 <input type="text" class="form-control" id="logCode" name="logCode" placeholder="LOG-000">
+                <div class="errorLogCodeMessage" style="display: none;color: red;"></div>
             </div>
             <div class="col-md-6 mb-3">
                 <label for="logDate" class="form-label">Log Date</label>
@@ -157,6 +158,7 @@
             <div class="col-md-6 mb-3">
                 <label for="logDetails" class="form-label">Log Details</label>
                 <textarea class="form-control" id="logDetails" name="logDetails" rows="4" maxlength="500" ></textarea>
+                <div class="errorLogDetailsMessage" style="display: none;color: red;"></div>
             </div>
                 <div class="col-md-6 mb-3">
                     <label for="cropCode" class="form-label">Crop Code</label>
@@ -177,6 +179,7 @@
                     <button i type="button" id="btnUpdate" class="btn btn-info me-2">Update</button>
                     <button type="button" id="deleteButton" class="btn btn-danger">Delete</button>
                 </div>
+            </div>
             </div>
         </form>
     </div>
@@ -200,6 +203,7 @@
     </div>
 </div>
 <script src="../../js/jquery-3.7.1.min.js"></script>
+<script src="../../js/validating/validate.js"></script>
 <script src="../../js/controller/logMonitoringController.js"></script>
 <script src="/js/main.js"></script>
 <!-- ===================ionicons=============== -->

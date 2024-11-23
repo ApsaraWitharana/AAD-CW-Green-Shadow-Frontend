@@ -472,3 +472,37 @@ function validateEquipmentType(){
         $('#type').css('border','2px solid green');
     }
 }
+
+// ======================== log validate ===============================//
+$(document).ready(function () {
+    $('#logCode').on('input', validateLogCode);
+    $('#logDetails').on('input', validateLogDetails);
+
+});
+
+function  validateLogCode(){
+    let id = $('#logCode').val();
+    let logCodePattern = /^LOG-\d{3}$/;
+    let errorLogCodeMessage = $('.errorLogCodeMessage');
+
+    if (!logCodePattern.test(id)) {
+        errorLogCodeMessage.show().text('Log Code must match the format LOG-000.');
+        $('#logCode').css({ 'border': '2px solid red' });
+    } else {
+        errorLogCodeMessage.hide();
+        $('#logCode').css({'border': '2px solid green'});
+    }
+}
+
+function  validateLogDetails(){
+    let designation = $('#logDetails').val();
+    let errorDetailsMessage = $('.errorLogDetailsMessage');
+
+    if (designation.length < 10 || designation.length > 20) {
+        errorDetailsMessage.show().text('Log Details should be between 2 and 10 characters.');
+        $('#logDetails').css({ 'border': '2px solid red' });
+    } else {
+        errorDetailsMessage.hide();
+        $('#logDetails').css({ 'border': '2px solid green' });
+    }
+}
