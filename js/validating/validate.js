@@ -634,3 +634,38 @@ function  validateMonitoLogStaffDescription(){
         $('#staffDescription').css({ 'border': '2px solid green' });
     }
 }
+
+//========================== staff field validate ==============================//
+
+$(document).ready(function () {
+    $('#workFieldsCount1').on('input', validateFieldStaffWorkStaffCount);
+    $('#description1').on('input', validateMonitoFieldStaffDescription);
+
+});
+
+function validateFieldStaffWorkStaffCount() {
+    let workStaffCount = $('#workFieldsCount1').val();
+    let staffCountPattern = /^[0-9]{2,3}$/;
+    let errorStaffCountMessage = $('.errorMonitoFieldStaffWordCountMessage');
+
+    if (!staffCountPattern.test(workStaffCount)) {
+        errorStaffCountMessage.show().text('Staff Work Count must be a numeric value with up to 2 digits.');
+        $('#workFieldsCount1').css({ 'border': '2px solid red' });
+    } else {
+        errorStaffCountMessage.hide();
+        $('#workFieldsCount1').css({ 'border': '2px solid green' });
+    }
+}
+
+function  validateMonitoFieldStaffDescription(){
+    let designation = $('#description1').val();
+    let errorDetailsMessage = $('.errorMonitoFieldStaffWorkDescriptionMessage');
+
+    if (designation.length < 10 || designation.length > 50) {
+        errorDetailsMessage.show().text(' Description should be between 10 and 50 characters.');
+        $('#description1').css({ 'border': '2px solid red' });
+    } else {
+        errorDetailsMessage.hide();
+        $('#description1').css({ 'border': '2px solid green' });
+    }
+}
