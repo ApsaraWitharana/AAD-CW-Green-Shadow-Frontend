@@ -40,6 +40,10 @@ $("#btnSave").click(function (){
                     title: 'Success!',
                     text: 'Crop saved successfully!',
                     icon: 'success',
+                    background: 'black',
+                    color: 'white',
+                    confirmButtonColor: '#d33',
+                    cancelButtonColor: '#3085d6',
                     confirmButtonText: 'OK'
                 });
                 clearFields();
