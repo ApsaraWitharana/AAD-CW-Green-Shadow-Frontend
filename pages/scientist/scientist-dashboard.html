@@ -176,8 +176,8 @@
     <div class="table-section">
         <h2 class="text-center">Crop Details</h2>
         <div class="search-bar">
-            <input type="text" id="search" placeholder="Search Staff">
-            <button type="button" class="btn btn-search" onclick="searchStaff()">
+            <input type="text" id="search" placeholder="Search Crop">
+            <button type="button" id="btnSearch" class="btn btn-search" onclick="searchCrop()">
                 <ion-icon name="search-outline"></ion-icon>
             </button>
         </div>
@@ -191,7 +191,7 @@
                 <th>Season</th>
             </tr>
             </thead>
-            <tbody>
+            <tbody id="cropTableBody">
             <!-- Example rows -->
             <tr>
                 <td>CRP-001</td>

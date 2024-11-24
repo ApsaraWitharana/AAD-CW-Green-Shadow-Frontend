@@ -141,6 +141,12 @@
     <h2 class="text-center">Equipment List</h2>
     <div class="mt-5">
       <table class="table table-dark table-striped mt-3" id="equipmentTable">
+        <div class="form-group d-flex mb-3">
+          <input type="text" class="form-control me-2" id="search" placeholder="Search Equipment">
+          <button type="button"  id="btnSearch" class="btn btn-outline-light" onclick="searchEquipment()">
+            <i class="fas fa-search"></i> <!-- FontAwesome search icon -->
+          </button>
+        </div>
         <thead>
         <tr>
           <th>Equipment ID</th>
@@ -151,7 +157,7 @@
           <th>Assigned Staff</th>
         </tr>
         </thead>
-        <tbody>
+        <tbody id="equipmentTableBody">
         </tbody>
       </table>
     </div>

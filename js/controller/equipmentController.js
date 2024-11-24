@@ -353,7 +353,7 @@ function clearFields() {
     $('#fieldCode').val('');
     $('#staffId').val('');
 }
-$('btnSearch').click(function (){
+$('#btnSearch').click(function (){
     searchEquipment();
 })
 function searchEquipment(){
