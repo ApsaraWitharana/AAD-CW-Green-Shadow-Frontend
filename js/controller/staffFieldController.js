@@ -2,8 +2,42 @@ $(document).ready(function (){
     loadStaffIds();
     loadFieldIds();
     generateLogCode();
-    appendToTable(response);
+    loadStaffFieldDetails();
 });
+
+// ====================== Fetch All Staff Field Details =========================//
+function loadStaffFieldDetails() {
+    $.ajax({
+        url: 'http://localhost:8080/api/v1/staff-field-details/get',
+        method: 'GET',
+        headers: {
+            "Authorization": "Bearer " + localStorage.getItem("token")
+        },
+        success: function (response) {
+            console.log('Fetched staff field details successfully:', response);
+            if (response.length > 0) {
+                response.forEach(item => {
+                    const row = `
+                        <tr>
+                            <td>${item.sf_id}</td>
+                            <td>${item.firstName}</td>
+                            <td>${item.status}</td>
+                             <td>${item.date}</td>
+                            <td>${item.workStaffCount}</td>
+                            <td>${item.description}</td>
+                        </tr>`;
+                    $("#staffFieldTableBody").append(row);
+                });
+            } else {
+                alert('No staff field details available.');
+            }
+        },
+        error: function (xhr, status, error) {
+            console.error('Error fetching staff field details:', error);
+            alert('Failed to load staff field details!');
+        }
+    });
+}
 
 // ====================== save staff field details =========================//
 $('#btnAdd').click(function () {
@@ -15,12 +49,12 @@ $('#btnAdd').click(function () {
         field: {
             fieldCode: $('#fieldCode').val()
         },
-        sf_id:$('#logCode').val(),
         status: $('#status').val(),
         description: $('#description1').val(),
         workStaffCount: parseInt($('#workFieldsCount1').val(), 10),
         date: $('#logDate').val()
     };
+
 
     $.ajax({
         url: 'http://localhost:8080/api/v1/staff-field-details/save',
@@ -31,7 +65,8 @@ $('#btnAdd').click(function () {
         success: function (response) {
             alert('Log details saved successfully!');
             console.log('Success:', response);
-            appendToTable();
+            // appendToTable();
+            loadStaffFieldDetails();
         },
         error: function (xhr, status, error) {
             alert('Failed to save log details!');
