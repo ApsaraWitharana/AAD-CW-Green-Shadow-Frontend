@@ -136,19 +136,81 @@ function checkNameField() {
 }
 
 // Validate Field Location
+// function validateFieldLocation() {
+//     var fieldLocation = $('#fieldLocation').val();
+//     var locationPattern = /^[A-Za-z\s\-]{1,10}$/; // Letters, spaces, hyphens, max 10 chars
+//     var errorLocationMessage = $('#errorFieldLocationMessage');
+//
+//     if (!locationPattern.test(fieldLocation)) {
+//         errorLocationMessage.show().text('Field Location must only contain letters, spaces, or hyphens (max 10 characters).');
+//         $('#fieldLocation').css({ 'border': '2px solid red' });
+//     } else {
+//         errorLocationMessage.hide();
+//         $('#fieldLocation').css({ 'border': '2px solid green' });
+//     }
+// }
+
+// function validateFieldLocation() {
+//     var fieldLocation = $('#fieldLocation').val(); // Get the input value
+//     var errorLocationMessage = $('#errorFieldLocationMessage');
+//
+//     try {
+//         // Try parsing the JSON input
+//         var locationObj = JSON.parse(fieldLocation);
+//
+//         // Check if both "x" and "y" exist and are valid numbers
+//         var isValidX = typeof locationObj.x === 'number' && locationObj.x >= -180 && locationObj.x <= 180; // Longitude
+//         var isValidY = typeof locationObj.y === 'number' && locationObj.y >= -90 && locationObj.y <= 90;   // Latitude
+//
+//         if (isValidX && isValidY) {
+//             // Valid coordinates: Hide error and set green border
+//             errorLocationMessage.hide();
+//             $('#fieldLocation').css({ 'border': '2px solid green' });
+//         } else {
+//             throw new Error('Invalid coordinates.');
+//         }
+//     } catch (e) {
+//         // Invalid JSON or invalid coordinates: Show error and set red border
+//         errorLocationMessage
+//             .show()
+//             .text('Field Location must be a valid JSON with "x" (longitude: -180 to 180) and "y" (latitude: -90 to 90).');
+//         $('#fieldLocation').css({ 'border': '2px solid red' });
+//     }
+// }
+
 function validateFieldLocation() {
     var fieldLocation = $('#fieldLocation').val();
-    var locationPattern = /^[A-Za-z\s\-]{1,10}$/; // Letters, spaces, hyphens, max 10 chars
     var errorLocationMessage = $('#errorFieldLocationMessage');
+    var locationPattern = /^x=(-?\d+(\.\d+)?),y=(-?\d+(\.\d+)?)$/;
+    var match = fieldLocation.match(locationPattern);
 
-    if (!locationPattern.test(fieldLocation)) {
-        errorLocationMessage.show().text('Field Location must only contain letters, spaces, or hyphens (max 10 characters).');
-        $('#fieldLocation').css({ 'border': '2px solid red' });
+    if (match) {
+        // Extract x and y values from the matched groups
+        var x = parseFloat(match[1]); // Longitude
+        var y = parseFloat(match[3]); // Latitude
+
+        // Validate ranges for x and y
+        var isValidX = x >= -180 && x <= 180; // Longitude
+        var isValidY = y >= -90 && y <= 90;   // Latitude
+
+        if (isValidX && isValidY) {
+            errorLocationMessage.hide();
+            $('#fieldLocation').css({ 'border': '2px solid green' });
+        } else {
+            errorLocationMessage
+                .show()
+                .text('x must be between -180 and 180, and y must be between -90 and 90.');
+            $('#fieldLocation').css({ 'border': '2px solid red' });
+        }
     } else {
-        errorLocationMessage.hide();
-        $('#fieldLocation').css({ 'border': '2px solid green' });
+        errorLocationMessage
+            .show()
+            .text('Field Location must follow the pattern x=<longitude>,y=<latitude>.');
+        $('#fieldLocation').css({ 'border': '2px solid red' });
     }
 }
+
+
 
 // Validate Extent Size
 function validateExtentSize() {
