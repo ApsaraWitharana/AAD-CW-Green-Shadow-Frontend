@@ -38,7 +38,7 @@ $('#btnSave').click(function (){
 
     $.ajax({
         url: "http://localhost:8080/api/v1/staff",
-        type: "POST",
+        method: "POST",
         contentType: "application/json",
         data: JSON.stringify(staffData),
         headers: {
@@ -252,7 +252,7 @@ $('#btnUpdate').click(function () {
             "Authorization": "Bearer " + localStorage.getItem("token")
         },
         success: function (resp, textStatus, jqxhr) {
-            if (jqxhr.status === 200 || jqxhr.status === 201) {
+            if (jqxhr.status === 201 || jqxhr.status === 204) {
                 Swal.fire({
                     title: 'Success!',
                     text: 'Staff update successfully!',

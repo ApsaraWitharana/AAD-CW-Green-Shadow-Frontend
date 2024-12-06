@@ -417,7 +417,7 @@ $(document).ready(function () {
 function validateAddressL1Line() {
     let addressLine = $('#addressLine1').val();
     let errorAddressL1Message = $('.errorAddressL1Massage');
-    let addressLinePattern = /^[a-zA-Z0-9\s.,-]{10}$/;
+    let addressLinePattern = /^[a-zA-Z0-9\s.,-]{6}$/;
 
     if (!addressLinePattern.test(addressLine)) {
         $(errorAddressL1Message).show().text("Address can only contain letters, numbers should be between  10 characters");
@@ -431,7 +431,7 @@ function validateAddressL1Line() {
 function validateAddressL2Line() {
     let addressLine = $('#addressLine2').val();
     let errorAddressL2Message = $('.errorAddressL2Message');
-    let addressLinePattern = /^[a-zA-Z0-9\s.,-]{10}$/;
+    let addressLinePattern = /^[a-zA-Z0-9\s.,-]{6}$/;
 
     if (!addressLinePattern.test(addressLine)) {
         $(errorAddressL2Message).show().text("Address can only contain letters, numbers should be between  10 characters");
@@ -472,7 +472,7 @@ function validateAddressL4Line() {
 function validateAddressL5Line() {
     let addressLine = $('#addressLine5').val();
     let errorAddressL5Message = $('.errorAddressL5Message');
-    let addressLinePattern = /^[a-zA-Z0-9\s.,-]{10}$/;
+    let addressLinePattern = /^[a-zA-Z0-9\s.,-]{5}$/;
 
     if (!addressLinePattern.test(addressLine)) {
         $(errorAddressL5Message).show().text("Address can only contain letters, numbers should be between  10 characters");
