@@ -2,7 +2,39 @@ $(document).ready(function () {
     clearLogFields();
     getAllLogField();
     loadCropIds();
+    fetchNextLogCode();
 });
+
+function fetchNextLogCode() {
+    const token = localStorage.getItem("token");
+    if (token) {
+        $.ajax({
+            url: "http://localhost:8080/api/v1/log/nextLog",
+            type: "GET",
+            headers: {
+                "Authorization": "Bearer " + localStorage.getItem("token")
+            },
+            success: function (res) {
+                console.log("Log Code:", res);
+                // Verify the API response
+                if (res) {
+                    document.getElementById("logCode").value = res;
+                    document.getElementById("logCode").readOnly = true;
+                } else {
+                    console.error("Empty response from API");
+                }
+            },
+            error: function (err) {
+                console.error('Failed to fetch next Log id:', err);
+                const errorDiv = document.querySelector('.errorMassageId');
+                errorDiv.style.display = "block";
+                errorDiv.textContent = "Failed to fetch Log id. Please try again.";
+            }
+        });
+    } else {
+        console.error("Token is not available in localStorage.");
+    }
+}
 $('#btnSave').click(function () {
     let logCode = $('#logCode').val();
     let logDate = $('#logDate').val();

@@ -1,6 +1,39 @@
 $(document).ready(function () {
      getAllStaff();
+    fetchNextStaffId();
 });
+
+
+function fetchNextStaffId() {
+    const token = localStorage.getItem("token");
+    if (token) {
+        $.ajax({
+            url: "http://localhost:8080/api/v1/staff/nextStaff",
+            type: "GET",
+            headers: {
+                "Authorization": "Bearer " + localStorage.getItem("token")
+            },
+            success: function (res) {
+                console.log("Staff Code:", res);
+                // Verify the API response
+                if (res) {
+                    document.getElementById("id").value = res;
+                    document.getElementById("id").readOnly = true;
+                } else {
+                    console.error("Empty response from API");
+                }
+            },
+            error: function (err) {
+                console.error('Failed to fetch next staff id:', err);
+                const errorDiv = document.querySelector('.errorMassageId');
+                errorDiv.style.display = "block";
+                errorDiv.textContent = "Failed to fetch staff id. Please try again.";
+            }
+        });
+    } else {
+        console.error("Token is not available in localStorage.");
+    }
+}
 $('#btnSave').click(function (){
   let id = $('#id').val();
   let firstName = $('#firstName').val();
@@ -422,15 +455,21 @@ document.getElementById("downloadPDF").addEventListener("click", function () {
     const { jsPDF } = window.jspdf; // Import jsPDF
     const doc = new jsPDF(); // Create a new jsPDF instance
 
+    // Get current date and time
+    const now = new Date();
+    const dateTimeString = now.toLocaleString(); // Format: "MM/DD/YYYY, hh:mm:ss AM/PM"
+
     // Set title
     const pageWidth = doc.internal.pageSize.width;
     doc.setFontSize(12);
-    doc.text("Staff List Report", pageWidth / 2, 20, { align: "center" });
+    doc.text("Green Shadow Staff List Report", pageWidth / 2, 20, { align: "center" });
+    doc.setFontSize(10);
+    doc.text(`Generated on: ${dateTimeString}`, pageWidth / 2, 28, { align: "center" });
 
     // AutoTable plugin to handle the table
     doc.autoTable({
         html: '#staffTable', // Reference the table
-        startY: 30, // Start after the title
+        startY: 35, // Start after the title and date
         theme: 'grid', // Grid theme
         styles: {
             fontSize: 10, // Font size
@@ -462,6 +501,7 @@ document.getElementById("downloadPDF").addEventListener("click", function () {
     for (let i = 1; i <= pageCount; i++) {
         doc.setPage(i);
         doc.setFontSize(10);
+
         // Footer text
         const footerText = "Green Shadow Designed by @ Sachini Apsara 2024";
         doc.setTextColor(0, 128, 0); // Green text
@@ -475,4 +515,3 @@ document.getElementById("downloadPDF").addEventListener("click", function () {
     // Save the PDF
     doc.save("Staff_List_Report.pdf");
 });
-

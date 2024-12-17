@@ -161,7 +161,13 @@
       <div class="row">
         <div class="col-md-6 mb-3">
           <label for="fieldLocation" class="form-label">Field Location</label>
-          <input type="text" class="form-control" id="fieldLocation" name="fieldLocation">
+<!--          <input type="text" class="form-control" id="fieldLocation" name="fieldLocation">-->
+          <select class="form-select" id="fieldLocation" name="fieldLocation" required>
+            <option value="" disabled selected>Select a Common Name</option>
+            <option value="Field A">Field A</option>
+            <option value="Field B">Field B</option>
+            <option value="Field C">Field C</option>
+          </select>
           <div id="errorFieldLocationMessage" style="display: none; color: red;"></div>
         </div>
         <div class="col-md-6 mb-3">

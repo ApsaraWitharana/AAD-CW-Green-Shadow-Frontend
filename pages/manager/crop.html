@@ -158,7 +158,7 @@
       <div class="row">
         <div class="col-md-6 mb-3">
           <label for="cropCode" class="form-label">Crop Code</label>
-          <input type="text" class="form-control" id="cropCode" name="cropCode" placeholder="CRP-000" required pattern="^CRP-\d{3}$" title="Format: CRP-001">
+          <input type="text" class="form-control" id="cropCode" name="cropCode" placeholder="CRP-000" required pattern="^CRP-\d{3}$" title="Format: CRP-001" onclick="fetchNextCropCode()" >
           <div class="errorMassageId" style="display: none;color: red;"></div>
         </div>
         <div class="col-md-6 mb-3">

@@ -1,7 +1,39 @@
 $(document).ready(function (){
     lordStaffIds();
     getAllVehicle();
+    fetchNextVehicleCode();
 })
+
+function fetchNextVehicleCode() {
+    const token = localStorage.getItem("token");
+    if (token) {
+        $.ajax({
+            url: "http://localhost:8080/api/v1/vehicle/nextVehicle",
+            type: "GET",
+            headers: {
+                "Authorization": "Bearer " + localStorage.getItem("token")
+            },
+            success: function (res) {
+                console.log("Vehicle Code:", res);
+                // Verify the API response
+                if (res) {
+                    document.getElementById("vehicleCode").value = res;
+                    document.getElementById("vehicleCode").readOnly = true;
+                } else {
+                    console.error("Empty response from API");
+                }
+            },
+            error: function (err) {
+                console.error('Failed to fetch next Vehicle code:', err);
+                const errorDiv = document.querySelector('.errorMassageId');
+                errorDiv.style.display = "block";
+                errorDiv.textContent = "Failed to fetch Vehicle code. Please try again.";
+            }
+        });
+    } else {
+        console.error("Token is not available in localStorage.");
+    }
+}
 
 $('#btnSave').click(function (){
     let vehicleCode = $('#vehicleCode').val();

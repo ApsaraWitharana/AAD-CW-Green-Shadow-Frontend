@@ -178,37 +178,37 @@ function checkNameField() {
 //     }
 // }
 
-function validateFieldLocation() {
-    var fieldLocation = $('#fieldLocation').val();
-    var errorLocationMessage = $('#errorFieldLocationMessage');
-    var locationPattern = /^x=(-?\d+(\.\d+)?),y=(-?\d+(\.\d+)?)$/;
-    var match = fieldLocation.match(locationPattern);
-
-    if (match) {
-        // Extract x and y values from the matched groups
-        var x = parseFloat(match[1]); // Longitude
-        var y = parseFloat(match[3]); // Latitude
-
-        // Validate ranges for x and y
-        var isValidX = x >= -180 && x <= 180; // Longitude
-        var isValidY = y >= -90 && y <= 90;   // Latitude
-
-        if (isValidX && isValidY) {
-            errorLocationMessage.hide();
-            $('#fieldLocation').css({ 'border': '2px solid green' });
-        } else {
-            errorLocationMessage
-                .show()
-                .text('x must be between -180 and 180, and y must be between -90 and 90.');
-            $('#fieldLocation').css({ 'border': '2px solid red' });
-        }
-    } else {
-        errorLocationMessage
-            .show()
-            .text('Field Location must follow the pattern x=<longitude>,y=<latitude>.');
-        $('#fieldLocation').css({ 'border': '2px solid red' });
-    }
-}
+// function validateFieldLocation() {
+//     var fieldLocation = $('#fieldLocation').val();
+//     var errorLocationMessage = $('#errorFieldLocationMessage');
+//     var locationPattern = /^x=(-?\d+(\.\d+)?),y=(-?\d+(\.\d+)?)$/;
+//     var match = fieldLocation.match(locationPattern);
+//
+//     if (match) {
+//         // Extract x and y values from the matched groups
+//         var x = parseFloat(match[1]); // Longitude
+//         var y = parseFloat(match[3]); // Latitude
+//
+//         // Validate ranges for x and y
+//         var isValidX = x >= -180 && x <= 180; // Longitude
+//         var isValidY = y >= -90 && y <= 90;   // Latitude
+//
+//         if (isValidX && isValidY) {
+//             errorLocationMessage.hide();
+//             $('#fieldLocation').css({ 'border': '2px solid green' });
+//         } else {
+//             errorLocationMessage
+//                 .show()
+//                 .text('x must be between -180 and 180, and y must be between -90 and 90.');
+//             $('#fieldLocation').css({ 'border': '2px solid red' });
+//         }
+//     } else {
+//         errorLocationMessage
+//             .show()
+//             .text('Field Location must follow the pattern x=<longitude>,y=<latitude>.');
+//         $('#fieldLocation').css({ 'border': '2px solid red' });
+//     }
+// }
 
 
 
@@ -404,84 +404,120 @@ function validateDesignation() {
 }
 
 // validate addredd //
+// $(document).ready(function () {
+//     $('#addressLine1').on('input', validateAddressL1Line);
+//     $('#addressLine2').on('input', validateAddressL2Line)
+//     $('#addressLine3').on('input', validateAddressL3Line);
+//     $('#addressLine4').on('input', validateAddressL4Line);
+//     $('#addressLine5').on('input', validateAddressL5Line);
+//
+//
+// });
+//
+// function validateAddressL1Line() {
+//     let addressLine = $('#addressLine1').val();
+//     let errorAddressL1Message = $('.errorAddressL1Massage');
+//     let addressLinePattern = /^[a-zA-Z0-9\s.,-]{6}$/;
+//
+//     if (!addressLinePattern.test(addressLine)) {
+//         $(errorAddressL1Message).show().text("Address can only contain letters, numbers should be between  10 characters");
+//         $('#addressLine1').css("border", "2px solid red");
+//     } else {
+//         $(errorAddressL1Message).hide();
+//         $('#addressLine1').css("border", "2px solid green");
+//     }
+// }
+//
+// function validateAddressL2Line() {
+//     let addressLine = $('#addressLine2').val();
+//     let errorAddressL2Message = $('.errorAddressL2Message');
+//     let addressLinePattern = /^[a-zA-Z0-9\s.,-]{6}$/;
+//
+//     if (!addressLinePattern.test(addressLine)) {
+//         $(errorAddressL2Message).show().text("Address can only contain letters, numbers should be between  10 characters");
+//         $('#addressLine2').css("border", "2px solid red");
+//     } else {
+//         $(errorAddressL2Message).hide();
+//         $('#addressLine2').css("border", "2px solid green");
+//     }
+// }
+//
+// function validateAddressL3Line() {
+//     let addressLine = $('#addressLine3').val();
+//     let errorAddressL3Message = $('.errorAddressL3Message');
+//     let addressLinePattern = /^[a-zA-Z0-9\s.,-]{10}$/;
+//
+//     if (!addressLinePattern.test(addressLine)) {
+//         $(errorAddressL3Message).show().text("Address can only contain letters, numbers should be between  10 characters");
+//         $('#addressLine3').css("border", "2px solid red");
+//     } else {
+//         $(errorAddressL3Message).hide();
+//         $('#addressLine3').css("border", "2px solid green");
+//     }
+// }
+//
+// function validateAddressL4Line() {
+//     let addressLine = $('#addressLine4').val();
+//     let errorAddressL4Message = $('.errorAddressL4Message');
+//     let addressLinePattern = /^[a-zA-Z0-9\s.,-]{10}$/;
+//
+//     if (!addressLinePattern.test(addressLine)) {
+//         $(errorAddressL4Message).show().text("Address can only contain letters, numbers should be between  10 characters");
+//         $('#addressLine4').css("border", "2px solid red");
+//     } else {
+//         $(errorAddressL4Message).hide();
+//         $('#addressLine4').css("border", "2px solid green");
+//     }
+// }
+// function validateAddressL5Line() {
+//     let addressLine = $('#addressLine5').val();
+//     let errorAddressL5Message = $('.errorAddressL5Message');
+//     let addressLinePattern = /^[a-zA-Z0-9\s.,-]{5}$/;
+//
+//     if (!addressLinePattern.test(addressLine)) {
+//         $(errorAddressL5Message).show().text("Address can only contain letters, numbers should be between  10 characters");
+//         $('#addressLine5').css("border", "2px solid red");
+//     } else {
+//         $(errorAddressL5Message).hide();
+//         $('#addressLine5').css("border", "2px solid green");
+//     }
+// }
+
 $(document).ready(function () {
-    $('#addressLine1').on('input', validateAddressL1Line);
-    $('#addressLine2').on('input', validateAddressL2Line)
-    $('#addressLine3').on('input', validateAddressL3Line);
-    $('#addressLine4').on('input', validateAddressL4Line);
-    $('#addressLine5').on('input', validateAddressL5Line);
+    // Define an array of address field IDs and their respective character limits
+    const addressFields = [
+        { id: 'addressLine1', minLength: 5, maxLength: 12 },
+        { id: 'addressLine2', minLength: 5, maxLength: 12 },
+        { id: 'addressLine3', minLength: 5, maxLength: 12 },
+        { id: 'addressLine4', minLength: 5, maxLength: 12 },
+        { id: 'addressLine5', minLength: 5, maxLength: 12 }
+    ];
 
-
+    // Loop through each address field and attach an event listener
+    addressFields.forEach(field => {
+        $(`#${field.id}`).on('input', function () {
+            validateAddressLine(field.id, field.minLength, field.maxLength);
+        });
+    });
 });
 
-function validateAddressL1Line() {
-    let addressLine = $('#addressLine1').val();
-    let errorAddressL1Message = $('.errorAddressL1Massage');
-    let addressLinePattern = /^[a-zA-Z0-9\s.,-]{6}$/;
+// Generalized validation function
+function validateAddressLine(fieldId, minLength, maxLength) {
+    let addressLine = $(`#${fieldId}`).val();
+    let errorMessageDiv = $(`.error${fieldId.charAt(0).toUpperCase() + fieldId.slice(1)}Message`);
+    let addressLinePattern = new RegExp(`^[a-zA-Z0-9\\s.,-]{${minLength},${maxLength}}$`);
 
     if (!addressLinePattern.test(addressLine)) {
-        $(errorAddressL1Message).show().text("Address can only contain letters, numbers should be between  10 characters");
-        $('#addressLine1').css("border", "2px solid red");
+        $(errorMessageDiv)
+            .show()
+            .text(`Address can only contain letters, numbers, and be between ${minLength} and ${maxLength} characters.`);
+        $(`#${fieldId}`).css("border", "2px solid red");
     } else {
-        $(errorAddressL1Message).hide();
-        $('#addressLine1').css("border", "2px solid green");
+        $(errorMessageDiv).hide();
+        $(`#${fieldId}`).css("border", "2px solid green");
     }
 }
 
-function validateAddressL2Line() {
-    let addressLine = $('#addressLine2').val();
-    let errorAddressL2Message = $('.errorAddressL2Message');
-    let addressLinePattern = /^[a-zA-Z0-9\s.,-]{6}$/;
-
-    if (!addressLinePattern.test(addressLine)) {
-        $(errorAddressL2Message).show().text("Address can only contain letters, numbers should be between  10 characters");
-        $('#addressLine2').css("border", "2px solid red");
-    } else {
-        $(errorAddressL2Message).hide();
-        $('#addressLine2').css("border", "2px solid green");
-    }
-}
-
-function validateAddressL3Line() {
-    let addressLine = $('#addressLine3').val();
-    let errorAddressL3Message = $('.errorAddressL3Message');
-    let addressLinePattern = /^[a-zA-Z0-9\s.,-]{10}$/;
-
-    if (!addressLinePattern.test(addressLine)) {
-        $(errorAddressL3Message).show().text("Address can only contain letters, numbers should be between  10 characters");
-        $('#addressLine3').css("border", "2px solid red");
-    } else {
-        $(errorAddressL3Message).hide();
-        $('#addressLine3').css("border", "2px solid green");
-    }
-}
-
-function validateAddressL4Line() {
-    let addressLine = $('#addressLine4').val();
-    let errorAddressL4Message = $('.errorAddressL4Message');
-    let addressLinePattern = /^[a-zA-Z0-9\s.,-]{10}$/;
-
-    if (!addressLinePattern.test(addressLine)) {
-        $(errorAddressL4Message).show().text("Address can only contain letters, numbers should be between  10 characters");
-        $('#addressLine4').css("border", "2px solid red");
-    } else {
-        $(errorAddressL4Message).hide();
-        $('#addressLine4').css("border", "2px solid green");
-    }
-}
-function validateAddressL5Line() {
-    let addressLine = $('#addressLine5').val();
-    let errorAddressL5Message = $('.errorAddressL5Message');
-    let addressLinePattern = /^[a-zA-Z0-9\s.,-]{5}$/;
-
-    if (!addressLinePattern.test(addressLine)) {
-        $(errorAddressL5Message).show().text("Address can only contain letters, numbers should be between  10 characters");
-        $('#addressLine5').css("border", "2px solid red");
-    } else {
-        $(errorAddressL5Message).hide();
-        $('#addressLine5').css("border", "2px solid green");
-    }
-}
 
 // ============================ equipment validate ===========================//
 

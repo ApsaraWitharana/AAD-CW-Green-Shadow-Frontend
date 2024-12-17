@@ -1,6 +1,38 @@
 $(document).ready(function () {
      getAllField();
+    fetchNextFieldCode();
 });
+
+function fetchNextFieldCode() {
+    const token = localStorage.getItem("token");
+    if (token) {
+        $.ajax({
+            url: "http://localhost:8080/api/v1/field/nextField",
+            type: "GET",
+            headers: {
+                "Authorization": "Bearer " + localStorage.getItem("token")
+            },
+            success: function (res) {
+                console.log("Field Code:", res);
+                // Verify the API response
+                if (res) {
+                    document.getElementById("fieldCode").value = res;
+                    document.getElementById("fieldCode").readOnly = true;
+                } else {
+                    console.error("Empty response from API");
+                }
+            },
+            error: function (err) {
+                console.error('Failed to fetch next Field id:', err);
+                const errorDiv = document.querySelector('.errorMassageId');
+                errorDiv.style.display = "block";
+                errorDiv.textContent = "Failed to fetch Field id. Please try again.";
+            }
+        });
+    } else {
+        console.error("Token is not available in localStorage.");
+    }
+}
 //========save button set ajax===========//
 $("#btnSave").click(function () {
     // Collect form data

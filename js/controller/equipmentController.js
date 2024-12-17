@@ -2,7 +2,39 @@ $(document).ready(function (){
     lordFieldCodes();
     lordStaffIds();
     getAllEquipment();
+    fetchNextEquipmentCode();
 })
+
+function fetchNextEquipmentCode() {
+    const token = localStorage.getItem("token");
+    if (token) {
+        $.ajax({
+            url: "http://localhost:8080/api/v1/equipment/nextEquipment",
+            type: "GET",
+            headers: {
+                "Authorization": "Bearer " + localStorage.getItem("token")
+            },
+            success: function (res) {
+                console.log("Equipment Code:", res);
+                // Verify the API response
+                if (res) {
+                    document.getElementById("equipmentId").value = res;
+                    document.getElementById("equipmentId").readOnly = true;
+                } else {
+                    console.error("Empty response from API");
+                }
+            },
+            error: function (err) {
+                console.error('Failed to fetch next Equipment id:', err);
+                const errorDiv = document.querySelector('.errorMassageId');
+                errorDiv.style.display = "block";
+                errorDiv.textContent = "Failed to fetch Equipment id. Please try again.";
+            }
+        });
+    } else {
+        console.error("Token is not available in localStorage.");
+    }
+}
 // =========save===============//
 $('#btnSave').click(function (){
     let equipmentId = $('#equipmentId').val();
@@ -418,10 +450,16 @@ document.getElementById("downloadPDF").addEventListener("click", function () {
     doc.setFillColor(255, 255, 255);
     doc.rect(0, 0, pageWidth, pageHeight, "F");
 
+// Get current date and time
+    const now = new Date();
+    const dateTimeString = now.toLocaleString(); // Format: "MM/DD/YYYY, hh:mm:ss AM/PM"
+
     // Add a title with white text
     doc.setFontSize(18);
     doc.setTextColor(0,0,0); // White text
-    doc.text("Equipment Details Report", pageWidth / 2, 20, { align: "center" });
+    doc.text("Green Shadow Equipment Details Report", pageWidth / 2, 20, { align: "center" });
+    doc.setFontSize(10);
+    doc.text(`Generated on: ${dateTimeString}`, pageWidth / 2, 28, { align: "center" });
 
     // Clone the table body and create a temporary table
     const tableBody = document.getElementById("equipmentTableBody").cloneNode(true);
