@@ -1,22 +1,23 @@
-function userRegistation() {
-    console.log("click!!");
+function userRegistration() {
+    console.log("Register button clicked!");
 
-    let formData = new FormData();
-    formData.append("email", $('#email').val());
-    formData.append("password", $('#password').val());
-    formData.append("name", $('#name').val());
-    formData.append("role", $('#role').val());
+    let userData = {
+        email: $('#email').val(),
+        password: $('#password').val(),
+        name: $('#name').val(),
+        role: $('#role').val()
+    };
 
     $.ajax({
-        url: "http://localhost:8080/api/v1/auth/signup",
+        url: "http://localhost:8080/api/v1/auth/register",
         method: "POST",
-        processData: false, // Important: Prevent jQuery from processing the data
-        contentType: false, // Important: Let the browser set the Content-Type
-        data: formData,
+        contentType: "application/json",
+        data: JSON.stringify(userData), // Convert object to JSON
         success: function(response) {
             console.log("Response:", response);
-            if (response && response.token) {
-                localStorage.setItem("token", response.token);
+            console.log(userData);
+            if (response && response.data && response.data.token) {
+                localStorage.setItem("token", response.data.token);
                 alert("User registered successfully!");
             } else {
                 alert("Registration successful, but no token received.");
@@ -30,48 +31,43 @@ function userRegistation() {
 }
 
 function userLogin() {
-    console.log("click!!");
-    let email = $('#email-reg').val();
-    let password = $('#password-reg').val();
-    console.log(email, password);
+    console.log("Login button clicked!");
+    let email = $('#email').val();
+    let password = $('#password').val();
 
-    // Create AJAX authenticate request
     $.ajax({
-        url: "http://localhost:8080/api/v1/auth/signin",
+        url: "http://localhost:8080/api/v1/auth/authenticate",
         method: "POST",
         contentType: "application/json",
-        data: JSON.stringify({
-            email: email,
-            password: password
-        }),
+        data: JSON.stringify({ email, password }),
         success: function(response) {
             console.log("Response received:", response);
+            if (response && response.data && response.data.token) {
+                localStorage.setItem("token", response.data.token);
+                localStorage.setItem("role", response.data.role);
 
-            if (response && response.token) {
-                localStorage.setItem("token", response.token);
+                console.log("Extracted Role:", response.data.role);
+                alert("User Login successful!");
 
-                const role = response.role && response.role.length > 0 ? response.role[0].authority.replace("ROLE_", "") : "";
-                console.log("Extracted Role:", role);
-
-                alert("User Login successfully!");
-
-                // Use correct base path for redirection
-                const baseURL = "http://localhost:63342/"; // Change to match your frontend URL
-                if (role === "MANAGER") {
-                    window.location.href = `${baseURL}/pages/manager/admin-dashboard.html`;
-                } else if (role === "SCIENTIST") {
-                    window.location.href = `${baseURL}/pages/scientist/scientist-dashboard.html`;
-                } else if (role === "ADMINISTER") {
-                    window.location.href = `${baseURL}/pages/administer/admin-dashboard.html`;
-                } else {
-                    window.location.href = `${baseURL}/admin-dashboard.html`;
+                // Redirect based on role
+                switch (response.data.role) {
+                    case "MANAGER":
+                        window.location.href = "pages/manager/admin-dashboard.html";
+                        break;
+                    case "SCIENTIST":
+                        window.location.href = "pages/scientist/scientist-dashboard.html";
+                        break;
+                    case "ADMINISTER":
+                        window.location.href = "pages/administer/administer-dashboard.html";
+                        break;
+                    default:
+                        window.location.href = "admin-dashboard.html";
+                        alert("User Login successfully!");
                 }
             } else {
                 alert("Login successful, but no token received.");
             }
         },
-
-
         error: function(error) {
             console.error("Error during login:", error);
             alert("Login unsuccessful!");
